@@ -1,0 +1,123 @@
+body {
+	background-image: url(/images/bg.jpg);
+}
+
+.content {
+	background-color: #fff;
+	box-shadow: 0 0 20px #666;
+}
+
+/*-- navbar --*/
+.nav-item {
+	white-space: nowrap;
+	margin: 0 30px;
+}
+
+.navbar-brand img {
+	height: 40px;
+}
+
+/*-- carousel css --*/
+.carousel-inner img {
+	width: 100%;
+	height: 300px;
+}
+
+/*-- article css --*/
+.banner {
+	background-color: #f5f5f5;
+	color: #333;
+	padding: 5px;
+}
+
+.article {
+	border-bottom: 1px solid #ddd;
+}
+
+.article img {
+	max-width: 100%;
+	height: auto;
+}
+
+.article .title {
+	font-weight: bold;
+	font-size: 18px;
+	color: #6c757d;
+}
+
+.article .info {
+	font-size: 12px;
+	color: #6c757d;
+	margin-top: 15px;
+}
+
+.article .info a {
+	color: #6c757d;
+}
+
+.article .summary {
+	font-size: 14px;
+	color: #6c757d;
+	margin-top: 15px;
+	position: relative;
+	line-height: 1.4em;
+	height: 4.2em;
+	overflow: hidden;
+	color: #6c757d;
+}
+
+.article .summary::after {
+	content: "...";
+	font-weight: bold;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding: 0 20px 1px 45px;
+	background: url(../images/ellipsis_bg.png) repeat-y;
+}
+
+/*-- marquee --*/
+ul, li {
+	list-style: none
+}
+
+.scroll {
+	height: 26px;
+	width: 100%;
+	background-color: transparent;
+	overflow: hidden;
+	position: relative;
+	padding: 2px;
+	font-size: 14px;
+}
+
+.scroll ul {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.scroll li {
+	height: 26px;
+	line-height: 26px;
+}
+
+/*-- ******************************************************* --*/
+/*-- Small devices (landscape phones, 576px and up) --*/
+@media ( min-width : 576px) {
+}
+
+/*-- Medium devices (tablets, 768px and up) --*/
+@media ( min-width : 768px) {
+}
+
+/*-- Large devices (desktops, 992px and up) --*/
+@media ( min-width : 992px) {
+	.navbar-brand {
+		
+	}
+}
+
+/*-- Extra large devices (large desktops, 1200px and up) --*/
+@media ( min-width : 1200px) {
+}
