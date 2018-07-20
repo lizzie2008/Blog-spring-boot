@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Lancel0tの博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<!-- import css files -->
+<link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/animate.css/3.1.1/animate.min.css" rel="stylesheet">
+<!-- custom theme files -->
+<link href="css/posts.css" rel="stylesheet">
+</head>
+<body data-ng-app="app">
+	<!-- navbar -->
+	<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">
+			<img src="images/logo.png" alt="Logo">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbar">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">
+						<i class="fa fa-home"></i>
+						&nbsp;首页
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						<i class="fa fa-th"></i>
+						&nbsp;分类
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						<i class="fa fa-tags"></i>
+						&nbsp;标签
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						<i class="fa fa-archive"></i>
+						&nbsp;归档
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						<i class="fa fa-sitemap"></i>
+						&nbsp;专题
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" ui-sref="about">
+						<i class="fa fa-user"></i>
+						&nbsp;关于
+					</a>
+				</li>
+			</ul>
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			</form>
+		</div>
+	</nav>
+	<!-- container -->
+	<div class="container">
+		<div ui-view></div>
+	</div>
+	<!-- footer-->
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">© 2018 lancel0t.cn</p>
+		</div>
+	</footer>
+	<!-- import javascripts -->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/angular.js/1.7.0/angular.min.js"></script>
+	<script src="https://cdn.bootcss.com/angular-ui-router/1.0.18/angular-ui-router.min.js"></script>
+	<script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/home/home.js"></script>
+</body>
+</html>
