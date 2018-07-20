@@ -10,7 +10,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     }).state('about', {
         // 首页
         url: '/about',
-        templateUrl: 'app/about/about.html'
+        templateUrl: 'app/about/about.html' 
     });
 }]);
 
