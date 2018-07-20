@@ -14,3 +14,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     });
 }]);
 
+//启动初始化
+$(() => {
+	new WOW().init();
+})

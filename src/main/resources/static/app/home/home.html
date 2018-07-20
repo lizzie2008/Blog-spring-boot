@@ -1,4 +1,4 @@
-<div  ng-controller="homeController">
+<div ng-controller="homeController">
 	<!-- marquee -->
 	<div class="scroll my-1 wow fadeInDown">
 		<i class="fa fa-volume-up"></i>
@@ -11,7 +11,7 @@
 		</ul>
 	</div>
 	<div class="content row">
-		<!-- articals -->
+		<!-- contents -->
 		<div class="col-md-9">
 			<!-- carousel -->
 			<div class="border p-2 mt-3 wow fadeInDown">
@@ -56,154 +56,52 @@
 				</div>
 			</div>
 			<!-- articles -->
-			<div class="articles">
-				<div class="banner border border-bottom-0 mt-3">
+			<div class="box mt-3">
+				<div class="box-header with-border">
 					<strong>
 						<i class="fa fa-list mr-1"></i>
 						最新发布
 					</strong>
 				</div>
-				<div class="border border-bottom-0">
+				<div class="box-body">
 					<!-- article -->
-					<div class="article p-2 wow fadeInDown">
+					<div class="article p-2 wow fadeInDown" ng-repeat="article in list">
 						<div class="row">
 							<div class="col-md-4">
-								<a href="singlepage.html">
-									<img src="https://mysite.bj.bcebos.com/images/articles/bca99c2c-7cb6-4138-82d9-a039ff8956df.jpg" alt="">
+								<a class="thumbnail" href="#" title="详细阅读：{{article.title}}">
+									<img class="img-responsive center-block" src="https://mysite.bj.bcebos.com/images/articles/bca99c2c-7cb6-4138-82d9-a039ff8956df.jpg" alt="">
 								</a>
 							</div>
 							<div class="col-md-8">
-								<a class="title" href="http://www.guojian945.com/article/11.html"> 一个可怕的现象愈演愈烈 </a>
+								<a class="title" href="#" title="详细阅读：{{article.title}}">{{article.title}}</a>
+								<p class="summary">{{article.summary}}</p>
 								<div class="info">
-									<i class="fa fa-plus-square mr-2">&nbsp;青榄家长地带</i>
-									<i class="fa fa-clock-o mr-2">&nbsp;2018-02-24</i>
-									<i class="fa fa-eye mr-2">&nbsp;489次浏览</i>
 									<a href="http://www.guojian945.com/article/">
-										<i class="fa fa-folder-open" aria-hidden="true">&nbsp;谈天说地</i>
+										<i class="fa fa-plus-square mr-2">&nbsp;{{article.category}}</i>
 									</a>
+									<i class="fa fa-clock-o mr-2">&nbsp;{{article.createTime|date:'yyyy-MM-dd'}}</i>
+									<i class="fa fa-eye mr-2">&nbsp;{{article.readSize}}次浏览</i>
+									<i class="fa fa-comment mr-2">&nbsp;{{article.commentSize}}条评论</i>
+									<a href="#" class="read-more pull-right" title="详细阅读：{{article.title}}">阅读更多>></a>
 								</div>
-								<p class="summary text-muted">
-									今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠.今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="article p-2 wow fadeInDown">
-						<div class="row">
-							<div class="col-md-4">
-								<a href="singlepage.html">
-									<img src="https://mysite.bj.bcebos.com/images/articles/bca99c2c-7cb6-4138-82d9-a039ff8956df.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-md-8">
-								<a class="title" href="http://www.guojian945.com/article/11.html"> 一个可怕的现象愈演愈烈 </a>
-								<div class="info">
-									<i class="fa fa-plus-square mr-2">&nbsp;青榄家长地带</i>
-									<i class="fa fa-clock-o mr-2">&nbsp;2018-02-24</i>
-									<i class="fa fa-eye mr-2">&nbsp;489次浏览</i>
-									<a href="http://www.guojian945.com/article/">
-										<i class="fa fa-folder-open" aria-hidden="true">&nbsp;谈天说地</i>
-									</a>
-								</div>
-								<p class="summary text-muted">
-									今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠.今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="article p-2 wow fadeInDown">
-						<div class="row">
-							<div class="col-md-4">
-								<a href="singlepage.html">
-									<img src="https://mysite.bj.bcebos.com/images/articles/bca99c2c-7cb6-4138-82d9-a039ff8956df.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-md-8">
-								<a class="title" href="http://www.guojian945.com/article/11.html"> 一个可怕的现象愈演愈烈 </a>
-								<div class="info">
-									<i class="fa fa-plus-square mr-2">&nbsp;青榄家长地带</i>
-									<i class="fa fa-clock-o mr-2">&nbsp;2018-02-24</i>
-									<i class="fa fa-eye mr-2">&nbsp;489次浏览</i>
-									<a href="http://www.guojian945.com/article/">
-										<i class="fa fa-folder-open" aria-hidden="true">&nbsp;谈天说地</i>
-									</a>
-								</div>
-								<p class="summary text-muted">
-									今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠.今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="article p-2 wow fadeInDown">
-						<div class="row">
-							<div class="col-md-4">
-								<a href="singlepage.html">
-									<img src="https://mysite.bj.bcebos.com/images/articles/bca99c2c-7cb6-4138-82d9-a039ff8956df.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-md-8">
-								<a class="title" href="http://www.guojian945.com/article/11.html"> 一个可怕的现象愈演愈烈 </a>
-								<div class="info">
-									<i class="fa fa-plus-square mr-2">&nbsp;青榄家长地带</i>
-									<i class="fa fa-clock-o mr-2">&nbsp;2018-02-24</i>
-									<i class="fa fa-eye mr-2">&nbsp;489次浏览</i>
-									<a href="http://www.guojian945.com/article/">
-										<i class="fa fa-folder-open" aria-hidden="true">&nbsp;谈天说地</i>
-									</a>
-								</div>
-								<p class="summary text-muted">
-									今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠.今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="article p-2 wow fadeInDown">
-						<div class="row">
-							<div class="col-md-4">
-								<a href="singlepage.html">
-									<img src="https://mysite.bj.bcebos.com/images/articles/bca99c2c-7cb6-4138-82d9-a039ff8956df.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-md-8">
-								<a class="title" href="http://www.guojian945.com/article/11.html"> 一个可怕的现象愈演愈烈 </a>
-								<div class="info">
-									<i class="fa fa-plus-square mr-2">&nbsp;青榄家长地带</i>
-									<i class="fa fa-clock-o mr-2">&nbsp;2018-02-24</i>
-									<i class="fa fa-eye mr-2">&nbsp;489次浏览</i>
-									<a href="http://www.guojian945.com/article/">
-										<i class="fa fa-folder-open" aria-hidden="true">&nbsp;谈天说地</i>
-									</a>
-								</div>
-								<p class="summary text-muted">
-									今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠.今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="article p-2 wow fadeInDown">
-						<div class="row">
-							<div class="col-md-4">
-								<a href="singlepage.html">
-									<img src="https://mysite.bj.bcebos.com/images/articles/bca99c2c-7cb6-4138-82d9-a039ff8956df.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-md-8">
-								<a class="title" href="http://www.guojian945.com/article/11.html"> 一个可怕的现象愈演愈烈 </a>
-								<div class="info">
-									<i class="fa fa-plus-square mr-2">&nbsp;青榄家长地带</i>
-									<i class="fa fa-clock-o mr-2">&nbsp;2018-02-24</i>
-									<i class="fa fa-eye mr-2">&nbsp;489次浏览</i>
-									<a href="http://www.guojian945.com/article/">
-										<i class="fa fa-folder-open" aria-hidden="true">&nbsp;谈天说地</i>
-									</a>
-								</div>
-								<p class="summary text-muted">
-									今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠.今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠
-								</p>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<!-- pagination -->
+			<div class="p-2">
+				<ul class="pagination justify-content-center">
+					<li class="page-item page-pre">
+						<a class="page-link" href="javascript:void(0);" ng-click="p_pre()">‹</a>
+					</li>
+					<li class="page-item" ng-class="{true:'active'}[p_current==page]" ng-repeat="page in pages">
+						<a class="page-link" href="javascript:void(0);" ng-click="load_page(page)">{{page}}</a>
+					</li>
+					<li class="page-item page-next">
+						<a class="page-link" href="javascript:void(0);" ng-click="p_next()">›</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<!-- sidebar -->

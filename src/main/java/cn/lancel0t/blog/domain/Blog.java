@@ -44,11 +44,6 @@ public class Blog implements Serializable {
 	@NotNull
 	@Size(min = 2, max = 50)
 	@Column(nullable = false, length = 50)
-	private String url; // 定义url
-
-	@NotNull
-	@Size(min = 2, max = 50)
-	@Column(nullable = false, length = 50)
 	private String image; // 定义图片
 
 	@Lob
@@ -114,14 +109,6 @@ public class Blog implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
 	}
 
 	public String getImage() {

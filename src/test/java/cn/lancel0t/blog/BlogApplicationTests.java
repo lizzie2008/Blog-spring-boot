@@ -53,7 +53,6 @@ public class BlogApplicationTests {
 		for (int i = 0; i < 10; i++) {
 			Blog blog = new Blog();
 			blog.setTitle("title" + i);
-			blog.setUrl("url" + i);
 			blog.setImage("image" + i);
 			blog.setSummary("summary" + i);
 			blog.setContent("content" + i);

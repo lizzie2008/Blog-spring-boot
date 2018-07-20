@@ -14,7 +14,7 @@ body {
 }
 
 .navbar-brand img {
-	height: 40px;
+	
 }
 
 /*-- carousel css --*/
@@ -23,47 +23,79 @@ body {
 	height: 300px;
 }
 
-/*-- article css --*/
-.banner {
-	background-color: #f5f5f5;
-	color: #333;
-	padding: 5px;
+/*-- box --*/
+.box {
+	border: 1px solid #dee2e6;
 }
 
+.box-header {
+	padding: 5px;
+	border-bottom: 1px solid #dee2e6;
+	color: #444;
+}
+
+.box-body :last-child {
+	border-bottom: 0px;
+}
+
+.box-footer {
+	padding: 5px;
+	color: #444;
+}
+
+/*-- article css --*/
 .article {
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px dashed #dee2e6;
+}
+
+.article:hover {
+	background-color: #f8fcfe;
+	border-left-color: #32a5e7;
+}
+
+.article:hover .title {
+	color: #000;
+}
+
+.article.without-border {
+	border-bottom: 0;
 }
 
 .article img {
-	max-width: 100%;
 	height: auto;
+	max-width: 100%;
 }
 
 .article .title {
-	font-weight: bold;
+	overflow: hidden;
+	height: 30px;
+	font-weight: 700;
 	font-size: 18px;
-	color: #6c757d;
+	line-height: 30px;
+	white-space: nowrap;
+	word-wrap: normal;
+	text-overflow: ellipsis;
+	color: #666;
 }
 
 .article .info {
 	font-size: 12px;
-	color: #6c757d;
-	margin-top: 15px;
+	margin-top: 10px;
+	color: #999;
 }
 
 .article .info a {
-	color: #6c757d;
+	color: #999;
 }
 
 .article .summary {
 	font-size: 14px;
-	color: #6c757d;
-	margin-top: 15px;
+	margin-top: 10px;
 	position: relative;
 	line-height: 1.4em;
 	height: 4.2em;
 	overflow: hidden;
-	color: #6c757d;
+	color: #656565;
 }
 
 .article .summary::after {
@@ -74,6 +106,10 @@ body {
 	right: 0;
 	padding: 0 20px 1px 45px;
 	background: url(../images/ellipsis_bg.png) repeat-y;
+}
+
+.article .read-more {
+	text-decoration: underline;
 }
 
 /*-- marquee --*/
