@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="shared/layout/layout_admin">
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- login form -->
+		<form class="form-login" name="form" th:action="@{/login}" action="/login" method="POST">
+			<h2 class="text-muted text-center">欢迎登录</h2>
+			<div class="form-group">
+				<label for="username">账号</label>
+				<input type="text" class="form-control" name="username" value="" placeholder="账号" />
+			</div>
+			<div class="form-group">
+				<label for="password">密码</label>
+				<input type="password" class="form-control" name="password" placeholder="密码" />
+			</div>
+			<div class="form-group">
+				<label>
+					<input type="checkbox" name="remember-me">
+					记住我
+				</label>
+			</div>
+			<button type="submit" id="login" class="btn btn-primary btn-block">登录</button>
+		</form>
+	</div>
+<body layout:fragment="js">
+	<script th:inline="javascript" th:if="${param.error}">
+		layer.msg('用户名或密码错误，请重试！');
+	</script>
+	<script th:inline="javascript" th:if="${param.logout}">
+		layer.msg('已成功注销.');
+	</script>
+</body>
+</body>
+</html>
