@@ -6,7 +6,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     $stateProvider.state('home', {
         // 首页
         url: '/',
-        templateUrl: 'app/home/home.html'
+        templateUrl: 'app/home/home.html' 
     }).state('about', {
         // 首页
         url: '/about',
