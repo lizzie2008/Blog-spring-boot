@@ -69,11 +69,11 @@ app.controller('homeController',
 								for (i = 1; i <= separatorMin + 1; i++) {
 									indexes.push(i);
 								}
-								indexes.push('...');
+								indexes.push('last');
 								indexes.push(all_page);
 							} else if (current >= separatorMax) {
 								indexes.push(1);
-								indexes.push('...');
+								indexes.push('first');
 								for (i = separatorMax - 1; i <= all_page; i++) {
 									indexes.push(i);
 								}
@@ -81,12 +81,12 @@ app.controller('homeController',
 								var leftNum = Math.floor((show_page - 4) / 2);
 								var rightNum = show_page - 4 - leftNum - 1;
 								indexes.push(1);
-								indexes.push('...');
+								indexes.push('first');
 								for (i = current - leftNum; i <= current
 										+ rightNum; i++) {
 									indexes.push(i);
 								}
-								indexes.push('...');
+								indexes.push('last');
 								indexes.push(all_page);
 							}
 						}
