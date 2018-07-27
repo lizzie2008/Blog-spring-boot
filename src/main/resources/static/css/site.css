@@ -11,6 +11,11 @@ a {
 	box-shadow: 0 0 20px #666;
 }
 
+.shadow-box {
+    border-radius: 2px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
 /*-- navbar --*/
 .navbar .nav-item {
 	white-space: nowrap;

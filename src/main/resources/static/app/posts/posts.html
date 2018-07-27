@@ -1,14 +1,42 @@
 <style>
-#content {
+.comment-title {
+	margin-top: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #6c757d;
+	color: #6c757d;
+	padding-bottom: 10px;
+}
+
+.comment-post textarea {
 	width: 100%;
+	font-size: 14px;
+}
+
+.comment-post input {
+	font-size: 14px;
+}
+
+.comment-post button {
+	width: 88px;
 }
 
 .comment-list {
-	margin-top: 30px;
+	
 }
 
-.comment-list img {
+.comment {
+	font-size: 14px;
+	line-height: 22px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin: 12px 0;
+}
+
+.comment img {
+	width: 60px;
+	height: 60px;
 	float: left;
+	margin-right: 10px;
 }
 </style>
 <div ng-controller="postsController">
@@ -34,11 +62,55 @@
 						阅读数：{{blog.readSize}}&nbsp;|&nbsp; 评论数：{{blog.commentSize}}&nbsp;|&nbsp; 点赞数：{{blog.voteSize}} </small>
 				</div>
 				<hr>
-				<div id="doc-content">
+				<!-- blog content -->
+				<article id="doc-content">
 					<textarea style="display: none;">{{blog.content}}</textarea>
-				</div>
+				</article>
+				<!-- comment -->
+				<section class="container">
+					<!-- comment-post -->
+					<div class="comment-post">
+						<h6 class="comment-title">
+							<i class="fa fa-pencil"></i>
+							发表评论
+						</h6>
+						<div class="comment-post">
+							<textarea class="shadow-box" rows="5" placeholder="请遵守相关法律与法规，文明评论。O(∩_∩)O~~" id="content"></textarea>
+							<div>
+								<input class="col-md-4" placeholder="昵称...(必填)" />
+								<input class="col-md-4" placeholder="网址..." />
+								<button class="col-md-4 btn btn-secondary btn-sm pull-right" id="comment">评论</button>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					<!-- comments-list -->
+					<div class="comment-list">
+						<h6 class="comment-title">
+							<i class="fa fa-pencil"></i>
+							评论列表（已有 4 条评论）
+						</h6>
+						<div class="comment shadow-box">
+							<div class="">
+								<img class="rounded-circle" src="images/img.jpg">
+							</div>
+							<div class="">
+								<div>
+									<a href="https://www.ly522.com/" target="_blank">记磊博客</a>
+								</div>
+								<div>
+									<span class="text-muted">
+										<i class="fa fa-clock-o"></i>
+										2017-10-17
+									</span>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</section>
 			</div>
-			<hr>
+			<!-- 
 			<div class="commentarea px-2">
 				<div class="commentbox">
 					<textarea rows="4" placeholder="请遵守相关法律与法规，文明评论。O(∩_∩)O~~" id="content"></textarea>
@@ -73,7 +145,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</div>
 		<!-- blog nav -->
 		<div class="col-md-3">
