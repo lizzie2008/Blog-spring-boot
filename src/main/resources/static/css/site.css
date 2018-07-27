@@ -2,19 +2,19 @@ body {
 	background-image: url(/images/bg.jpg);
 }
 
+a {
+	color: #333;
+}
+
 .content {
 	background-color: #fff;
 	box-shadow: 0 0 20px #666;
 }
 
 /*-- navbar --*/
-.nav-item {
+.navbar .nav-item {
 	white-space: nowrap;
-	margin: 0 30px;
-}
-
-.navbar-brand img {
-	
+	margin-left: 20px;
 }
 
 /*-- carousel css --*/
@@ -138,6 +138,11 @@ ul, li {
 	line-height: 26px;
 }
 
+/*-- doc nav --*/
+.doc-nav li {
+	margin-left: -25px;
+}
+
 /*-- ******************************************************* --*/
 /*-- Small devices (landscape phones, 576px and up) --*/
 @media ( min-width : 576px) {
@@ -149,9 +154,6 @@ ul, li {
 
 /*-- Large devices (desktops, 992px and up) --*/
 @media ( min-width : 992px) {
-	.navbar-brand {
-		
-	}
 }
 
 /*-- Extra large devices (large desktops, 1200px and up) --*/

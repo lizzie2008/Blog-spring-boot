@@ -65,16 +65,15 @@
 				</div>
 				<div class="box-body">
 					<!-- article -->
-					<div class="article p-2 wow fadeInDown" ng-repeat="article in list">
+					<div class="article p-2 wow fadeInDown" ng-repeat="article in articles">
 						<div class="row">
 							<div class="col-md-4">
-								<a class="thumbnail" href="#" title="详细阅读：{{article.title}}">
-									<img class="img-responsive center-block"
-										src="https://mysite.bj.bcebos.com/images/articles/bca99c2c-7cb6-4138-82d9-a039ff8956df.jpg" alt="">
+								<a class="thumbnail" ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">
+									<img class="img-responsive center-block" src="images/f2.jpg" alt="">
 								</a>
 							</div>
 							<div class="col-md-8">
-								<a class="title" href="#" title="详细阅读：{{article.title}}">{{article.title}}</a>
+								<a class="title" ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">{{article.title}}</a>
 								<p class="summary">{{article.summary}}</p>
 								<div class="info">
 									<a href="http://www.guojian945.com/article/">
@@ -83,7 +82,7 @@
 									<i class="fa fa-clock-o mr-2">&nbsp;{{article.createTime|date:'yyyy-MM-dd'}}</i>
 									<i class="fa fa-eye mr-2">&nbsp;{{article.readSize}}次浏览</i>
 									<i class="fa fa-comment mr-2">&nbsp;{{article.commentSize}}条评论</i>
-									<a href="#" class="read-more pull-right" title="详细阅读：{{article.title}}">阅读更多>></a>
+									<a ui-sref="posts({id:article.id})" class="read-more pull-right" title="详细阅读：{{article.title}}">阅读更多>></a>
 								</div>
 							</div>
 						</div>
@@ -92,19 +91,7 @@
 			</div>
 			<!-- pagination -->
 			<div class="p-2">
-				<ul class="pagination justify-content-center">
-					<li class="page-item page-pre">
-						<a class="page-link" href="javascript:void(0);" ng-click="p_pre()">‹</a>
-					</li>
-					<li class="page-item" ng-class="{'active':p_current==page,'disabled':(page=='first'||page=='last')}"
-						ng-repeat="page in pages">
-						<a class="page-link" ng-if="page=='first'||page=='last'">...</a>
-						<a class="page-link" ng-if="page!='first'&&page!='last'" href="javascript:void(0);" ng-click="load_page(page)">{{page}}</a>
-					</li>
-					<li class="page-item page-next">
-						<a class="page-link" href="javascript:void(0);" ng-click="p_next()">›</a>
-					</li>
-				</ul>
+				<my-pagination page-option="option"></my-pagination>
 			</div>
 		</div>
 		<!-- sidebar -->

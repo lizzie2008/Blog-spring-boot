@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +47,7 @@ public class BlogController {
 	public String getBlogs(Model model,
 			@RequestParam(value = "sort", required = false, defaultValue = "id") String sort,
 			@RequestParam(value = "order", required = false, defaultValue = "asc") String order,
-			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
 			@RequestParam(value = "title", required = false, defaultValue = "") String title,
 			@RequestParam(value = "url", required = false, defaultValue = "") String url,
@@ -55,7 +56,7 @@ public class BlogController {
 
 		// 排序与分页
 		Direction direction = order.equals("asc") ? Direction.ASC : Direction.DESC;
-		Pageable pageable = PageRequest.of(page, size, new Sort(direction, sort));
+		Pageable pageable = PageRequest.of(page - 1, size, new Sort(direction, sort));
 		Page<Blog> pageBlog = blogService.findAll(title, url, category, tag, pageable);
 
 		// 转换为vo集合
@@ -67,5 +68,16 @@ public class BlogController {
 		result.put("rows", rows);
 		result.put("total", total);
 		return result.toJSONString();
+	}
+
+	/**
+	 * 根据id获取博客
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/{id}")
+	public Blog getBlog(@PathVariable("id") String id) {
+		return blogService.getOne(id);
 	}
 }

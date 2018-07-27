@@ -1,0 +1,12 @@
+<ul class="pagination pagination-sm justify-content-center">
+	<li class="page-item page-pre">
+		<a class="page-link" href="javascript:void(0);" ng-click="p_pre()">‹</a>
+	</li>
+	<li class="page-item" ng-repeat="page in p_pages track by $index" ng-class="{'active':p_current==page,'disabled':(page=='...')}">
+		<a class="page-link" ng-if="page=='...'">{{page}}</a>
+		<a class="page-link" ng-if="page!='...'" href="javascript:void(0);" ng-click="pageClick(page)">{{page}}</a>
+	</li>
+	<li class="page-item page-next">
+		<a class="page-link" href="javascript:void(0);" ng-click="p_next()">›</a>
+	</li>
+</ul>

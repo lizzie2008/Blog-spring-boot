@@ -20,6 +20,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 博客实体
  * 
@@ -27,6 +29,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity // 实体
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Blog implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -47,13 +50,11 @@ public class Blog implements Serializable {
 	private String image; // 定义图片
 
 	@Lob
-	@Basic(fetch = FetchType.LAZY)
 	@NotNull
 	@Column(nullable = false)
 	private String summary; // 摘要
 
 	@Lob
-	@Basic(fetch = FetchType.LAZY)
 	@NotNull
 	@Column(nullable = false)
 	private String content; // markdown内容
@@ -74,10 +75,10 @@ public class Blog implements Serializable {
 
 	private Integer voteSize = 0; // 点赞量
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Comment> comments; // 评论
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Vote> votes; // 点赞
 
 	public Blog() {

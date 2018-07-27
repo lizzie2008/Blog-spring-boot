@@ -9,60 +9,64 @@
 <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/animate.css/3.1.1/animate.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/jquery.tocify/1.9.0/stylesheets/jquery.tocify.min.css" rel="stylesheet">
+<link href="/lib/editor.md/css/editormd.min.css" rel="stylesheet">
 <!-- custom theme files -->
-<link href="css/posts.css" rel="stylesheet">
+<link href="css/site.css" rel="stylesheet">
 </head>
-<body data-ng-app="app">
+<body ng-app="app" data-spy="scroll" data-target="#myScrollspy" data-offset="1">
 	<!-- navbar -->
-	<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">
-			<img src="images/logo.png" alt="Logo">
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbar">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">
-						<i class="fa fa-home"></i>
-						&nbsp;首页
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fa fa-th"></i>
-						&nbsp;分类
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fa fa-tags"></i>
-						&nbsp;标签
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fa fa-archive"></i>
-						&nbsp;归档
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fa fa-sitemap"></i>
-						&nbsp;专题
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" ui-sref="about">
-						<i class="fa fa-user"></i>
-						&nbsp;关于
-					</a>
-				</li>
-			</ul>
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			</form>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" href="#">
+				<img src="images/logo.png" alt="Logo">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item" ng-class="{'active':$root.module=='home'}">
+						<a class="nav-link" href="#">
+							<i class="fa fa-home"></i>
+							&nbsp;首页
+						</a>
+					</li>
+					<li class="nav-item" >
+						<a class="nav-link" href="#">
+							<i class="fa fa-th"></i>
+							&nbsp;分类
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa fa-tags"></i>
+							&nbsp;标签
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa fa-archive"></i>
+							&nbsp;归档
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa fa-sitemap"></i>
+							&nbsp;专题
+						</a>
+					</li>
+					<li class="nav-item" ng-class="{'active':$root.module=='about'}">
+						<a class="nav-link" ui-sref="about">
+							<i class="fa fa-user"></i>
+							&nbsp;关于
+						</a>
+					</li>
+				</ul>
+				<form class="form-inline">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				</form>
+			</div>
 		</div>
 	</nav>
 	<!-- container -->
@@ -81,7 +85,21 @@
 	<script src="https://cdn.bootcss.com/angular.js/1.7.0/angular.min.js"></script>
 	<script src="https://cdn.bootcss.com/angular-ui-router/1.0.18/angular-ui-router.min.js"></script>
 	<script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+	<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="js/jquery.tocify.js"></script>
+	<script src="js/jquery.comment.js"></script>
+	<script src="https://cdn.bootcss.com/marked/0.4.0/marked.min.js"></script>
+	<script src="/lib/editor.md/editormd.min.js"></script>
+	<script src="/lib/editor.md/lib/marked.min.js"></script>
+	<script src="/lib/editor.md/lib/prettify.min.js"></script>
+	<script src="/lib/editor.md/lib/raphael.min.js"></script>
+	<script src="/lib/editor.md/lib/underscore.min.js"></script>
+	<script src="/lib/editor.md/lib/sequence-diagram.min.js"></script>
+	<script src="/lib/editor.md/lib/flowchart.min.js"></script>
+	<script src="/lib/editor.md/lib/jquery.flowchart.min.js"></script>
 	<script src="app/app.js"></script>
+	<script src="app/_common/angular-pagination.js"></script>
 	<script src="app/home/home.js"></script>
+	<script src="app/posts/posts.js"></script>
 </body>
 </html>

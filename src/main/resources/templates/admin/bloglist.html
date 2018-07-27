@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="shared/layout/layout_admin">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="shared/layout/layout_admin">
 <head>
 <meta charset="UTF-8">
 <title>博客列表</title>
-
 </head>
 <body>
 	<div layout:fragment="content">
@@ -44,10 +41,10 @@
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="category">分类：</label>
-									<select class="form-control" id="category" >
+									<select class="form-control" id="category">
 										<option value="">---未选择---</option>
 										<optgroup th:each="node:${categoryNodes}" th:label="${node.name}">
-										<option th:each="child:${node.children}" th:value="${child.id}" th:text="${child.name}"></option>
+											<option th:each="child:${node.children}" th:value="${child.id}" th:text="${child.name}"></option>
 										</optgroup>
 									</select>
 								</div>
@@ -65,13 +62,8 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
 		</div>
 	</div>
-
 	<div layout:fragment="js" th:remove="tag">
 		<script type="text/javascript">
 		//表格初始化
@@ -129,7 +121,7 @@
 			//查询参数
 			function queryParams(params) {
 				var params= {
-					page : params.offset / params.limit,
+					page : params.offset / params.limit+1,
 					size : params.limit,
 					sort : params.sort,
 					order : params.order,
@@ -175,5 +167,4 @@
 		</script>
 	</div>
 </body>
-
 </html>

@@ -1,0 +1,87 @@
+<style>
+#content {
+	width: 100%;
+}
+
+.comment-list {
+	margin-top: 30px;
+}
+
+.comment-list img {
+	float: left;
+}
+</style>
+<div ng-controller="postsController">
+	<div class="content row">
+		<div class="col-md-9">
+			<div class="border my-2">
+				<!-- breadcrumb -->
+				<ul class="breadcrumb">
+					<li class="breadcrumb-item">
+						<i class="fa fa-home">
+							<a href="#">&nbsp;主页</a>
+						</i>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="#">{{blog.category.name}}</a>
+					</li>
+					<li class="breadcrumb-item active">{{blog.title}}</li>
+				</ul>
+				<!-- title -->
+				<div class="text-center">
+					<h1>{{blog.title}}</h1>
+					<small class="text-muted"> 发表于：{{blog.createTime | date:'yyyy-MM-dd'}}&nbsp;|&nbsp; 分类于：{{blog.category.name}}&nbsp;|&nbsp;
+						阅读数：{{blog.readSize}}&nbsp;|&nbsp; 评论数：{{blog.commentSize}}&nbsp;|&nbsp; 点赞数：{{blog.voteSize}} </small>
+				</div>
+				<hr>
+				<div id="doc-content">
+					<textarea style="display: none;">{{blog.content}}</textarea>
+				</div>
+			</div>
+			<hr>
+			<div class="commentarea px-2">
+				<div class="commentbox">
+					<textarea rows="4" placeholder="请遵守相关法律与法规，文明评论。O(∩_∩)O~~" id="content"></textarea>
+					<button class="btn btn-info btn-sm pull-right" id="comment">评论</button>
+				</div>
+				<div class="comment-list">
+					<div class="comment-info row">
+						<header class="col-2">
+							<img src="images/img.jpg">
+						</header>
+						<div class="comment-right col-10">
+							<h3>帅大叔</h3>
+							<div class="comment-content-header">
+								<span>
+									<i class="glyphicon glyphicon-time"></i>
+									2017-10-17 11:42:53
+								</span>
+								<span>
+									<i class="glyphicon glyphicon-map-marker"></i>
+									深圳
+								</span>
+							</div>
+							<p class="">同学聚会，看到当年追我的屌丝开着宝马车带着他老婆来了，他老婆是我隔壁宿舍的同班同学，心里后悔极了。</p>
+							<div class="comment-content-footer">
+								<span>
+									<i class="glyphicon glyphicon-globe"></i>
+									谷歌
+								</span>
+								<span class="reply-btn pull-right">回复</span>
+							</div>
+							<div class="reply-list"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- blog nav -->
+		<div class="col-md-3">
+			<div class="doc-nav mt-3 position-fixed ">
+				<h5 class="text-center">目录</h5>
+				<hr>
+				<nav id="myScrollspy"></nav>
+			</div>
+		</div>
+	</div>
+</div>
