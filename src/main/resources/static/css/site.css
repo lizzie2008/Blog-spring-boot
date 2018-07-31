@@ -12,8 +12,15 @@ a {
 }
 
 .shadow-box {
-    border-radius: 2px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+	border-radius: 2px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.to-top {
+	color: #fff !important;
+	padding: 3px 6px;
+	border: 1px solid #000;
+	background-color: #222;
 }
 
 /*-- navbar --*/
@@ -144,8 +151,49 @@ ul, li {
 }
 
 /*-- doc nav --*/
-.doc-nav li {
-	margin-left: -25px;
+.nav-link {
+	display: block;
+	padding: 0 5px;
+}
+
+.nav-pills .nav-link {
+	border-radius: 0;
+}
+/*-- comment --*/
+.comment-title {
+	margin-top: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #398E9F;
+	color: #398E9F;
+	padding-bottom: 10px;
+}
+
+.comment-post textarea {
+	width: 100%;
+	font-size: 15px;
+	padding: 5px 15px;
+}
+
+.comment-post input {
+	font-size: 15px;
+}
+
+.comment-post button {
+	width: 88px;
+}
+
+.comment-list .media {
+	font-size: 14px;
+}
+
+.comment-list .media img {
+	width: 50px;
+	height: 50px;
+}
+
+.subComment {
+	border-left: 4px solid #aaa;
+	padding-left: 5px;
 }
 
 /*-- ******************************************************* --*/

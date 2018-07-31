@@ -2,14 +2,14 @@ package cn.lancel0t.blog.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -40,12 +41,12 @@ public class Blog implements Serializable {
 	private String id; // 主键
 
 	@NotNull
-	@Size(min = 2, max = 50)
+	@Size(max = 50)
 	@Column(nullable = false, length = 50)
 	private String title; // 标题
 
 	@NotNull
-	@Size(min = 2, max = 50)
+	@Size(max = 50)
 	@Column(nullable = false, length = 50)
 	private String image; // 定义图片
 
@@ -65,7 +66,7 @@ public class Blog implements Serializable {
 	@Size(max = 100)
 	private String tags; // 标签
 
-	@org.hibernate.annotations.CreationTimestamp
+	@CreationTimestamp
 	@Column(nullable = false, updatable = false)
 	private Timestamp createTime; // 创建时间
 
@@ -75,15 +76,15 @@ public class Blog implements Serializable {
 
 	private Integer voteSize = 0; // 点赞量
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private Set<Comment> comments; // 评论
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "blog")
+	private List<Comment> comments; // 评论
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Vote> votes; // 点赞
 
 	public Blog() {
 		this.category = new Category();
-		this.comments = new HashSet<Comment>();
+		this.comments = new ArrayList<Comment>();
 		this.votes = new HashSet<Vote>();
 	}
 
@@ -176,11 +177,11 @@ public class Blog implements Serializable {
 		this.voteSize = voteSize;
 	}
 
-	public Set<Comment> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 

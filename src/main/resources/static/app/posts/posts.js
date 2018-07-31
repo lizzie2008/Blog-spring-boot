@@ -1,136 +1,150 @@
-app.controller('postsController', [ '$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
+app.controller('postsController', ['$scope', '$stateParams', '$http', function ($scope, $stateParams, $http) {
 
-	// 获取博客内容
-	$http({
-		method : 'GET',
-		url : '/blog/' + $stateParams.id
-	}).then(function successCallback(response) {
-		$scope.blog = response.data;
+    // 获取博客内容
+    $http({
+        method: 'GET',
+        url: '/blog/' + $stateParams.id
+    }).then(function successCallback(response) {
 
-		// 渲染markdown
-		$(function() {
-			testEditor = editormd.markdownToHTML("doc-content", {// 注意：这里是上面DIV的id
-				htmlDecode : "style,script,iframe",
-				emoji : true,
-				taskList : true,
-				tex : true, // 默认不解析
-				flowChart : true, // 默认不解析
-				sequenceDiagram : true, // 默认不解析
-				codeFold : true
-			});
+        // 博客
+        $scope.blog = response.data;
+        // 评论处理
+        var comments = $scope.blog.comments;
+        var rootComments = comments.filter(s => s.reply == false);
+        $.each(rootComments, function (i, item) {
+            item.subComments = comments.filter(s => s.reply == true && s.parentCommentId == item.id);
+        });
+        $scope.comments = rootComments;
 
-			initDoc('#myScrollspy');
+        // 渲染markdown
+        $(function () {
+            testEditor = editormd.markdownToHTML("doc-content", {// 注意：这里是上面DIV的id
+                htmlDecode: "style,script,iframe",
+                emoji: true,
+                taskList: true,
+                tex: true, // 默认不解析
+                flowChart: true, // 默认不解析
+                sequenceDiagram: true, // 默认不解析
+                codeFold: true
+            });
 
-			// 滚动定位
-			$('.doc-nav a').on('click', function() {
-				var target = $(this).attr("href");
-				$("html,body").animate({
-					"scrollTop" : $(target).offset().top
-				}, 500)
-				// window.scrollTo(0, $(target).offset().top);
-				return false;
-			});
+            // 生成目录
+            initDoc('#myScrollspy');
 
-			var arr = [ {
-				id : 1,
-				img : "./images/img.jpg",
-				replyName : "帅大叔",
-				beReplyName : "匿名",
-				content : "同学聚会，看到当年追我的屌丝开着宝马车带着他老婆来了，他老婆是我隔壁宿舍的同班同学，心里后悔极了。",
-				time : "2017-10-17 11:42:53",
-				address : "深圳",
-				osname : "",
-				browse : "谷歌",
-				replyBody : []
-			}, {
-				id : 2,
-				img : "./images/img.jpg",
-				replyName : "匿名",
-				beReplyName : "",
-				content : "到菜市场买菜，看到一个孩子在看摊，我问：“一只鸡多少钱？” 那孩子回答：“23。” 我又问：“两只鸡多少钱？” 孩子愣了一下，一时间没算过来，急中生智大吼一声：“一次只能买一只！”",
-				time : "2017-10-17 11:42:53",
-				address : "深圳",
-				osname : "",
-				browse : "谷歌",
-				replyBody : [ {
-					id : 3,
-					img : "",
-					replyName : "帅大叔",
-					beReplyName : "匿名",
-					content : "来啊，我们一起吃鸡",
-					time : "2017-10-17 11:42:53",
-					address : "",
-					osname : "",
-					browse : "谷歌"
-				} ]
-			}, {
-				id : 3,
-				img : "./images/img.jpg",
-				replyName : "帅大叔",
-				beReplyName : "匿名",
-				content : "同学聚会，看到当年追我的屌丝开着宝马车带着他老婆来了，他老婆是我隔壁宿舍的同班同学，心里后悔极了。",
-				time : "2017-10-17 11:42:53",
-				address : "深圳",
-				osname : "win10",
-				browse : "谷歌",
-				replyBody : []
-			} ];
+            // 滚动定位
+            $('.doc-nav a').on('click', function () {
+                var target = $(this).attr("href");
+// $("html,body").animate({
+// "scrollTop": $(target).offset().top
+// }, 500)
+                 window.scrollTo(0, $(target).offset().top);
+                return false;
+            });
+        });
+    }, function errorCallback(response) {
+        console.log(response.data);
+    });
 
-//			$(".comment-list").addCommentList({
-//				data : arr,
-//				add : ""
-//			});
-//			$("#comment").click(function() {
-//				var obj = new Object();
-//				obj.img = "./images/img.jpg";
-//				obj.replyName = "懒人";
-//				obj.content = $("#content").val();
-//				obj.browse = "深圳";
-//				obj.osname = "win10";
-//				obj.replyBody = "";
-//				$(".comment-list").addCommentList({
-//					data : [],
-//					add : obj
-//				});
-//			});
+    // 添加评论
+    $scope.onSubmit = function () {
+        // 构建评论
+        var comment = {};
+        comment.blog={};
+        comment.blog.id=$scope.blog.id;
+        comment.content = $scope.postComment.content;
+        comment.nickName = $scope.postComment.nickName;
+        comment.webSite = $scope.postComment.webSite;
+        comment.createTime = new Date();
+        comment.browser = getBrowserInfo().browser;
 
-		});
-	}, function errorCallback(response) {
-		console.log(response.data);
-	})
-} ]);
+        var parentCommentId = $scope.postComment.parentCommentId;
+        if (parentCommentId) {
+            // 是回复评论
+        	comment.reply=true;
+            comment.parentCommentId = parentCommentId;
+            var parent = $scope.comments.filter(s => s.id == parentCommentId)[0];
+            comment.id=$scope.addComment(comment);
+            parent.subComments.push(comment);
+        } else {
+            // 非回复评论
+        	comment.id=$scope.addComment(comment);
+            $scope.comments.push(comment);
+        }
+
+        // 重置form
+        $scope.postComment = {};
+    }
+    // 点击回复跳转评论
+    $scope.jumpToComment = function (id, nickName) {
+
+        // 设置当前
+        if (nickName) {
+            var textarea = $('form textarea');
+            $scope.postComment.parentCommentId = id;
+            textarea.val('@' + nickName + '：\n');
+            textarea.focus();
+        }
+    }
+    // 调用提交评论接口
+    $scope.addComment = function (comment) {
+
+        $http({
+            method: 'POST',
+            url: '/blog/addComment',
+            data: comment
+        }).then(function successCallback(response) {
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response.data);
+        });
+    }
+}]);
+
+
+// 获取浏览器信息
+function getBrowserInfo() {
+    var Sys = {};
+    var ua = navigator.userAgent.toLowerCase();
+    var re = /(msie|firefox|chrome|opera|version).*?([\d.]+)/;
+    var m = ua.match(re);
+    Sys.browser = m[1].replace(/version/, "safari");
+    Sys.ver = m[2];
+    return Sys;
+}
 
 // 构建文档目录
 function initDoc(selector) {
-	// 找到最高一级的目录
-	var hLevel = 1;
-	for (; hLevel <= 6; hLevel++) {
-		var list = $('#doc-content h' + hLevel);
-		if (list.length > 0)
-			break;
-	}
-	if (hLevel > 6)
-		return;
+    // 找到最高一级的目录
+    var hLevel = 1;
+    for (; hLevel <= 6; hLevel++) {
+        var list = $('#doc-content h' + hLevel);
+        if (list.length > 0)
+            break;
+    }
+    if (hLevel > 6)
+        return;
 
-	var firstList = $('#doc-content h' + hLevel);
-	$(selector).html(generateContent(firstList, hLevel, ''));
+    var firstList = $('#doc-content h' + hLevel);
+    $(selector).html(generateContent(firstList, hLevel, ''));
 }
 
 // 生成目录内容
 function generateContent(list, level, prefix) {
-	var content_ul = '';
-	if (list != null && list.length > 0) {
-		content_ul += '<ul>';
-		for (var i = 0; i < list.length; i++) {
-			var newPrefix = prefix + (i + 1) + '.';
-			var text = newPrefix + $(list[i]).text();
-			var href = $(list[i]).attr('id');
-			content_ul += '<li><a href="#' + href + '">' + text + '</a>'
-			var subList = $(list[i]).nextUntil('h' + level, 'h' + (level + 1));
-			content_ul += generateContent(subList, (level + 1), newPrefix);
-			content_ul += '</li>';
-		}
-		content_ul += '</ul>';
-	}
-	return content_ul;
+    var content_ul = '';
+    var weight=prefix.length;
+    
+    if (list != null && list.length > 0) {
+        content_ul += '<nav class="nav nav-pills flex-column">';
+        for (var i = 0; i < list.length; i++) {
+            var newPrefix = prefix + (i + 1) + '.';
+            var text = newPrefix + $(list[i]).text();
+            var href = $(list[i]).attr('id');
+            content_ul += '<a class="nav-link ml-3 my-1" style="padding-left:'+(10+weight*6)+'px;" href="#' + href + '">' + text + '</a>'
+            var subList = $(list[i]).nextUntil('h' + level, 'h' + (level + 1));
+            content_ul += generateContent(subList, (level + 1), newPrefix);
+            content_ul += '';
+        }
+        content_ul += '</nav >';
+    }
+    return content_ul;
 }

@@ -1,45 +1,6 @@
 <style>
-.comment-title {
-	margin-top: 20px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #6c757d;
-	color: #6c757d;
-	padding-bottom: 10px;
-}
-
-.comment-post textarea {
-	width: 100%;
-	font-size: 14px;
-}
-
-.comment-post input {
-	font-size: 14px;
-}
-
-.comment-post button {
-	width: 88px;
-}
-
-.comment-list {
-	
-}
-
-.comment {
-	font-size: 14px;
-	line-height: 22px;
-	border: 1px solid #ddd;
-	padding: 10px;
-	margin: 12px 0;
-}
-
-.comment img {
-	width: 60px;
-	height: 60px;
-	float: left;
-	margin-right: 10px;
-}
 </style>
-<div ng-controller="postsController">
+<div ng-controller="postsController" ng-init="postComment={}">
 	<div class="content row">
 		<div class="col-md-9">
 			<div class="border my-2">
@@ -66,86 +27,68 @@
 				<article id="doc-content">
 					<textarea style="display: none;">{{blog.content}}</textarea>
 				</article>
+				<hr>
 				<!-- comment -->
 				<section class="container">
-					<!-- comment-post -->
-					<div class="comment-post">
-						<h6 class="comment-title">
-							<i class="fa fa-pencil"></i>
-							发表评论
-						</h6>
-						<div class="comment-post">
-							<textarea class="shadow-box" rows="5" placeholder="请遵守相关法律与法规，文明评论。O(∩_∩)O~~" id="content"></textarea>
-							<div>
-								<input class="col-md-4" placeholder="昵称...(必填)" />
-								<input class="col-md-4" placeholder="网址..." />
-								<button class="col-md-4 btn btn-secondary btn-sm pull-right" id="comment">评论</button>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-					</div>
 					<!-- comments-list -->
 					<div class="comment-list">
 						<h6 class="comment-title">
 							<i class="fa fa-pencil"></i>
 							评论列表（已有 4 条评论）
 						</h6>
-						<div class="comment shadow-box">
-							<div class="">
-								<img class="rounded-circle" src="images/img.jpg">
-							</div>
-							<div class="">
-								<div>
-									<a href="https://www.ly522.com/" target="_blank">记磊博客</a>
+						<!-- 普通的评论 -->
+						<ul class="list-unstyled rootComment">
+							<li class="media mt-3" ng-repeat="comment in comments">
+								<img class="mr-3 rounded-circle" ng-src="images/browser/{{comment.browser}}.png" alt="browser">
+								<div class="media-body">
+									<div class="mt-0 mb-1" ng-mouseenter="showReply = true" ng-mouseleave="showReply = false">
+										<strong>
+											<a ng-if="comment.webSite" ng-href="http://{{comment.webSite}}" target="_blank"> {{comment.nickName}} </a>
+											<span ng-if="!comment.webSite">{{comment.nickName}}</span>
+										</strong>
+										<span class="mr-3 text-muted"> posted at {{comment.createTime | date:"yyyy-MM-dd hh:mm"}} </span>
+										<a class="pull-right" href="" ng-if="showReply" ng-click="jumpToComment(comment.id,comment.nickName)">回复</a>
+										<div class="mt-2">{{comment.content}}</div>
+									</div>
+									<!-- 回复的评论 -->
+									<ul class="list-unstyled subComment">
+										<li class="media mt-2" ng-repeat="subComment in comment.subComments">
+											<img class="mr-3 rounded-circle" ng-src="images/browser/{{subComment.browser}}.png" alt="browser">
+											<div class="media-body">
+												<div class="mt-0 mb-1" ng-mouseenter="showSubReply = true" ng-mouseleave="showSubReply = false">
+													<strong>
+														<a ng-if="subComment.webSite" ng-href="http://{{subComment.webSite}}" target="_blank">{{subComment.nickName}}</a>
+														<span ng-if="!subComment.webSite">{{subComment.nickName}}</span>
+													</strong>
+													<span class="mr-3 text-muted"> posted at {{subComment.createTime | date:"yyyy-MM-dd hh:mm"}} </span>
+													<a class="pull-right" href="" ng-if="showSubReply" ng-click="jumpToComment(comment.id,subComment.nickName)">回复</a>
+													<div class="mt-2">{{subComment.content}}</div>
+												</div>
+											</div>
+										</li>
+									</ul>
 								</div>
-								<div>
-									<span class="text-muted">
-										<i class="fa fa-clock-o"></i>
-										2017-10-17
-									</span>
-								</div>
+							</li>
+						</ul>
+					</div>
+					<!-- comment-post -->
+					<div class="comment-post mb-5">
+						<h6 class="comment-title">
+							<i class="fa fa-pencil"></i>
+							发表评论
+						</h6>
+						<form class="comment-post" ng-submit="onSubmit()" name="myForm" novalidate>
+							<textarea name="content" class="ol-md-12 shadow-box" rows="6" placeholder="请遵守相关法律与法规，文明评论。O(∩_∩)O~~" ng-model="postComment.content" required></textarea>
+							<div>
+								<input class="col-md-4" placeholder="昵称...(必填)" ng-model="postComment.nickName" name="nickName" required />
+								<input class="col-md-4" placeholder="网址..." ng-model="postComment.webSite" />
+								<button class="col-md-4 btn btn-secondary btn-sm pull-right" type="submit" ng-disabled="myForm.content.$invalid || myForm.nickName.$invalid">评论</button>
+								<div class="clearfix"></div>
 							</div>
-							<div class="clearfix"></div>
-						</div>
+						</form>
 					</div>
 				</section>
 			</div>
-			<!-- 
-			<div class="commentarea px-2">
-				<div class="commentbox">
-					<textarea rows="4" placeholder="请遵守相关法律与法规，文明评论。O(∩_∩)O~~" id="content"></textarea>
-					<button class="btn btn-info btn-sm pull-right" id="comment">评论</button>
-				</div>
-				<div class="comment-list">
-					<div class="comment-info row">
-						<header class="col-2">
-							<img src="images/img.jpg">
-						</header>
-						<div class="comment-right col-10">
-							<h3>帅大叔</h3>
-							<div class="comment-content-header">
-								<span>
-									<i class="glyphicon glyphicon-time"></i>
-									2017-10-17 11:42:53
-								</span>
-								<span>
-									<i class="glyphicon glyphicon-map-marker"></i>
-									深圳
-								</span>
-							</div>
-							<p class="">同学聚会，看到当年追我的屌丝开着宝马车带着他老婆来了，他老婆是我隔壁宿舍的同班同学，心里后悔极了。</p>
-							<div class="comment-content-footer">
-								<span>
-									<i class="glyphicon glyphicon-globe"></i>
-									谷歌
-								</span>
-								<span class="reply-btn pull-right">回复</span>
-							</div>
-							<div class="reply-list"></div>
-						</div>
-					</div>
-				</div>
-			</div>-->
 		</div>
 		<!-- blog nav -->
 		<div class="col-md-3">

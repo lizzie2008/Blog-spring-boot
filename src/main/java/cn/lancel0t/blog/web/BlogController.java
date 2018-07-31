@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.lancel0t.blog.domain.Blog;
+import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.service.BlogService;
+import cn.lancel0t.blog.service.CommentService;
 import cn.lancel0t.blog.vo.BlogModel;
 
 /*
@@ -30,6 +34,9 @@ public class BlogController {
 
 	@Autowired
 	private BlogService blogService;
+
+	@Autowired
+	private CommentService commentService;
 
 	/*****************************************************************/
 
@@ -78,6 +85,19 @@ public class BlogController {
 	 */
 	@GetMapping("/{id}")
 	public Blog getBlog(@PathVariable("id") String id) {
-		return blogService.getOne(id);
+		Blog blog = blogService.getOne(id);
+		return blog;
+	}
+
+	/**
+	 * 添加一条评论
+	 * 
+	 * @param comment
+	 * @return
+	 */
+	@PostMapping("/addComment")
+	public Long addComment(@RequestBody Comment comment) {
+		Long id = commentService.save(comment).getId();
+		return id;
 	}
 }

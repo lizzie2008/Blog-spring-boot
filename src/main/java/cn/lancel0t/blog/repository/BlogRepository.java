@@ -12,6 +12,8 @@ import cn.lancel0t.blog.domain.Blog;
  */
 public interface BlogRepository extends JpaRepository<Blog, String> , JpaSpecificationExecutor<Blog>{
 
+	public Blog findByTitle(String string);
+
 //	@Query(value = "SELECT b FROM Blog b"
 //			+ " LEFT JOIN FETCH b.category c"
 //			+ " LEFT JOIN FETCH b.comments d"

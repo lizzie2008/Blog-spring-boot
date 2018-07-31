@@ -7,7 +7,7 @@ app.run(['$rootScope', '$transitions', '$state', function ($rootScope, $transiti
     })
 }]);
 // 路由配置
-app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',function ($stateProvider, $urlRouterProvider,$httpProvider) {
 	$urlRouterProvider.otherwise('/');
     $stateProvider.state('home', {
         // 首页
@@ -23,9 +23,22 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         templateUrl: 'app/about/about.html'
     });
     
-
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $httpProvider.defaults.headers.post[header]=token ;
    
 }]);
+
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$.ajaxSetup({
+    beforeSend: function (xhr) {
+        if(header && token ){
+            xhr.setRequestHeader(header, token);
+        }
+    }}
+);
+
 
 // 启动初始化
 $(() => {
