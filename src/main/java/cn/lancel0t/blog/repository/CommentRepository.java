@@ -12,4 +12,5 @@ import cn.lancel0t.blog.domain.Comment;
  */
 public interface CommentRepository extends JpaRepository<Comment, Long> , JpaSpecificationExecutor<Comment>{
 
+	
 }

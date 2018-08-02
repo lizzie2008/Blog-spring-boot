@@ -3,7 +3,7 @@ app.directive('myPagination', [ '$http', function($http) {
 		restrict : 'E',
 		replace : true,
 		templateUrl : 'app/_common/angular-pagination.html',
-		link : function(scope, iElement, iAttrs) {
+		link : function(scope, element, attrs) {
 
 			// 分页配置
 			var conf = scope.paginationConf;

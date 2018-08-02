@@ -27,7 +27,7 @@ public class AdminController {
 	public String admin() {
 		return "redirect:/admin/blogs";
 	}
-	
+
 	@Autowired
 	private BlogService blogService;
 	@Autowired
@@ -49,6 +49,7 @@ public class AdminController {
 
 	/**
 	 * 博客详情
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -56,7 +57,7 @@ public class AdminController {
 	public ModelAndView blogDetail(@PathVariable("id") String id) {
 
 		ModelAndView view = new ModelAndView("/admin/blogdetail");
-		Blog blog = blogService.getOne(id);
+		Blog blog = blogService.detail(id, false);
 		view.addObject("blog", blog);
 		return view;
 	}
@@ -85,7 +86,7 @@ public class AdminController {
 	@GetMapping(value = "/blogs/edit/{id}")
 	public ModelAndView blogEidt(@PathVariable("id") String id) throws NotFoundException {
 
-		Blog blog = blogService.getOne(id);
+		Blog blog = blogService.detail(id, false);
 		if (blog == null)
 			throw new NotFoundException("no blog founded!");
 

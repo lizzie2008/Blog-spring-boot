@@ -1,5 +1,7 @@
 package cn.lancel0t.blog;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,7 @@ public class BlogApplicationTests {
 			blog.setImage("image" + i);
 			blog.setSummary("summary" + i);
 			blog.setContent("content" + i);
+			blog.setCreateTime(new Date());
 			blog.setCategory(new Category("category" + i, 0));
 			blogRepository.save(blog);
 		}

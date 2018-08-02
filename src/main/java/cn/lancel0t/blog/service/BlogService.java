@@ -3,7 +3,12 @@ package cn.lancel0t.blog.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import cn.lancel0t.blog.domain.Blog;
+import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.repository.BlogRepository;
+import cn.lancel0t.blog.repository.CommentRepository;
+import javassist.NotFoundException;
 
 @Service
 public class BlogService {
@@ -21,14 +29,8 @@ public class BlogService {
 	@Autowired
 	private BlogRepository blogRepository;
 
-	/**
-	 * 根据id获得博客
-	 * @param id
-	 * @return
-	 */
-	public Blog getOne(String id) {
-		return blogRepository.getOne(id);
-	}
+	@Autowired
+	private CommentRepository commentRepository;
 
 	/**
 	 * 获取所有博客
@@ -36,7 +38,7 @@ public class BlogService {
 	 * @param id
 	 * @return
 	 */
-	public Page<Blog> findAll(String title, String url, String category, String tag, Pageable pageable) {
+	public Page<Blog> list(String title, String category, String tag, Pageable pageable) {
 
 		return blogRepository.findAll(new Specification<Blog>() {
 			private static final long serialVersionUID = 1L;
@@ -52,11 +54,6 @@ public class BlogService {
 				// 根据title查询
 				if (StringUtils.hasLength(title)) {
 					predicates.add(cb.like(root.get("title"), "%" + title + "%"));
-				}
-
-				// 根据url查询
-				if (StringUtils.hasLength(url)) {
-					predicates.add(cb.like(root.get("url"), "%" + url + "%"));
 				}
 
 				// 根据tag查询
@@ -77,6 +74,22 @@ public class BlogService {
 	}
 
 	/**
+	 * 博客详情
+	 * 
+	 * @param id
+	 * @return
+	 * @throws NotFoundException
+	 */
+	@Transactional
+	public Blog detail(String id, boolean needIncreaseReadSize) {
+		if (needIncreaseReadSize) {
+			// 每访问一次，阅读量自增1
+			blogRepository.increaseReadSize(id);
+		}
+		return blogRepository.getOne(id);
+	}
+
+	/**
 	 * 新建博客或修改博客
 	 * 
 	 * @param blog
@@ -90,6 +103,22 @@ public class BlogService {
 	@Transactional
 	public void deleteById(String id) {
 		blogRepository.deleteById(id);
+	}
+
+	/**
+	 * 博客添加评论
+	 * 
+	 * @param id
+	 * @return
+	 * @throws NotFoundException
+	 */
+	@Transactional
+	public Long addComment(String id, Comment comment) {
+		// 评论数自增1
+		blogRepository.increaseCommentSize(id);
+		comment.setBlog(new Blog());
+		comment.getBlog().setId(id);
+		return commentRepository.save(comment).getId();
 	}
 
 }

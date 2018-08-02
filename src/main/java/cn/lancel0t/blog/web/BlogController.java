@@ -9,11 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,49 +21,49 @@ import com.alibaba.fastjson.JSONObject;
 import cn.lancel0t.blog.domain.Blog;
 import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.service.BlogService;
-import cn.lancel0t.blog.service.CommentService;
 import cn.lancel0t.blog.vo.BlogModel;
+import javassist.NotFoundException;
 
 /*
  * 管理后台Controller
  */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/blogs")
 public class BlogController {
 
 	@Autowired
 	private BlogService blogService;
 
-	@Autowired
-	private CommentService commentService;
-
 	/*****************************************************************/
 
 	/**
-	 * 获取博客（分页搜索排序）
+	 * 博客列表（分页搜索排序）
 	 * 
 	 * @param model
 	 * @param sort
 	 * @param order
 	 * @param page
 	 * @param size
+	 * @param title
+	 * @param url
+	 * @param category
+	 * @param tag
 	 * @return
 	 */
-	@GetMapping("/list")
-	public String getBlogs(Model model,
+	@RequestMapping(method = RequestMethod.GET)
+	public String list(Model model,
 			@RequestParam(value = "sort", required = false, defaultValue = "id") String sort,
 			@RequestParam(value = "order", required = false, defaultValue = "asc") String order,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
 			@RequestParam(value = "title", required = false, defaultValue = "") String title,
-			@RequestParam(value = "url", required = false, defaultValue = "") String url,
 			@RequestParam(value = "category", required = false, defaultValue = "") String category,
 			@RequestParam(value = "tag", required = false, defaultValue = "") String tag) {
 
 		// 排序与分页
 		Direction direction = order.equals("asc") ? Direction.ASC : Direction.DESC;
 		Pageable pageable = PageRequest.of(page - 1, size, new Sort(direction, sort));
-		Page<Blog> pageBlog = blogService.findAll(title, url, category, tag, pageable);
+		Page<Blog> pageBlog = blogService.list(title, category, tag, pageable);
 
 		// 转换为vo集合
 		List<BlogModel> rows = BlogModel.copyList(pageBlog.getContent());
@@ -78,26 +77,30 @@ public class BlogController {
 	}
 
 	/**
-	 * 根据id获取博客
+	 * 博客详情
 	 * 
 	 * @param id
 	 * @return
+	 * @throws NotFoundException
 	 */
-	@GetMapping("/{id}")
-	public Blog getBlog(@PathVariable("id") String id) {
-		Blog blog = blogService.getOne(id);
-		return blog;
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public Blog detail(@PathVariable("id") String id) throws NotFoundException {
+		Blog blog = blogService.detail(id, true);
+		if (blog != null)
+			return blog;
+		else
+			throw new NotFoundException("未找到对应博客！");
 	}
 
 	/**
-	 * 添加一条评论
+	 * 博客添加评论
 	 * 
+	 * @param id
 	 * @param comment
 	 * @return
 	 */
-	@PostMapping("/addComment")
-	public Long addComment(@RequestBody Comment comment) {
-		Long id = commentService.save(comment).getId();
-		return id;
+	@RequestMapping(value = "/{id}/comments", method = RequestMethod.POST)
+	public Long addComment(@PathVariable("id") String id, @RequestBody Comment comment) {
+		return blogService.addComment(id, comment);
 	}
 }

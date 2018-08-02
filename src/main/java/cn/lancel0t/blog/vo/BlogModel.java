@@ -1,8 +1,8 @@
 package cn.lancel0t.blog.vo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.lancel0t.blog.domain.Blog;
@@ -21,7 +21,7 @@ public class BlogModel implements Serializable {
 
 	private String tags; // 标签
 
-	private Timestamp createTime; // 创建时间
+	private Date createTime; // 创建时间
 
 	private Integer readSize = 0; // 访问量、阅读量
 
@@ -92,11 +92,11 @@ public class BlogModel implements Serializable {
 		this.category = category;
 	}
 
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 

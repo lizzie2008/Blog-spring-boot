@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
 <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">博客管理</title>
 <!-- css styles -->
@@ -8,6 +7,7 @@
 <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/layer/3.1.0/theme/default/layer.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/select2/4.0.6-rc.1/css/select2.min.css" rel="stylesheet">
@@ -15,7 +15,6 @@
 <link href="/css/admin.css" rel="stylesheet">
 </head>
 <body>
-
 	<!-- navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -44,7 +43,7 @@
 					<li th:classappend="${module == 'categoryManage' ? 'active' : ''}">
 						<a href="#" th:href="@{/task}">分类管理</a>
 					</li>
-					<li >
+					<li>
 						<a href="#" th:href="@{/task}">站长统计</a>
 					</li>
 				</ul>
@@ -69,29 +68,27 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- content -->
 	<div class="container" layout:fragment="content"></div>
-
 	<!-- footer -->
-	<footer class="footer" >
+	<footer class="footer">
 		<div class="container">
 			<p class="text-muted">© 2018 lancel0t.cn</p>
 		</div>
 	</footer>
-
 	<!-- javascripts -->
 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 	<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
 	<script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
 	<script src="https://cdn.bootcss.com/select2/4.0.6-rc.1/js/select2.min.js"></script>
 	<script src="https://cdn.bootcss.com/select2/4.0.6-rc.1/js/i18n/zh-CN.js"></script>
 	<script src="/lib/editor.md/editormd.min.js"></script>
-
 	<!-- other js owned by page -->
 	<script layout:fragment="js"></script>
 </body>

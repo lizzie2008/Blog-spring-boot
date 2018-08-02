@@ -75,7 +75,7 @@
 			$('#table')
 					.bootstrapTable(
 							{
-								url : '/blog/list',
+								url : '/blogs',
 								method : 'GET',
 								striped : true,
 								cache : false,
@@ -85,7 +85,7 @@
 								sidePagination : "server",
 								queryParams : queryParams,
 								pageNumber : 1,
-								pageSize : 1,
+								pageSize : 10,
 								pageList : [ 10, 25, 50, 100 ],
 								columns : [
 										{

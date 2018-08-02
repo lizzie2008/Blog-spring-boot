@@ -1,8 +1,8 @@
 package cn.lancel0t.blog.domain;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,8 +18,8 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -66,9 +66,8 @@ public class Blog implements Serializable {
 	@Size(max = 100)
 	private String tags; // 标签
 
-	@CreationTimestamp
-	@Column(nullable = false, updatable = false)
-	private Timestamp createTime; // 创建时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date createTime;
 
 	private Integer readSize = 0; // 访问量、阅读量
 
@@ -193,8 +192,11 @@ public class Blog implements Serializable {
 		this.votes = votes;
 	}
 
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 }
