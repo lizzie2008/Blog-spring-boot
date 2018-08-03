@@ -48,9 +48,14 @@
 									<label class="control-label" for="category">分类：</label>
 									<select class="form-control" id="category">
 										<option value="">---未选择---</option>
-										<optgroup th:each="node:${categoryNodes}" th:label="${node.name}">
-											<option th:each="child:${node.children}" th:value="${child.id}" th:text="${child.name}"></option>
-										</optgroup>
+											<option th:each="category:${categorys}" th:value="${category.id}" th:text="${category.name}"></option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="archive">归档：</label>
+									<select class="form-control" id="archive">
+										<option value="">---未选择---</option>
+											<option th:each="archive:${archives}" th:value="${archive.id}" th:text="${archive.name}"></option>
 									</select>
 								</div>
 								<div class="form-group">
@@ -106,6 +111,9 @@
 											field : 'category',
 											title : '分类',
 										}, {
+											field : 'archive',
+											title : '归档',
+										}, {
 											field : 'tags',
 											title : '标签',
 										}, {
@@ -132,6 +140,7 @@
 					order : params.order,
 					title : $('#title').val(),
 					category : $('#category').val(),
+					archive : $('#archive').val(),
 					tag : $('#tag').val()
 				};
 				return params;

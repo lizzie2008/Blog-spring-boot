@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.lancel0t.blog.domain.Archive;
 import cn.lancel0t.blog.domain.Blog;
+import cn.lancel0t.blog.domain.Category;
+import cn.lancel0t.blog.service.ArchiveService;
 import cn.lancel0t.blog.service.BlogService;
 import cn.lancel0t.blog.service.CategoryService;
-import cn.lancel0t.blog.vo.CategoryNode;
 import javassist.NotFoundException;
 
 /*
@@ -32,6 +34,9 @@ public class AdminController {
 	private BlogService blogService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private ArchiveService archiveService;
+
 
 	/**
 	 * 博客列表
@@ -42,8 +47,10 @@ public class AdminController {
 	public ModelAndView blogList() {
 
 		ModelAndView view = new ModelAndView("/admin/bloglist");
-		List<CategoryNode> categoryNodes = categoryService.getCategoryNodes();
-		view.addObject("categoryNodes", categoryNodes);
+		List<Category> categorys = categoryService.findAll();
+		view.addObject("categorys", categorys);
+		List<Archive> archives = archiveService.findAll();
+		view.addObject("archives", archives);
 		return view;
 	}
 
@@ -71,8 +78,8 @@ public class AdminController {
 	public ModelAndView blogAdd() {
 
 		ModelAndView view = new ModelAndView("/admin/blogedit");
-		List<CategoryNode> categoryNodes = categoryService.getCategoryNodes();
-		view.addObject("categoryNodes", categoryNodes);
+		List<Category> categorys = categoryService.findAll();
+		view.addObject("categorys", categorys);
 		view.addObject("blog", new Blog());
 		return view;
 	}
@@ -91,8 +98,8 @@ public class AdminController {
 			throw new NotFoundException("no blog founded!");
 
 		ModelAndView view = new ModelAndView("/admin/blogedit");
-		List<CategoryNode> categoryNodes = categoryService.getCategoryNodes();
-		view.addObject("categoryNodes", categoryNodes);
+		List<Category> categorys = categoryService.findAll();
+		view.addObject("categorys", categorys);
 		view.addObject("blog", blog);
 		return view;
 	}

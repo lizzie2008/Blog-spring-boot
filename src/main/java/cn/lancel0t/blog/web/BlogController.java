@@ -58,12 +58,13 @@ public class BlogController {
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
 			@RequestParam(value = "title", required = false, defaultValue = "") String title,
 			@RequestParam(value = "category", required = false, defaultValue = "") String category,
+			@RequestParam(value = "archive", required = false, defaultValue = "") String archive,
 			@RequestParam(value = "tag", required = false, defaultValue = "") String tag) {
 
 		// 排序与分页
 		Direction direction = order.equals("asc") ? Direction.ASC : Direction.DESC;
 		Pageable pageable = PageRequest.of(page - 1, size, new Sort(direction, sort));
-		Page<Blog> pageBlog = blogService.list(title, category, tag, pageable);
+		Page<Blog> pageBlog = blogService.list(title, category, archive, tag, pageable);
 
 		// 转换为vo集合
 		List<BlogModel> rows = BlogModel.copyList(pageBlog.getContent());
@@ -82,14 +83,11 @@ public class BlogController {
 	 * @param id
 	 * @return
 	 * @throws NotFoundException
+	 * @throws InterruptedException
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Blog detail(@PathVariable("id") String id) throws NotFoundException {
-		Blog blog = blogService.detail(id, true);
-		if (blog != null)
-			return blog;
-		else
-			throw new NotFoundException("未找到对应博客！");
+	public Blog detail(@PathVariable("id") String id) {
+		return blogService.detail(id, true);
 	}
 
 	/**

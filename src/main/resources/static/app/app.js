@@ -12,7 +12,7 @@ app.factory('HttpInterceptor', ['$q', HttpInterceptor]);
 function HttpInterceptor($q) {
   return {
     request: function(config){
-      window.Pace.restart();
+//      window.Pace.restart();
       return config;
     },
     requestError: function(err){
@@ -86,6 +86,13 @@ $.fn.extend({
 
         var firstList = $(selector + ' h' + hLevel);
         $(this).html(generateContent(firstList, hLevel, ''));
+        
+        // 滚动定位
+        $('.doc-nav a').on('click', function () {
+            var target = $(this).attr("href");
+            window.scrollTo(0, $(target).offset().top);
+            return false;
+        });
     }
 });
 // 递归生成目录

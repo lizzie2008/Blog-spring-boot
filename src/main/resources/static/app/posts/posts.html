@@ -1,14 +1,14 @@
 <style>
 </style>
 <div ng-controller="postsController" ng-init="postComment={}">
-	<div class="content row">
+	<div class="row">
 		<div class="col-md-9">
-			<div class="border my-2">
+			<div class="post border my-2">
 				<!-- breadcrumb -->
 				<ul class="breadcrumb">
 					<li class="breadcrumb-item">
 						<i class="fa fa-home">
-							<a href="#">&nbsp;主页</a>
+							<a href="#">&nbsp;首页</a>
 						</i>
 					</li>
 					<li class="breadcrumb-item">
@@ -18,9 +18,9 @@
 				</ul>
 				<!-- title -->
 				<div class="text-center">
-					<h1>{{blog.title}}</h1>
+					<h2>{{blog.title}}</h2>
 					<small class="text-muted"> 发表于：{{blog.createTime | date:'yyyy-MM-dd'}}&nbsp;|&nbsp; 分类于：{{blog.category.name}}&nbsp;|&nbsp;
-						阅读数：{{blog.readSize}}&nbsp;|&nbsp; 评论数：{{blog.commentSize}}&nbsp;|&nbsp; 点赞数：{{blog.voteSize}} </small>
+						阅读数：{{blog.readSize}}&nbsp;|&nbsp; 评论数：{{blog.comments.length}}&nbsp;|&nbsp; 点赞数：{{blog.likeSize}} </small>
 				</div>
 				<hr>
 				<!-- blog content -->
@@ -29,7 +29,7 @@
 				</article>
 				<hr>
 				<!-- comment -->
-				<my-comment relatedid="blog.id" comments="comments" ></my-comment>
+				<my-comment blog="blog" ></my-comment>
 			</div>
 		</div>
 		<!-- blog nav -->

@@ -12,14 +12,16 @@
 <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/animate.css/3.1.1/animate.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/imagehover.css/1.0/css/imagehover.min.css" rel="stylesheet">
 <link href="/lib/editor.md/css/editormd.min.css" rel="stylesheet">
 <!-- custom theme files -->
 <link href="css/pace.min.css" rel="stylesheet">
 <link href="css/site.css" rel="stylesheet">
 </head>
-<body ng-app="app" data-spy="scroll" data-target="#myScrollspy" data-offset="1">
+<body ng-app="app" data-spy="scroll" data-target="#myScrollspy" data-offset="10">
 	<!-- navbar -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 		<div class="container">
 			<a class="navbar-brand" href="#">
 				<img src="images/logo.png" alt="Logo">
@@ -29,51 +31,51 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item" ng-class="{'active':$root.module=='home'}">
+					<li class="nav-item-sm" ng-class="{'active':$root.module=='home'}">
 						<a class="nav-link" href="#">
 							<i class="fa fa-home"></i>
 							&nbsp;首页
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item-sm">
 						<a class="nav-link" href="#">
 							<i class="fa fa-th"></i>
 							&nbsp;分类
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item-sm">
 						<a class="nav-link" href="#">
 							<i class="fa fa-tags"></i>
 							&nbsp;标签
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item-sm">
 						<a class="nav-link" href="#">
 							<i class="fa fa-archive"></i>
 							&nbsp;归档
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item-sm">
 						<a class="nav-link" href="#">
 							<i class="fa fa-sitemap"></i>
 							&nbsp;专题
 						</a>
 					</li>
-					<li class="nav-item" ng-class="{'active':$root.module=='about'}">
+					<li class="nav-item-sm" ng-class="{'active':$root.module=='about'}">
 						<a class="nav-link" ui-sref="about">
 							<i class="fa fa-user"></i>
 							&nbsp;关于
 						</a>
 					</li>
 				</ul>
-				<form class="form-inline" >
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<form class="form-inline hidden-md-down">
+					<input class="form-control-sm" type="search" placeholder="搜索..." aria-label="Search">
 				</form>
 			</div>
 		</div>
 	</nav>
 	<!-- container -->
-	<div class="container">
+	<div class="container my-1 content">
 		<div ui-view></div>
 	</div>
 	<!-- footer-->
@@ -93,6 +95,7 @@
 	<script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
 	<script src="https://cdn.bootcss.com/marked/0.4.0/marked.min.js"></script>
 	<script src="https://cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+	<script src="https://cdn.bootcss.com/jQuery.dotdotdot/3.2.2/jquery.dotdotdot.js"></script>
 	<script src="/lib/editor.md/editormd.min.js"></script>
 	<script src="/lib/editor.md/lib/marked.min.js"></script>
 	<script src="/lib/editor.md/lib/prettify.min.js"></script>

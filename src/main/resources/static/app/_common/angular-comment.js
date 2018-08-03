@@ -4,13 +4,19 @@ app.directive('myComment', [ '$http', function($http) {
 		replace : true,
 		templateUrl : 'app/_common/angular-comment.html',
 		scope : {
-			relatedid : "=",
-			comments : "="
+			blog : "="
 		},
 		link : function($scope, element, attrs) {
 			
-			$scope.postComment={};
+			// 初始化
+			$scope.$watch('blog', function(newValue) {
+			    if (newValue !== undefined) {
+			    	 transComments();
+			    }
+			});
+			
 			// 添加评论
+			$scope.postComment={};
 		    $scope.onSubmit = function () {
 		        // 构建评论
 		        var comment = {};
@@ -25,14 +31,12 @@ app.directive('myComment', [ '$http', function($http) {
 		            // 是回复评论
 		        	comment.reply=true;
 		            comment.parentCommentId = parentCommentId;
-		            var parent = $scope.comments.filter(s => s.id == parentCommentId)[0];
-		            comment.id=$scope.addComment(comment);
-		            parent.subComments.push(comment);
 		        } else {
 		            // 非回复评论
-		        	comment.id=$scope.addComment(comment);
-		            $scope.comments.push(comment);
+		        	comment.reply=false;
+		        	comment.parentCommentId = null;
 		        }
+		        comment.id=$scope.addComment(comment);
 
 		        // 重置form
 		        $scope.postComment = {};
@@ -53,13 +57,26 @@ app.directive('myComment', [ '$http', function($http) {
 
 		        $http({
 		            method: 'POST',
-		            url: '/blogs/'+$scope.relatedid+'/comments',
+		            url: '/blogs/'+$scope.blog.id+'/comments',
 		            data: comment
 		        }).then(function successCallback(response) {
-		            return response.data;
+		        	comment.id=response.data;
+		        	$scope.blog.comments.push(comment);
+		        	transComments();
 		        }, function errorCallback(response) {
 		            console.log(response.data);
 		        });
+		    }
+		    
+		    // 将博客评论转换为层级显示
+		    function transComments(){
+		    	// 评论处理
+		        var comments = $scope.blog.comments;
+		        var rootComments = comments.filter(s => s.reply == false);
+		        $.each(rootComments, function (i, item) {
+		            item.subComments = comments.filter(s => s.reply == true && s.parentCommentId == item.id);
+		        });
+		        $scope.comments = rootComments;
 		    }
 		}
 	}

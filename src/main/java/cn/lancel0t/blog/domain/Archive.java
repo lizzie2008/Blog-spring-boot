@@ -11,12 +11,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 /**
- * 分类 实体
+ * 归档 实体
  * 
  * @author Work
  */
 @Entity
-public class Category implements Serializable {
+public class Archive implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,12 +27,12 @@ public class Category implements Serializable {
 	@NotEmpty
 	@Size(max = 30)
 	@Column(nullable = false, length = 30)
-	private String name; // 分类名称
+	private String name; // 归档名称
 
-	protected Category() {
+	protected Archive() {
 	}
 
-	public Category(String name) {
+	public Archive(String name) {
 		this.name = name;
 	}
 

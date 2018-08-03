@@ -18,22 +18,24 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 				scrollIndex = 1;
 				ul.animate({
 					top : -scrollIndex * h
-				}, 500);
+				}, 1000);
 			} else {
 				scrollIndex++;
 				ul.animate({
 					top : -scrollIndex * h
-				}, 500);
+				}, 1000);
 			}
 		}
 		Timer = setInterval(run, 3500);
 	}
+	//开启公告和轮播
 	scroll_f();
+    $('#carousel').carousel();
 
 	// 热门文章分页
 	$scope.paginationConf = {
-		size : 3,
-		showNum : 9,
+		size : 5,
+		showNum : 7,
 		// 定义url格式,默认使用GET方式
 		url : '/blogs?sort=createTime&order=desc&page={#page}&size={#size}',
 		// 返回对象需要指明元素集合rows和元素总条数total，需指定访问属性名
@@ -41,6 +43,16 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 		rowsName : 'rows',
 		onLoaded : function(rows) {
 			$scope.articles = rows;
+			
+
+			$(() => {
+				$('.article p').dotdotdot({
+					height:90
+				});
+			})
 		}
 	};
+	
+	
+	
 } ]);

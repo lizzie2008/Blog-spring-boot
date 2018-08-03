@@ -3,9 +3,7 @@ package cn.lancel0t.blog.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -60,41 +58,31 @@ public class Blog implements Serializable {
 	@Column(nullable = false)
 	private String content; // markdown内容
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Category category;
-
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Category category;	//分类
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Archive archive;	//归档
+	
 	@Size(max = 100)
 	private String tags; // 标签
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
 	private Date createTime;
 
-	private Integer readSize = 0; // 访问量、阅读量
+	private Integer readSize = 0; // 访问量
 
 	private Integer commentSize = 0; // 评论量
 
-	private Integer voteSize = 0; // 点赞量
+	private Integer likeSize = 0; // 点赞量
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "blog")
 	private List<Comment> comments; // 评论
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private Set<Vote> votes; // 点赞
-
 	public Blog() {
 		this.category = new Category();
 		this.comments = new ArrayList<Comment>();
-		this.votes = new HashSet<Vote>();
 	}
-
-	// public Blog(String title, String url, String image, String summary,
-	// String content) {
-	// this.title = title;
-	// this.url = url;
-	// this.image = image;
-	// this.summary = summary;
-	// this.content = content;
-	// }
 
 	public String getId() {
 		return id;
@@ -144,6 +132,14 @@ public class Blog implements Serializable {
 		this.category = category;
 	}
 
+	public Archive getArchive() {
+		return archive;
+	}
+
+	public void setArchive(Archive archive) {
+		this.archive = archive;
+	}
+
 	public String getTags() {
 		return tags;
 	}
@@ -168,12 +164,12 @@ public class Blog implements Serializable {
 		this.commentSize = commentSize;
 	}
 
-	public Integer getVoteSize() {
-		return voteSize;
+	public Integer getLikeSize() {
+		return likeSize;
 	}
 
-	public void setVoteSize(Integer voteSize) {
-		this.voteSize = voteSize;
+	public void setLikeSize(Integer likeSize) {
+		this.likeSize = likeSize;
 	}
 
 	public List<Comment> getComments() {
@@ -182,14 +178,6 @@ public class Blog implements Serializable {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-	}
-
-	public Set<Vote> getVotes() {
-		return votes;
-	}
-
-	public void setVotes(Set<Vote> votes) {
-		this.votes = votes;
 	}
 
 	public Date getCreateTime() {

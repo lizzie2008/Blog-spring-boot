@@ -18,16 +18,18 @@ public class BlogModel implements Serializable {
 	private String summary; // 摘要
 
 	private String category; // 分类
+	
+	private String archive; // 归档
 
 	private String tags; // 标签
 
 	private Date createTime; // 创建时间
 
-	private Integer readSize = 0; // 访问量、阅读量
+	private Integer readSize = 0; // 访问量
 
 	private Integer commentSize = 0; // 评论量
 
-	private Integer voteSize = 0; // 点赞量
+	private Integer likeSize = 0; // 点赞量
 	/**
 	 * 转换为vo集合
 	 * 
@@ -42,11 +44,12 @@ public class BlogModel implements Serializable {
 			blogModel.setTitle(blog.getTitle());
 			blogModel.setSummary(blog.getSummary());
 			blogModel.setCategory(blog.getCategory().getName());
+			blogModel.setArchive(blog.getArchive().getName());
 			blogModel.setTags(blog.getTags());
 			blogModel.setCreateTime(blog.getCreateTime());
 			blogModel.setReadSize(blog.getReadSize());
 			blogModel.setCommentSize(blog.getCommentSize());
-			blogModel.setVoteSize(blog.getVoteSize());
+			blogModel.setLikeSize(blog.getLikeSize());
 			blogModels.add(blogModel);
 		}
 		return blogModels;
@@ -116,12 +119,20 @@ public class BlogModel implements Serializable {
 		this.commentSize = commentSize;
 	}
 
-	public Integer getVoteSize() {
-		return voteSize;
+	public Integer getLikeSize() {
+		return likeSize;
 	}
 
-	public void setVoteSize(Integer voteSize) {
-		this.voteSize = voteSize;
+	public void setLikeSize(Integer likeSize) {
+		this.likeSize = likeSize;
+	}
+
+	public String getArchive() {
+		return archive;
+	}
+
+	public void setArchive(String archive) {
+		this.archive = archive;
 	}
 
 

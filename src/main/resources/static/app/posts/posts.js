@@ -8,13 +8,6 @@ app.controller('postsController', ['$scope', '$stateParams', '$http', function (
 
         // 博客
         $scope.blog = response.data;
-        // 评论处理
-        var comments = $scope.blog.comments;
-        var rootComments = comments.filter(s => s.reply == false);
-        $.each(rootComments, function (i, item) {
-            item.subComments = comments.filter(s => s.reply == true && s.parentCommentId == item.id);
-        });
-        $scope.comments = rootComments;
 
         // 渲染markdown
         $(function () {
@@ -30,13 +23,6 @@ app.controller('postsController', ['$scope', '$stateParams', '$http', function (
 
             // 生成目录
             $('#myScrollspy').initDoc('#doc-content');
-
-            // 滚动定位
-            $('.doc-nav a').on('click', function () {
-                var target = $(this).attr("href");
-                window.scrollTo(0, $(target).offset().top);
-                return false;
-            });
         });
     }, function errorCallback(response) {
         console.log(response.data);

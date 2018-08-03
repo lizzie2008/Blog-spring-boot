@@ -5,21 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.lancel0t.blog.domain.Category;
-import cn.lancel0t.blog.repository.CategoryRepository;
+import cn.lancel0t.blog.domain.Archive;
+import cn.lancel0t.blog.repository.ArchiveRepository;
 
 @Service
-public class CategoryService {
+public class ArchiveService {
 
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private ArchiveRepository archiveRepository;
 
 	/**
 	 * 获取所有分类
 	 * 
 	 * @return
 	 */
-	public List<Category> findAll() {
-		return categoryRepository.findAll();
+	public List<Archive> findAll() {
+		return archiveRepository.findAll();
 	}
+	
+	
 }

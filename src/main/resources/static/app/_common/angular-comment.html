@@ -2,8 +2,8 @@
 	<!-- comments-list -->
 	<div class="comment-list">
 		<h6 class="comment-title">
-			<i class="fa fa-pencil"></i>
-			评论列表（已有 {{comments.length}} 条评论）
+			<i class="fa fa-comment"></i>
+			评论列表（已有 {{blog.comments.length}} 条评论）
 		</h6>
 		<!-- 普通的评论 -->
 		<ul class="list-unstyled rootComment">
@@ -15,7 +15,7 @@
 							<a ng-if="comment.webSite" ng-href="http://{{comment.webSite}}" target="_blank"> {{comment.nickName}} </a>
 							<span ng-if="!comment.webSite">{{comment.nickName}}</span>
 						</strong>
-						<span class="mr-3 text-muted"> posted at {{comment.createTime | date:"yyyy-MM-dd hh:mm"}} </span>
+						<span class="mr-3 text-muted"> posted @ {{comment.createTime | date:"yyyy-MM-dd hh:mm"}} </span>
 						<a class="pull-right" href="" ng-if="showReply" ng-click="jumpToComment(comment.id,comment.nickName)">回复</a>
 						<div class="mt-2">{{comment.content}}</div>
 					</div>
@@ -29,7 +29,7 @@
 										<a ng-if="subComment.webSite" ng-href="http://{{subComment.webSite}}" target="_blank">{{subComment.nickName}}</a>
 										<span ng-if="!subComment.webSite">{{subComment.nickName}}</span>
 									</strong>
-									<span class="mr-3 text-muted"> posted at {{subComment.createTime | date:"yyyy-MM-dd hh:mm"}} </span>
+									<span class="mr-3 text-muted"> posted @ {{subComment.createTime | date:"yyyy-MM-dd hh:mm"}} </span>
 									<a class="pull-right" href="" ng-if="showSubReply" ng-click="jumpToComment(comment.id,subComment.nickName)">回复</a>
 									<div class="mt-2">{{subComment.content}}</div>
 								</div>

@@ -1,5 +1,6 @@
 package cn.lancel0t.blog.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import cn.lancel0t.blog.domain.Archive;
 import cn.lancel0t.blog.domain.Blog;
 import cn.lancel0t.blog.domain.Comment;
+import cn.lancel0t.blog.repository.ArchiveRepository;
 import cn.lancel0t.blog.repository.BlogRepository;
 import cn.lancel0t.blog.repository.CommentRepository;
 import javassist.NotFoundException;
@@ -30,6 +33,9 @@ public class BlogService {
 	private BlogRepository blogRepository;
 
 	@Autowired
+	private ArchiveRepository archiveRepository;
+
+	@Autowired
 	private CommentRepository commentRepository;
 
 	/**
@@ -38,7 +44,8 @@ public class BlogService {
 	 * @param id
 	 * @return
 	 */
-	public Page<Blog> list(String title, String category, String tag, Pageable pageable) {
+	public Page<Blog> list(String title, String category, String archive, String tag,
+			Pageable pageable) {
 
 		return blogRepository.findAll(new Specification<Blog>() {
 			private static final long serialVersionUID = 1L;
@@ -49,6 +56,7 @@ public class BlogService {
 
 				if (Long.class != query.getResultType()) {
 					root.fetch("category", JoinType.LEFT);
+					root.fetch("archive", JoinType.LEFT);
 				}
 
 				// 根据title查询
@@ -64,6 +72,11 @@ public class BlogService {
 				// 根据category查询
 				if (StringUtils.hasLength(category)) {
 					predicates.add(cb.equal(root.get("category").get("id"), category));
+				}
+
+				// 根据archive查询
+				if (StringUtils.hasLength(archive)) {
+					predicates.add(cb.equal(root.get("archive").get("id"), archive));
 				}
 
 				Predicate[] pre = new Predicate[predicates.size()];
@@ -97,6 +110,20 @@ public class BlogService {
 	 */
 	@Transactional
 	public Blog save(Blog blog) {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月");
+		String dateString = formatter.format(blog.getCreateTime());
+		List<Archive> archives = archiveRepository.findByName(dateString);
+
+		// 果归档目录已存在，新建归档目录
+		if (archives.isEmpty()) {
+			blog.setArchive(new Archive(dateString));
+		}
+		// 归档目录不存在，使用已有的归档目录
+		else {
+			blog.setArchive(archives.get(0));
+		}
+
 		return blogRepository.save(blog);
 	}
 

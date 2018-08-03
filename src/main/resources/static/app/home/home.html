@@ -1,6 +1,6 @@
 <div ng-controller="homeController">
 	<!-- marquee -->
-	<div class="scroll my-1 wow fadeInDown">
+	<div class="scroll wow fadeInDown">
 		<i class="fa fa-volume-up"></i>
 		<ul>
 			<li class="text-dark">欢迎访问我的个人博客网站</li>
@@ -10,47 +10,35 @@
 			<li class="text-dark">2222222222222</li>
 		</ul>
 	</div>
-	<div class="content row">
+	<div class="row">
 		<!-- contents -->
 		<div class="col-md-9">
 			<!-- carousel -->
 			<div class="border p-2 mt-3">
-				<div id="demo" class="carousel slide" data-ride="carousel">
-					<!-- carousel-indicators -->
+				<div id="carousel" class="carousel slide" data-ride="carousel">
+					<!-- 指示符 -->
 					<ul class="carousel-indicators">
-						<li data-target="#demo" data-slide-to="0" class="active"></li>
-						<li data-target="#demo" data-slide-to="1"></li>
-						<li data-target="#demo" data-slide-to="2"></li>
+						<li data-target="#carousel" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel" data-slide-to="1"></li>
+						<li data-target="#carousel" data-slide-to="2"></li>
 					</ul>
-					<!-- carousel images -->
+					<!-- 轮播图片 -->
 					<div class="carousel-inner">
 						<div class="carousel-item active">
 							<img src="http://static.runoob.com/images/mix/img_fjords_wide.jpg">
-							<div class="carousel-caption">
-								<h3>第一张图片描述标题</h3>
-								<p>描述文字!</p>
-							</div>
 						</div>
 						<div class="carousel-item">
 							<img src="http://static.runoob.com/images/mix/img_nature_wide.jpg">
-							<div class="carousel-caption">
-								<h3>第二张图片描述标题</h3>
-								<p>描述文字!</p>
-							</div>
 						</div>
 						<div class="carousel-item">
 							<img src="http://static.runoob.com/images/mix/img_mountains_wide.jpg">
-							<div class="carousel-caption">
-								<h3>第三张图片描述标题</h3>
-								<p>描述文字!</p>
-							</div>
 						</div>
 					</div>
-					<!-- carousel-control -->
-					<a class="carousel-control-prev" href="#demo" data-slide="prev">
+					<!-- 左右切换按钮 -->
+					<a class="carousel-control-prev" href="#carousel" data-slide="prev">
 						<span class="carousel-control-prev-icon"></span>
 					</a>
-					<a class="carousel-control-next" href="#demo" data-slide="next">
+					<a class="carousel-control-next" href="#carousel" data-slide="next">
 						<span class="carousel-control-next-icon"></span>
 					</a>
 				</div>
@@ -65,24 +53,29 @@
 				</div>
 				<div class="box-body">
 					<!-- article -->
-					<div class="article p-2" ng-repeat="article in articles">
+					<div class="article" ng-repeat="article in articles" ng-mouseenter="showAnimate=true;" ng-mouseleave="showAnimate=false;">
 						<div class="row">
-							<div class="col-md-4">
-								<a class="thumbnail" ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">
-									<img class="img-responsive center-block" src="images/f2.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-md-8">
-								<a class="title" ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">{{article.title}}</a>
-								<p class="summary">{{article.summary}}</p>
-								<div class="info">
-									<a href="http://www.guojian945.com/article/">
-										<i class="fa fa-plus-square mr-2">&nbsp;{{article.category}}</i>
+							<div class="col-md-3">
+								<div class="article-left">
+									<a ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">
+										<img class="img-responsive" ng-class="{'increaseSize':showAnimate==true}" src="images/f2.jpg" alt="img">
 									</a>
-									<i class="fa fa-clock-o mr-2">&nbsp;{{article.createTime|date:'yyyy-MM-dd'}}</i>
-									<i class="fa fa-eye mr-2">&nbsp;{{article.readSize}}次浏览</i>
-									<i class="fa fa-comment mr-2">&nbsp;{{article.commentSize}}条评论</i>
-									<a ui-sref="posts({id:article.id})" class="read-more pull-right" title="详细阅读：{{article.title}}">阅读更多>></a>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<div class="article-right">
+									<span class="mt-0">
+										<a class="article-title hvr-wobble-top" ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">{{article.title}}</a>
+									</span>
+									<p class="article-summary">{{article.summary}}</p>
+									<div class="article-info">
+										<i class="fa fa-clock-o mr-3">&nbsp;{{article.createTime|date:'yyyy/MM/dd'}}</i>
+										<i class="fa fa-eye mr-3">&nbsp;{{article.readSize}}</i>
+										<i class="fa fa-comment-o mr-3">&nbsp;{{article.commentSize}}</i>
+									</div>
+									<div class="article-readmore">
+										<a ui-sref="posts({id:article.id})" class="hvr-icon-forward" title="详细阅读：{{article.title}}"> 阅读更多>> </a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -96,94 +89,131 @@
 		</div>
 		<!-- sidebar -->
 		<div class="col-md-3">
-			<div class="wow fadeInDown">
-				<div class="banner border border-bottom-0 mt-3">
-					<strong>
-						<i class="fa fa-list mr-1"></i>
-						博主推荐
-					</strong>
-				</div>
-				<div class="border border-bottom-0">
-					<!-- article -->
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-				</div>
-			</div>
-			<div class="wow fadeInDown">
-				<div class="banner border border-bottom-0 mt-3">
-					<strong>
+			<div class="sidebar">
+				<div class="card mt-3">
+					<div class="card-header">
 						<i class="fa fa-list mr-1"></i>
 						热门文章
-					</strong>
+					</div>
+					<div class="card-body">
+						<ul class="widget-content divPrevious">
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/25.html">Python远程控制模块paramiko遇到的问题及解决记录</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/144.html">搭建最新版代刷网+支付接口视频教程</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/160.html">东轩博客祝大家新年快乐</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/27.html">今天聊聊SEO行业中风行的霸屏、快排、蜘蛛池</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/4.html">利用jquery.qrcode.js生成二维码和logo居中的图片 js生成二维码</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/288.html">在线商业头盔制作器 支持DIY字（外卖头盔）</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/18.html">emlog鼠标点击产生文字效果</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/274.html">彩虹代刷网推广链接生成插件1.1</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/239.html">东轩博客提前预祝大家愚人节快乐</a>
+							</li>
+							<li>
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top"href="http://www.dxblog.cn/14.html">Emlog响应式全站Pjax模板仿明月浩空官方版ColorfulV2.7预览版——价值234元的明月浩空V2.7模板</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-				<div class="border border-bottom-0">
-					<!-- article -->
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
+				<div class="wow fadeInDown">
+					<div class="banner border border-bottom-0 mt-3">
+						<strong>
+							<i class="fa fa-list mr-1"></i>
+							热门文章
+						</strong>
+					</div>
+					<div class="border border-bottom-0">
+						<!-- article -->
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+					</div>
 				</div>
-			</div>
-			<div class="wow fadeInDown">
-				<div class="banner border border-bottom-0 mt-3">
-					<strong>
-						<i class="fa fa-list mr-1"></i>
-						文章归档
-					</strong>
+				<div class="wow fadeInDown">
+					<div class="banner border border-bottom-0 mt-3">
+						<strong>
+							<i class="fa fa-list mr-1"></i>
+							文章归档
+						</strong>
+					</div>
+					<div class="border border-bottom-0">
+						<!-- article -->
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+					</div>
 				</div>
-				<div class="border border-bottom-0">
-					<!-- article -->
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
+				<div class="wow fadeInDown">
+					<div class="banner border border-bottom-0 mt-3">
+						<strong>
+							<i class="fa fa-list mr-1"></i>
+							博主推荐
+						</strong>
+					</div>
+					<div class="border border-bottom-0">
+						<!-- article -->
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+					</div>
 				</div>
-			</div>
-			<div class="wow fadeInDown">
-				<div class="banner border border-bottom-0 mt-3">
-					<strong>
-						<i class="fa fa-list mr-1"></i>
-						博主推荐
-					</strong>
+				<div class="wow fadeInDown">
+					<div class="banner border border-bottom-0 mt-3">
+						<strong>
+							<i class="fa fa-list mr-1"></i>
+							热门文章
+						</strong>
+					</div>
+					<div class="border border-bottom-0">
+						<!-- article -->
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+					</div>
 				</div>
-				<div class="border border-bottom-0">
-					<!-- article -->
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-				</div>
-			</div>
-			<div class="wow fadeInDown">
-				<div class="banner border border-bottom-0 mt-3">
-					<strong>
-						<i class="fa fa-list mr-1"></i>
-						热门文章
-					</strong>
-				</div>
-				<div class="border border-bottom-0">
-					<!-- article -->
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-				</div>
-			</div>
-			<div class="wow fadeInDown">
-				<div class="banner border border-bottom-0 mt-3">
-					<strong>
-						<i class="fa fa-list mr-1"></i>
-						文章归档
-					</strong>
-				</div>
-				<div class="border border-bottom-0">
-					<!-- article -->
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
-					<div class="article p-2">aaa</div>
+				<div class="wow fadeInDown">
+					<div class="banner border border-bottom-0 mt-3">
+						<strong>
+							<i class="fa fa-list mr-1"></i>
+							文章归档
+						</strong>
+					</div>
+					<div class="border border-bottom-0">
+						<!-- article -->
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+						<div class="article p-2">aaa</div>
+					</div>
 				</div>
 			</div>
 		</div>

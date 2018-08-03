@@ -37,19 +37,19 @@ public class BlogApplicationTests {
 	@Transactional
 	public void initCategory() {
 
-		Category c1 = categoryRepository.save(new Category("Category1", 0L));
-		Category c2 = categoryRepository.save(new Category("Category2", 0L));
-		Category c3 = categoryRepository.save(new Category("Category3", 0L));
+		categoryRepository.save(new Category("Category1"));
+		categoryRepository.save(new Category("Category2"));
+		categoryRepository.save(new Category("Category3"));
 
-		categoryRepository.save(new Category("Category4", c1.getId()));
-		categoryRepository.save(new Category("Category5", c1.getId()));
-		categoryRepository.save(new Category("Category6", c1.getId()));
+		categoryRepository.save(new Category("Category4"));
+		categoryRepository.save(new Category("Category5"));
+		categoryRepository.save(new Category("Category6"));
 
-		categoryRepository.save(new Category("Category7", c2.getId()));
-		categoryRepository.save(new Category("Category8", c2.getId()));
+		categoryRepository.save(new Category("Category7"));
+		categoryRepository.save(new Category("Category8"));
 
-		categoryRepository.save(new Category("Category9", c3.getId()));
-		categoryRepository.save(new Category("Category10", c3.getId()));
+		categoryRepository.save(new Category("Category9"));
+		categoryRepository.save(new Category("Category10"));
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class BlogApplicationTests {
 			blog.setSummary("summary" + i);
 			blog.setContent("content" + i);
 			blog.setCreateTime(new Date());
-			blog.setCategory(new Category("category" + i, 0));
+			blog.setCategory(new Category("category" + i));
 			blogRepository.save(blog);
 		}
 	}
@@ -115,10 +115,5 @@ public class BlogApplicationTests {
 		commentService.save(comment5);
 	}
 
-	@Test
-	@Transactional
-	public void categoryServiceTest() {
-		categoryService.getCategoryNodes();
-	}
 
 }
