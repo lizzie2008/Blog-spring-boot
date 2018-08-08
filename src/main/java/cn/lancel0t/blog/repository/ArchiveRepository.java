@@ -13,5 +13,18 @@ import cn.lancel0t.blog.domain.Archive;
  */
 public interface ArchiveRepository extends JpaRepository<Archive, Long> {
 
-	List<Archive> findByName(String name);
+	/**
+	 * 根据名称查找
+	 * 
+	 * @param name
+	 * @return
+	 */
+	Archive findByName(String name);
+
+	/**
+	 * 倒序查询所有
+	 * 
+	 * @return
+	 */
+	List<Archive> findAllByOrderByNameDesc();
 }

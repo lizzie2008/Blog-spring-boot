@@ -28,8 +28,10 @@ public class Archive implements Serializable {
 	@Size(max = 30)
 	@Column(nullable = false, length = 30)
 	private String name; // 归档名称
+	
+	private Integer blogSize = 0; // 博客数量
 
-	protected Archive() {
+	public Archive() {
 	}
 
 	public Archive(String name) {
@@ -50,5 +52,13 @@ public class Archive implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getBlogSize() {
+		return blogSize;
+	}
+
+	public void setBlogSize(Integer blogSize) {
+		this.blogSize = blogSize;
 	}
 }

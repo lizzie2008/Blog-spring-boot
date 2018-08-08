@@ -1,10 +1,14 @@
 package cn.lancel0t.blog.web;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +29,6 @@ import javassist.NotFoundException;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@RequestMapping
-	public String admin() {
-		return "redirect:/admin/blogs";
-	}
-
 	@Autowired
 	private BlogService blogService;
 	@Autowired
@@ -37,6 +36,24 @@ public class AdminController {
 	@Autowired
 	private ArchiveService archiveService;
 
+	/**
+	 * 绑定实体时，防止form表单提交的null值转成""
+	 * @param binder
+	 */
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+	}
+
+	/**
+	 * 默认跳转页
+	 * 
+	 * @return
+	 */
+	@RequestMapping
+	public String admin() {
+		return "redirect:/admin/blogs";
+	}
 
 	/**
 	 * 博客列表
@@ -80,7 +97,11 @@ public class AdminController {
 		ModelAndView view = new ModelAndView("/admin/blogedit");
 		List<Category> categorys = categoryService.findAll();
 		view.addObject("categorys", categorys);
-		view.addObject("blog", new Blog());
+		Blog blog = new Blog();
+		blog.setCategory(new Category());
+		blog.setArchive(new Archive());
+		blog.setCreateTime(new Date());
+		view.addObject("blog", blog);
 		return view;
 	}
 

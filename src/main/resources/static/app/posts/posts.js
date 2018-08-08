@@ -24,7 +24,5 @@ app.controller('postsController', ['$scope', '$stateParams', '$http', function (
             // 生成目录
             $('#myScrollspy').initDoc('#doc-content');
         });
-    }, function errorCallback(response) {
-        console.log(response.data);
     });
 }]);

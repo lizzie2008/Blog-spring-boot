@@ -1,7 +1,6 @@
 package cn.lancel0t.blog.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,10 +57,10 @@ public class Blog implements Serializable {
 	@Column(nullable = false)
 	private String content; // markdown内容
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Category category;	//分类
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Archive archive;	//归档
 	
 	@Size(max = 100)
@@ -80,8 +79,8 @@ public class Blog implements Serializable {
 	private List<Comment> comments; // 评论
 
 	public Blog() {
-		this.category = new Category();
-		this.comments = new ArrayList<Comment>();
+//		this.category = new Category();
+//		this.comments = new ArrayList<Comment>();
 	}
 
 	public String getId() {

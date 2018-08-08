@@ -63,7 +63,7 @@ public class BlogApplicationTests {
 			blog.setSummary("summary" + i);
 			blog.setContent("content" + i);
 			blog.setCreateTime(new Date());
-			blog.setCategory(new Category("category" + i));
+			blog.setCategory(new Category("Category" + i));
 			blogRepository.save(blog);
 		}
 	}

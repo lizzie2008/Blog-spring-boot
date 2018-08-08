@@ -15,12 +15,12 @@ public class ArchiveService {
 	private ArchiveRepository archiveRepository;
 
 	/**
-	 * 获取所有分类
+	 * 获取所有归档
 	 * 
 	 * @return
 	 */
 	public List<Archive> findAll() {
-		return archiveRepository.findAll();
+		return archiveRepository.findAllByOrderByNameDesc();
 	}
 	
 	

@@ -16,6 +16,7 @@ import cn.lancel0t.blog.domain.Blog;
  */
 public interface BlogRepository extends JpaRepository<Blog, String>, JpaSpecificationExecutor<Blog> {
 
+
 	/**
 	 * 根据标题查找
 	 * 
@@ -32,8 +33,8 @@ public interface BlogRepository extends JpaRepository<Blog, String>, JpaSpecific
 	@Modifying
 	@Query(value = "update Blog set readSize = readSize+1 where id=:id")
 	int increaseReadSize(@Param("id") String id);
-	
-	/** 
+
+	/**
 	 * 评论量自增
 	 * 
 	 * @return

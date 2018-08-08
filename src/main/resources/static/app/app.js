@@ -29,6 +29,7 @@ function HttpInterceptor($q) {
       } else if(501 === err.status) {
         // ...
       }
+      console.log(err);
       return $q.reject(err);
     }
   };
@@ -106,7 +107,7 @@ function generateContent(list, level, prefix) {
             var newPrefix = prefix + (i + 1) + '.';
             var text = newPrefix + $(list[i]).text();
             var href = $(list[i]).attr('id');
-            content_ul += '<a class="nav-link ml-3 my-1" style="padding-left:' + (10 + weight * 6) + 'px;" href="#' + href + '">' + text + '</a>'
+            content_ul += '<a class="nav-link my-1" style="padding-left:' + (5 + weight * 6) + 'px;" href="#' + href + '">' + text + '</a>'
             var subList = $(list[i]).nextUntil('h' + level, 'h' + (level + 1));
             content_ul += generateContent(subList, (level + 1), newPrefix);
             content_ul += '';

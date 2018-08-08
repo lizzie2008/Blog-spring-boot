@@ -29,7 +29,9 @@ public class Category implements Serializable {
 	@Column(nullable = false, length = 30)
 	private String name; // 分类名称
 
-	protected Category() {
+	private Integer blogSize = 0; // 博客数量
+
+	public Category() {
 	}
 
 	public Category(String name) {
@@ -50,5 +52,13 @@ public class Category implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getBlogSize() {
+		return blogSize;
+	}
+
+	public void setBlogSize(Integer blogSize) {
+		this.blogSize = blogSize;
 	}
 }

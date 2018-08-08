@@ -109,22 +109,53 @@ public class BlogService {
 	 * @return
 	 */
 	@Transactional
-	public Blog save(Blog blog) {
+	public void save(Blog blog) {
 
+		// 归档管理
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月");
 		String dateString = formatter.format(blog.getCreateTime());
-		List<Archive> archives = archiveRepository.findByName(dateString);
-
-		// 果归档目录已存在，新建归档目录
-		if (archives.isEmpty()) {
-			blog.setArchive(new Archive(dateString));
+		Archive existArchive = archiveRepository.findByName(dateString);
+		if (existArchive == null) {
+			// 归档目录不存在，新建归档目录
+			Archive archive = new Archive(dateString);
+			archiveRepository.save(archive);
+			blog.setArchive(archive);
+		} else {
+			// 归档目录已存在，使用已有的归档目录
+			blog.setArchive(existArchive);
 		}
-		// 归档目录不存在，使用已有的归档目录
+
+		// 新建
+		if (blog.getId() == null) {
+
+			blogRepository.save(blog);
+			// 新分类统计+1
+			blog.getCategory().setBlogSize(blog.getCategory().getBlogSize() + 1);
+			blog.getArchive().setBlogSize(blog.getArchive().getBlogSize() + 1);
+		}
+		// 更新
 		else {
-			blog.setArchive(archives.get(0));
-		}
 
-		return blogRepository.save(blog);
+			Blog originBlog = blogRepository.findById(blog.getId()).get();
+
+			originBlog.setId(blog.getId());
+			originBlog.setTitle(blog.getTitle());
+			originBlog.setImage(blog.getImage());
+			originBlog.setSummary(blog.getSummary());
+			originBlog.setContent(blog.getContent());
+			originBlog.setCreateTime(blog.getCreateTime());
+
+			// 原分类统计-1,新分类统计+1
+			originBlog.getCategory().setBlogSize(originBlog.getCategory().getBlogSize() - 1);
+			blog.getCategory().setBlogSize(blog.getCategory().getBlogSize() + 1);
+			originBlog.setCategory(blog.getCategory());
+
+			// 原归档统计-1,新归档统计+1
+			originBlog.getArchive().setBlogSize(originBlog.getArchive().getBlogSize() - 1);
+			blog.getArchive().setBlogSize(blog.getArchive().getBlogSize() + 1);
+			originBlog.setArchive(blog.getArchive());
+
+		}
 	}
 
 	@Transactional

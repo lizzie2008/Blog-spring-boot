@@ -11,9 +11,9 @@
 		</ul>
 	</div>
 	<div class="row">
-		<!-- contents -->
+		<!-- 主内容区域 -->
 		<div class="col-md-9">
-			<!-- carousel -->
+			<!-- 轮播图 -->
 			<div class="border p-2 mt-3">
 				<div id="carousel" class="carousel slide" data-ride="carousel">
 					<!-- 指示符 -->
@@ -43,7 +43,7 @@
 					</a>
 				</div>
 			</div>
-			<!-- articles -->
+			<!-- 最新发布 -->
 			<div class="box mt-3">
 				<div class="box-header with-border">
 					<strong>
@@ -69,9 +69,12 @@
 									</span>
 									<p class="article-summary">{{article.summary}}</p>
 									<div class="article-info">
-										<i class="fa fa-clock-o mr-3">&nbsp;{{article.createTime|date:'yyyy/MM/dd'}}</i>
-										<i class="fa fa-eye mr-3">&nbsp;{{article.readSize}}</i>
-										<i class="fa fa-comment-o mr-3">&nbsp;{{article.commentSize}}</i>
+										<i class="fa fa-clock-o text-dark"></i>
+										&nbsp;{{article.createTime|date:'yyyy/MM/dd'}}
+										<i class="fa fa-eye ml-3 text-dark"></i>
+										&nbsp;{{article.readSize}}
+										<i class="fa fa-comment-o ml-3 text-dark"></i>
+										&nbsp;{{article.commentSize}}
 									</div>
 									<div class="article-readmore">
 										<a ui-sref="posts({id:article.id})" class="hvr-icon-forward" title="详细阅读：{{article.title}}"> 阅读更多>> </a>
@@ -82,18 +85,99 @@
 					</div>
 				</div>
 			</div>
-			<!-- pagination -->
+			<!-- 分页控件 -->
 			<div class="p-2">
 				<my-pagination page-option="{{paginationConf}}"></my-pagination>
 			</div>
 		</div>
-		<!-- sidebar -->
+		<!-- 侧边栏 -->
 		<div class="col-md-3">
 			<div class="sidebar">
-				<div class="card mt-3">
+				<!-- 个人信息 -->
+				<div class="profile border rounded mt-3 wow fadeInDown">
+					<img class="profile-user-img" src="images/me.png" alt="avatar">
+					<div class="my-1">
+						<strong class="text-center">博主：许立</strong>
+						<div class="text-muted text-center">软件架构师</div>
+					</div>
+					<div class="my-1">
+						<i class="fa fa-book margin-r-5"></i>
+						教育水平
+						<div class="text-muted">武汉大学 软件工程 硕士</div>
+					</div>
+					<div class="my-1">
+						<i class="fa fa-map-marker margin-r-5"></i>
+						位置
+						<div class="text-muted">北京市, 朝阳区</div>
+					</div>
+					<div class="d-flex justify-content-around">
+						<a class="github" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
+							<i class="fa fa-github"></i>
+						</a>
+						<a class="weixin" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
+							<i class="fa fa-weixin"></i>
+						</a>
+						<a class="qq" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
+							<i class="fa fa-qq"></i>
+						</a>
+						<a class="feed" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
+							<i class="fa fa-chrome"></i>
+						</a>
+					</div>
+				</div>
+				<!-- 文章分类 -->
+				<div class="card mt-3 wow fadeInDown">
 					<div class="card-header">
-						<i class="fa fa-list mr-1"></i>
-						热门文章
+						<i class="fa fa-window-restore mr-1"></i>
+						文章分类
+					</div>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-6 col-md-12" ng-repeat="category in categorys" ng-if="$index<10">
+									<a class="category" href="#">{{category.name}}({{category.blogSize}})</a>
+								</div>
+							</div>
+							<div class="row collapse" id="collapseCategory">
+								<div class="col-lg-6 col-md-12" ng-repeat="category in categorys" ng-if="$index>=10">
+									<a class="category" href="#">{{category.name}}({{category.blogSize}})</a>
+								</div>
+							</div>
+							<div class="text-center" ng-if="categorys.length>10">
+								<a href="#collapseCategory" class="togglelink" onclick="toggleContent(this);return false; " data-toggle="collapse">﹀</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 文章归档 -->
+				<div class="card mt-3 wow fadeInDown">
+					<div class="card-header">
+						<i class="fa fa-calendar mr-1"></i>
+						文章归档
+					</div>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-6 col-md-12" ng-repeat="archive in archives" ng-if="$index<10">
+									<a class="archive" href="#">{{archive.name}}({{archive.blogSize}})</a>
+								</div>
+							</div>
+							<div class="row collapse" id="collapseArchive">
+								<div class="col-lg-6 col-md-12" ng-repeat="archive in archives" ng-if="$index>=10">
+									<a class="archive" href="#">{{archive.name}}({{archive.blogSize}})</a>
+								</div>
+							</div>
+							<div class="text-center" ng-if="archives.length>10">
+								<a href="#collapseArchive" class="togglelink" onclick="toggleContent(this);return false; " data-toggle="collapse">﹀</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 阅读排行 -->
+				<div class="card mt-3 wow fadeInDown">
+					<div class="card-header">
+						<i class="fa fa-bar-chart mr-1"></i>
+						阅读排行
 					</div>
 					<div class="card-body">
 						<ul class="widget-content divPrevious">
@@ -103,116 +187,56 @@
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/144.html">搭建最新版代刷网+支付接口视频教程</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/144.html">搭建最新版代刷网+支付接口视频教程</a>
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/160.html">东轩博客祝大家新年快乐</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/160.html">东轩博客祝大家新年快乐</a>
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/27.html">今天聊聊SEO行业中风行的霸屏、快排、蜘蛛池</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/27.html">今天聊聊SEO行业中风行的霸屏、快排、蜘蛛池</a>
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/4.html">利用jquery.qrcode.js生成二维码和logo居中的图片 js生成二维码</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/4.html">利用jquery.qrcode.js生成二维码和logo居中的图片 js生成二维码</a>
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/288.html">在线商业头盔制作器 支持DIY字（外卖头盔）</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/288.html">在线商业头盔制作器 支持DIY字（外卖头盔）</a>
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/18.html">emlog鼠标点击产生文字效果</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/18.html">emlog鼠标点击产生文字效果</a>
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/274.html">彩虹代刷网推广链接生成插件1.1</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/274.html">彩虹代刷网推广链接生成插件1.1</a>
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/239.html">东轩博客提前预祝大家愚人节快乐</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/239.html">东轩博客提前预祝大家愚人节快乐</a>
 							</li>
 							<li>
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top"href="http://www.dxblog.cn/14.html">Emlog响应式全站Pjax模板仿明月浩空官方版ColorfulV2.7预览版——价值234元的明月浩空V2.7模板</a>
+								<a class="hvr-wobble-top" href="http://www.dxblog.cn/14.html">Emlog响应式全站Pjax模板仿明月浩空官方版ColorfulV2.7预览版——价值234元的明月浩空V2.7模板</a>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<div class="wow fadeInDown">
-					<div class="banner border border-bottom-0 mt-3">
-						<strong>
-							<i class="fa fa-list mr-1"></i>
-							热门文章
-						</strong>
+				<!-- 评论排行 -->
+				<div class="card mt-3 wow fadeInDown">
+					<div class="card-header">
+						<i class="fa fa-sort-amount-asc mr-1"></i>
+						评论排行
 					</div>
-					<div class="border border-bottom-0">
-						<!-- article -->
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-					</div>
-				</div>
-				<div class="wow fadeInDown">
-					<div class="banner border border-bottom-0 mt-3">
-						<strong>
-							<i class="fa fa-list mr-1"></i>
-							文章归档
-						</strong>
-					</div>
-					<div class="border border-bottom-0">
-						<!-- article -->
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-					</div>
-				</div>
-				<div class="wow fadeInDown">
-					<div class="banner border border-bottom-0 mt-3">
-						<strong>
-							<i class="fa fa-list mr-1"></i>
-							博主推荐
-						</strong>
-					</div>
-					<div class="border border-bottom-0">
-						<!-- article -->
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-					</div>
-				</div>
-				<div class="wow fadeInDown">
-					<div class="banner border border-bottom-0 mt-3">
-						<strong>
-							<i class="fa fa-list mr-1"></i>
-							热门文章
-						</strong>
-					</div>
-					<div class="border border-bottom-0">
-						<!-- article -->
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-					</div>
-				</div>
-				<div class="wow fadeInDown">
-					<div class="banner border border-bottom-0 mt-3">
-						<strong>
-							<i class="fa fa-list mr-1"></i>
-							文章归档
-						</strong>
-					</div>
-					<div class="border border-bottom-0">
-						<!-- article -->
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
-						<div class="article p-2">aaa</div>
+					<div class="card-body">
+						<ul class="widget-content divPrevious">
+							<li ng-repeat="commentRankBolg in commentRankBolgs" ng-switch="$index+1">
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top" ui-sref="posts({id:commentRankBolg.id})">{{commentRankBolg.title}}</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>

@@ -28,7 +28,7 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 		}
 		Timer = setInterval(run, 3500);
 	}
-	//开启公告和轮播
+	// 开启公告和轮播
 	scroll_f();
     $('#carousel').carousel();
 
@@ -42,9 +42,7 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 		totalName : 'total',
 		rowsName : 'rows',
 		onLoaded : function(rows) {
-			$scope.articles = rows;
-			
-
+			$scope.articles = rows;			
 			$(() => {
 				$('.article p').dotdotdot({
 					height:90
@@ -53,6 +51,38 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 		}
 	};
 	
+	// 评论排行
+	 $http({
+	        method: 'GET',
+	        url: '/blogs?sort=commentSize&order=desc&page=1&size=9'
+	    }).then(function successCallback(response) {
+	        $scope.commentRankBolgs = response.data.rows;  
+	 });
+	 
+	// 分类
+	 $http({
+	        method: 'GET',
+	        url: '/categorys'
+	    }).then(function successCallback(response) {
+	       $scope.categorys=response.data;
+	 });
 	
-	
+	// 归档
+	 $http({
+	        method: 'GET',
+	        url: '/archives'
+	    }).then(function successCallback(response) {
+	       $scope.archives=response.data;
+	 });
+	 
 } ]);
+
+// 内容折叠
+function toggleContent(obj) {
+    if ($(obj).html() == '﹀') {
+        $(obj).html('︿');
+    }
+    else {
+        $(obj).html('﹀');
+    }
+}

@@ -48,14 +48,14 @@
 									<label class="control-label" for="category">分类：</label>
 									<select class="form-control" id="category">
 										<option value="">---未选择---</option>
-											<option th:each="category:${categorys}" th:value="${category.id}" th:text="${category.name}"></option>
+										<option th:each="category:${categorys}" th:value="${category.id}" th:text="${category.name}"></option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="archive">归档：</label>
 									<select class="form-control" id="archive">
 										<option value="">---未选择---</option>
-											<option th:each="archive:${archives}" th:value="${archive.id}" th:text="${archive.name}"></option>
+										<option th:each="archive:${archives}" th:value="${archive.id}" th:text="${archive.name}"></option>
 									</select>
 								</div>
 								<div class="form-group">
@@ -76,65 +76,61 @@
 	</div>
 	<div layout:fragment="js" th:remove="tag">
 		<script type="text/javascript">
-		//表格初始化
-			$('#table')
-					.bootstrapTable(
-							{
-								url : '/blogs',
-								method : 'GET',
-								striped : true,
-								cache : false,
-								pagination : true,
-								sortable : true,
-								sortOrder : "asc",
-								sidePagination : "server",
-								queryParams : queryParams,
-								pageNumber : 1,
-								pageSize : 10,
-								pageList : [ 10, 25, 50, 100 ],
-								columns : [
-										{
-											checkbox : "true",
-											field : "box"
-										},
-										{
-											field : 'number',
-											title : '序号',
-											align : 'center',
-											formatter : serialFormatter,
-											width : 60,
-										}, {
-											field : 'title',
-											title : '标题',
-											formatter : titleFormatter,
-										}, {
-											field : 'category',
-											title : '分类',
-										}, {
-											field : 'archive',
-											title : '归档',
-										}, {
-											field : 'tags',
-											title : '标签',
-										}, {
-											field : 'id',
-											title : '操作',
-											align : 'center',
-											formatter: actionFormatter,
-											width : 160,
-										}],
-								strictSearch : true,
-								showColumns : true,
-								showRefresh : true,
-								minimumCountColumns : 2,
-								toolbar : "#toolbar",
-							
-							});
-			
+			//表格初始化
+			$('#table').bootstrapTable({
+				url : '/blogs',
+				method : 'GET',
+				striped : true,
+				cache : false,
+				pagination : true,
+				sortable : true,
+				sortOrder : "asc",
+				sidePagination : "server",
+				queryParams : queryParams,
+				pageNumber : 1,
+				pageSize : 10,
+				pageList : [ 10, 25, 50, 100 ],
+				columns : [ {
+					checkbox : "true",
+					field : "box"
+				}, {
+					field : 'number',
+					title : '序号',
+					align : 'center',
+					formatter : serialFormatter,
+					width : 60,
+				}, {
+					field : 'title',
+					title : '标题',
+					formatter : titleFormatter,
+				}, {
+					field : 'category',
+					title : '分类',
+				}, {
+					field : 'archive',
+					title : '归档',
+				}, {
+					field : 'tags',
+					title : '标签',
+					formatter : tagFormatter
+				}, {
+					field : 'id',
+					title : '操作',
+					align : 'center',
+					formatter : actionFormatter,
+					width : 160,
+				} ],
+				strictSearch : true,
+				showColumns : true,
+				showRefresh : true,
+				minimumCountColumns : 2,
+				toolbar : "#toolbar",
+			});
+
 			//查询参数
 			function queryParams(params) {
-				var params= {
-					page : params.offset / params.limit+1,
+				var params = {
+					page : params.offset / params.limit + 1,
 					size : params.limit,
 					sort : params.sort,
 					order : params.order,
@@ -144,40 +140,45 @@
 					tag : $('#tag').val()
 				};
 				return params;
-			 }   
-			
+			}
+
 			// 操作列
 			function actionFormatter(value, row, index) {
-	            var result = "";
-	            result += "<a href='javascript:;' class='btn btn-xs' onclick=\"EditViewById('" + value + "', view='view')\" title='预览'><span class='glyphicon glyphicon-search'></span></a>";
-	            result += "<a href='/admin/blogs/edit/" + row.id + "' class='btn btn-xs' title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
-	            result += "<a href='javascript:;' class='btn btn-xs' onclick=\"DeleteByIds('" + value + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+				var result = "";
+				result += "<a href='javascript:;' class='btn btn-xs' onclick=\"EditViewById('" + value
+						+ "', view='view')\" title='预览'><span class='glyphicon glyphicon-search'></span></a>";
+				result += "<a href='/admin/blogs/edit/" + row.id + "' class='btn btn-xs' title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+				result += "<a href='javascript:;' class='btn btn-xs' onclick=\"DeleteByIds('" + value
+						+ "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
 
-	            return result;
-	        }
+				return result;
+			}
 			// 序号
 			function serialFormatter(value, row, index) {
-				var pageSize = $('#table')
-						.bootstrapTable(
-								'getOptions').pageSize;
-				var pageNumber = $('#table')
-						.bootstrapTable(
-								'getOptions').pageNumber;
-				return pageSize
-						* (pageNumber - 1)
-						+ index + 1;
+				var pageSize = $('#table').bootstrapTable('getOptions').pageSize;
+				var pageNumber = $('#table').bootstrapTable('getOptions').pageNumber;
+				return pageSize * (pageNumber - 1) + index + 1;
 			}
-			
+
 			// 操作列
 			function titleFormatter(value, row, index) {
-				  return "<a href='/admin/blogs/" + row.id + "' title='查看详情'>" + value + "</a>";
-	        }
-			
-			//自定义搜索刷新查询参数
-			function search(){
-				　　$('#table').bootstrapTable('refresh');
+				return "<a href='/admin/blogs/" + row.id + "' title='查看详情'>" + value + "</a>";
 			}
-			
+
+			// 标签列
+			function tagFormatter(value, row, index) {
+				if (value != null && value.length) {
+					return '<span title=' + value + '>...</span>';
+				} else {
+					return '<span title=' + value + '></span>';
+				}
+			}
+
+			//自定义搜索刷新查询参数
+			function search() {
+				$('#table').bootstrapTable('refresh');
+
+			}
 		</script>
 	</div>
 </body>

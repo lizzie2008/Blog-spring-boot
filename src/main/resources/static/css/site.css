@@ -15,6 +15,7 @@ a {
 .content {
 	background-color: #fff;
 	box-shadow: 0 0 20px #666;
+	padding-bottom: 20px;
 }
 
 .shadow-box {
@@ -127,10 +128,6 @@ a {
 
 .article .article-title {
 	padding-bottom: 5px;
-	white-space: nowrap;
-	word-wrap: normal;
-	text-overflow: ellipsis;
-	overflow: hidden;
 	font-weight: 700;
 	font-size: 15px;
 }
@@ -188,6 +185,7 @@ ul, li {
 	line-height: 26px;
 }
 
+/** **********************sidebar css*************************** */
 .sidebar {
 	margin-left: -15px;
 }
@@ -219,6 +217,84 @@ ul, li {
 	vertical-align: baseline;
 }
 
+.sidebar .category, .sidebar .archive {
+	font-size: 14px;
+	text-align: center;
+	border: 1px solid #dee2e6;
+	margin: 5px -8px 5px -8px;
+	padding: 5px 0 5px 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+}
+
+.sidebar .category:hover, .sidebar .archive:hover {
+	background-color: #16929D;
+	text-decoration: none;
+	color: #fff;
+}
+
+.sidebar .togglelink {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.sidebar .togglelink:hover {
+	text-decoration: none;
+}
+
+/** **********************my profile css*************************** */
+.profile {
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+	padding: 7px;
+}
+
+.profile-user-img {
+	margin: 5px auto;
+	width: 100px;
+	padding: 3px;
+	border: 3px solid #d2d6de;
+	border-radius: 50%;
+}
+
+.profile a {
+	width: 40px;
+	height: 40px;
+	line-height: 38px;
+	color: #999;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	font-size: 18px;
+	margin: 5px;
+}
+
+.profile a:hover {
+	color: #fff;
+}
+
+.profile .github:hover {
+	background: #808080;
+	border: 1px solid #808080;
+}
+
+.profile .weixin:hover {
+	background: #248a34;
+	border: 1px solid #248a34;
+}
+
+.profile .qq:hover {
+	background: #4e91d1;
+	border: 1px solid #4e91d1;
+}
+
+.profile .feed:hover {
+	background: #d28300;
+	border: 1px solid #d28300;
+}
+
 /** **********************post css*************************** */
 .post .breadcrumb {
 	padding: 10px;
@@ -229,6 +305,11 @@ ul, li {
 .nav-link {
 	display: block;
 	padding: 0 5px;
+	max-width: 240px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 15px;
 }
 
 .nav-pills .nav-link {

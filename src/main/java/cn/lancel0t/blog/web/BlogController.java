@@ -25,7 +25,7 @@ import cn.lancel0t.blog.vo.BlogModel;
 import javassist.NotFoundException;
 
 /*
- * 管理后台Controller
+ * 博客Controller
  */
 @RestController
 @RequestMapping("/blogs")
