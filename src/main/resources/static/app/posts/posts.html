@@ -12,15 +12,15 @@
 						</i>
 					</li>
 					<li class="breadcrumb-item">
-						<a href="#">{{blog.category.name}}</a>
+						<a ui-sref="categorys({id:blog.category.id,name:blog.category.name})">{{blog.category.name}}</a>
 					</li>
 					<li class="breadcrumb-item active">{{blog.title}}</li>
 				</ul>
 				<!-- title -->
 				<div class="text-center">
 					<h2>{{blog.title}}</h2>
-					<small class="text-muted"> 发表于：{{blog.createTime | date:'yyyy-MM-dd'}}&nbsp;|&nbsp; 分类于：{{blog.category.name}}&nbsp;|&nbsp;
-						阅读数：{{blog.readSize}}&nbsp;|&nbsp; 评论数：{{blog.comments.length}}&nbsp;|&nbsp; 点赞数：{{blog.likeSize}} </small>
+					<small class="text-muted"> 发表于：{{blog.createTime | date:'yyyy-MM-dd'}}&nbsp;•&nbsp; 分类于：<a class="text-muted" ui-sref="categorys({id:blog.category.id,name:blog.category.name})">{{blog.category.name}}</a>&nbsp;•&nbsp;
+						阅读数：{{blog.readSize}}&nbsp;•&nbsp; 评论数：{{blog.comments.length}}&nbsp;•&nbsp; 点赞数：{{blog.likeSize}} </small>
 				</div>
 				<hr>
 				<!-- blog content -->

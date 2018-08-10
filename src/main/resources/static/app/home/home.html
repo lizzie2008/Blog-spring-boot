@@ -1,6 +1,6 @@
 <div ng-controller="homeController">
 	<!-- marquee -->
-	<div class="scroll wow fadeInDown">
+	<div class="scroll">
 		<i class="fa fa-volume-up"></i>
 		<ul>
 			<li class="text-dark">欢迎访问我的个人博客网站</li>
@@ -14,7 +14,7 @@
 		<!-- 主内容区域 -->
 		<div class="col-md-9">
 			<!-- 轮播图 -->
-			<div class="border p-2 mt-3">
+			<div class="border p-2">
 				<div id="carousel" class="carousel slide" data-ride="carousel">
 					<!-- 指示符 -->
 					<ul class="carousel-indicators">
@@ -47,54 +47,25 @@
 			<div class="box mt-3">
 				<div class="box-header with-border">
 					<strong>
-						<i class="fa fa-list mr-1"></i>
+						<i class="fa fa-rebel mr-1"></i>
 						最新发布
 					</strong>
 				</div>
 				<div class="box-body">
-					<!-- article -->
-					<div class="article" ng-repeat="article in articles" ng-mouseenter="showAnimate=true;" ng-mouseleave="showAnimate=false;">
-						<div class="row">
-							<div class="col-md-3">
-								<div class="article-left">
-									<a ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">
-										<img class="img-responsive" ng-class="{'increaseSize':showAnimate==true}" src="images/f2.jpg" alt="img">
-									</a>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="article-right">
-									<span class="mt-0">
-										<a class="article-title hvr-wobble-top" ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">{{article.title}}</a>
-									</span>
-									<p class="article-summary">{{article.summary}}</p>
-									<div class="article-info">
-										<i class="fa fa-clock-o text-dark"></i>
-										&nbsp;{{article.createTime|date:'yyyy/MM/dd'}}
-										<i class="fa fa-eye ml-3 text-dark"></i>
-										&nbsp;{{article.readSize}}
-										<i class="fa fa-comment-o ml-3 text-dark"></i>
-										&nbsp;{{article.commentSize}}
-									</div>
-									<div class="article-readmore">
-										<a ui-sref="posts({id:article.id})" class="hvr-icon-forward" title="详细阅读：{{article.title}}"> 阅读更多>> </a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<!-- 博客列表 -->
+					<my-bloglist articles="blogs"></my-bloglist>
 				</div>
 			</div>
 			<!-- 分页控件 -->
 			<div class="p-2">
-				<my-pagination page-option="{{paginationConf}}"></my-pagination>
+				<my-pagination conf="paginationConf"></my-pagination>
 			</div>
 		</div>
 		<!-- 侧边栏 -->
 		<div class="col-md-3">
 			<div class="sidebar">
 				<!-- 个人信息 -->
-				<div class="profile border rounded mt-3 wow fadeInDown">
+				<div class="profile border rounded wow fadeInDown">
 					<img class="profile-user-img" src="images/me.png" alt="avatar">
 					<div class="my-1">
 						<strong class="text-center">博主：许立</strong>
@@ -102,8 +73,8 @@
 					</div>
 					<div class="my-1">
 						<i class="fa fa-book margin-r-5"></i>
-						教育水平
-						<div class="text-muted">武汉大学 软件工程 硕士</div>
+						毕业院校
+						<div class="text-muted">武汉大学 国际软件学院</div>
 					</div>
 					<div class="my-1">
 						<i class="fa fa-map-marker margin-r-5"></i>
@@ -135,12 +106,12 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-lg-6 col-md-12" ng-repeat="category in categorys" ng-if="$index<10">
-									<a class="category" href="#">{{category.name}}({{category.blogSize}})</a>
+									<a class="category" ui-sref="categorys({id:category.id,name:category.name})">{{category.name}}({{category.blogSize}})</a>
 								</div>
 							</div>
 							<div class="row collapse" id="collapseCategory">
 								<div class="col-lg-6 col-md-12" ng-repeat="category in categorys" ng-if="$index>=10">
-									<a class="category" href="#">{{category.name}}({{category.blogSize}})</a>
+									<a class="category" ui-sref="categorys({id:category.id,name:category.name})">{{category.name}}({{category.blogSize}})</a>
 								</div>
 							</div>
 							<div class="text-center" ng-if="categorys.length>10">
@@ -159,12 +130,12 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-lg-6 col-md-12" ng-repeat="archive in archives" ng-if="$index<10">
-									<a class="archive" href="#">{{archive.name}}({{archive.blogSize}})</a>
+									<a class="archive" ui-sref="archives({id:archive.id,name:archive.name})">{{archive.name}}({{archive.blogSize}})</a>
 								</div>
 							</div>
 							<div class="row collapse" id="collapseArchive">
 								<div class="col-lg-6 col-md-12" ng-repeat="archive in archives" ng-if="$index>=10">
-									<a class="archive" href="#">{{archive.name}}({{archive.blogSize}})</a>
+									<a class="archive" ui-sref="archives({id:archive.id,name:archive.name})">{{archive.name}}({{archive.blogSize}})</a>
 								</div>
 							</div>
 							<div class="text-center" ng-if="archives.length>10">

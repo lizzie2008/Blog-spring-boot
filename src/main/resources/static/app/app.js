@@ -12,7 +12,7 @@ app.factory('HttpInterceptor', ['$q', HttpInterceptor]);
 function HttpInterceptor($q) {
   return {
     request: function(config){
-//      window.Pace.restart();
+      window.Pace.restart();
       return config;
     },
     requestError: function(err){
@@ -45,6 +45,16 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($
         // 博客详情
         url: '/posts/:id',
         templateUrl: 'app/posts/posts.html'
+    }).state('categorys', {
+        // 博客分类
+        url: '/categorys/',
+        params:{id:null,name:null},
+        templateUrl: 'app/categorys/categorys.html'
+    }).state('archives', {
+        // 博客归档
+        url: '/archives/',
+        params:{id:null,name:null},
+        templateUrl: 'app/archives/archives.html'
     }).state('about', {
         // 关于
         url: '/about',
@@ -118,5 +128,8 @@ function generateContent(list, level, prefix) {
 }
 /** **********************启动初始化*************************** */
 $(() => {
+	// 初始化WOW动画
     new WOW().init();
+    // 返回顶部开始
+	$('.to-top').toTop();
 })

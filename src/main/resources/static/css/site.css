@@ -15,6 +15,7 @@ a {
 .content {
 	background-color: #fff;
 	box-shadow: 0 0 20px #666;
+	padding-top: 20px;
 	padding-bottom: 20px;
 }
 
@@ -137,6 +138,7 @@ a {
 	margin-right: 10px;
 	line-height: 24px;
 	color: #666;
+	height: 72px;
 }
 
 .article .article-info {
@@ -157,9 +159,8 @@ a {
 	bottom: 0px;
 	font-size: 13px;
 }
-
 /** **********************marquee css*************************** */
-ul, li {
+.scroll ul, .scroll li {
 	list-style: none
 }
 
@@ -169,7 +170,7 @@ ul, li {
 	background-color: transparent;
 	overflow: hidden;
 	position: relative;
-	top: 8px;
+	top: -10px;
 	font-size: 14px;
 	padding: 2px;
 }
@@ -299,6 +300,7 @@ ul, li {
 .post .breadcrumb {
 	padding: 10px;
 	font-size: 14px;
+	border-radius: 0;
 }
 
 /** **********************doc-nav css*************************** */
@@ -351,6 +353,28 @@ ul, li {
 .subComment {
 	border-left: 4px solid #aaa;
 	padding-left: 5px;
+}
+
+/** **********************timeline css*************************** */
+.timeline {
+	border-left: 4px solid #ccc;
+	min-height: 100px;
+	z-index: -1;
+}
+
+.timeline .timenode {
+	margin-left: -10px;
+	margin-right: 20px;
+	width: 15px;
+	height: 15px;
+	background: #aaa;
+	border-radius: 50%;
+	display: inline-block;
+	width: 15px;
+}
+
+.timeline .timenode.active {
+	background: linear-gradient(#34a5f8, #088ef0);
 }
 
 /*-- ******************************************************* --*/

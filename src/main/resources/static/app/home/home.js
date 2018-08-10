@@ -1,35 +1,8 @@
 app.controller('homeController', [ '$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
-	// 文字滚动
-	var scrollIndex = 0;
-	var Timer = null;
-	function scroll_f() {
-		clearInterval(Timer);
-		var ul = $(".scroll ul");
-		var li = ul.children("li");
-		var h = li.height();
-		var index = 0;
-		ul.css("height", h * li.length * 2);
-		ul.html(ul.html() + ul.html());
-		function run() {
-			if (scrollIndex >= li.length) {
-				ul.css({
-					top : 0
-				});
-				scrollIndex = 1;
-				ul.animate({
-					top : -scrollIndex * h
-				}, 1000);
-			} else {
-				scrollIndex++;
-				ul.animate({
-					top : -scrollIndex * h
-				}, 1000);
-			}
-		}
-		Timer = setInterval(run, 3500);
-	}
-	// 开启公告和轮播
+
+	// 开启公告
 	scroll_f();
+	// 开启轮播
     $('#carousel').carousel();
 
 	// 热门文章分页
@@ -42,11 +15,9 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 		totalName : 'total',
 		rowsName : 'rows',
 		onLoaded : function(rows) {
-			$scope.articles = rows;			
+			$scope.blogs = rows;			
 			$(() => {
-				$('.article p').dotdotdot({
-					height:90
-				});
+				$('.article .article-summary').dotdotdot();
 			})
 		}
 	};
@@ -85,4 +56,34 @@ function toggleContent(obj) {
     else {
         $(obj).html('﹀');
     }
+}
+
+// 文字滚动
+var scrollIndex = 0;
+var Timer = null;
+function scroll_f() {
+	clearInterval(Timer);
+	var ul = $(".scroll ul");
+	var li = ul.children("li");
+	var h = li.height();
+	var index = 0;
+	ul.css("height", h * li.length * 2);
+	ul.html(ul.html() + ul.html());
+	function run() {
+		if (scrollIndex >= li.length) {
+			ul.css({
+				top : 0
+			});
+			scrollIndex = 1;
+			ul.animate({
+				top : -scrollIndex * h
+			}, 1000);
+		} else {
+			scrollIndex++;
+			ul.animate({
+				top : -scrollIndex * h
+			}, 1000);
+		}
+	}
+	Timer = setInterval(run, 3500);
 }

@@ -1,0 +1,35 @@
+<div ng-controller="categorysController">
+	<div class="row">
+		<!-- 主内容区域 -->
+		<div class="col-md-9">
+			<div class="post border my-2">
+				<!-- breadcrumb -->
+				<ul class="breadcrumb">
+					<li class="breadcrumb-item">
+						<i class="fa fa-home">
+							<a href="#">&nbsp;首页</a>
+						</i>
+					</li>
+					<li class="breadcrumb-item">
+						<a ui-sref="categorys({id:null,name:null})">全部分类</a>
+					</li>
+					<li class="breadcrumb-item active" ng-if="categoryname">{{categoryname}}</li>
+				</ul>
+				<!-- 博客列表 -->
+				<my-bloglist articles="blogs"></my-bloglist>
+			</div>
+			<!-- 分页控件 -->
+			<div class="p-2">
+				<my-pagination conf="paginationConf"></my-pagination>
+			</div>
+		</div>
+		<!-- 侧边栏 -->
+		<div class="col-md-3 mt-5">
+			<div class="timeline" ng-repeat="category in categorys">
+				<div class="timenode" ng-class="{'active':categoryid==category.id}"></div>
+				<a ui-sref="categorys({id:category.id,name:category.name})" ng-class="{'active':categoryid==category.id}"
+					class="button button-small button-3d button-primary button-pill">{{category.name}}({{category.blogSize}})</a>
+			</div>
+		</div>
+	</div>
+</div>
