@@ -1,6 +1,4 @@
-<style>
-</style>
-<div ng-controller="postsController" ng-init="postComment={}">
+<div ng-controller="postsController" class="container my-1 content" ng-init="postComment={}" >
 	<div class="row">
 		<div class="col-md-9">
 			<div class="post border my-2">
@@ -21,6 +19,7 @@
 					<h2>{{blog.title}}</h2>
 					<small class="text-muted"> 发表于：{{blog.createTime | date:'yyyy-MM-dd'}}&nbsp;•&nbsp; 分类于：<a class="text-muted" ui-sref="categorys({id:blog.category.id,name:blog.category.name})">{{blog.category.name}}</a>&nbsp;•&nbsp;
 						阅读数：{{blog.readSize}}&nbsp;•&nbsp; 评论数：{{blog.comments.length}}&nbsp;•&nbsp; 点赞数：{{blog.likeSize}} </small>
+					<a href="#" class="pull-right">获取本文markdown</a>
 				</div>
 				<hr>
 				<!-- blog content -->

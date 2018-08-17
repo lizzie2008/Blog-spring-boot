@@ -1,5 +1,5 @@
 app.controller('homeController', [ '$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
-
+	 
 	// 开启公告
 	scroll_f();
 	// 开启轮播
@@ -44,7 +44,7 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 	        url: '/archives'
 	    }).then(function successCallback(response) {
 	       $scope.archives=response.data;
-	 });
+	 });	 
 	 
 } ]);
 
@@ -62,14 +62,18 @@ function toggleContent(obj) {
 var scrollIndex = 0;
 var Timer = null;
 function scroll_f() {
+	// 重置
 	clearInterval(Timer);
+	scrollIndex=0;
 	var ul = $(".scroll ul");
 	var li = ul.children("li");
 	var h = li.height();
 	var index = 0;
 	ul.css("height", h * li.length * 2);
 	ul.html(ul.html() + ul.html());
+	// 滚动运行
 	function run() {
+//		console.log("scrollIndex:"+scrollIndex+",top:"+ul.css("top"));
 		if (scrollIndex >= li.length) {
 			ul.css({
 				top : 0
@@ -83,7 +87,7 @@ function scroll_f() {
 			ul.animate({
 				top : -scrollIndex * h
 			}, 1000);
-		}
+		}		
 	}
 	Timer = setInterval(run, 3500);
 }

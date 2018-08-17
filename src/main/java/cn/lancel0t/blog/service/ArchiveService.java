@@ -20,8 +20,6 @@ public class ArchiveService {
 	 * @return
 	 */
 	public List<Archive> findAll() {
-		return archiveRepository.findAllByOrderByNameDesc();
+		return archiveRepository.findByBlogSizeGreaterThanOrderByNameDesc(0);
 	}
-	
-	
 }

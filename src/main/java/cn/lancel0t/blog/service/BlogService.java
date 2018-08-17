@@ -20,8 +20,10 @@ import org.springframework.util.StringUtils;
 
 import cn.lancel0t.blog.domain.Archive;
 import cn.lancel0t.blog.domain.Blog;
+import cn.lancel0t.blog.domain.BlogES;
 import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.repository.ArchiveRepository;
+import cn.lancel0t.blog.repository.BlogESRepository;
 import cn.lancel0t.blog.repository.BlogRepository;
 import cn.lancel0t.blog.repository.CommentRepository;
 import javassist.NotFoundException;
@@ -31,6 +33,9 @@ public class BlogService {
 
 	@Autowired
 	private BlogRepository blogRepository;
+
+	@Autowired
+	private BlogESRepository blogESRepository;
 
 	@Autowired
 	private ArchiveRepository archiveRepository;
@@ -154,7 +159,14 @@ public class BlogService {
 			originBlog.getArchive().setBlogSize(originBlog.getArchive().getBlogSize() - 1);
 			blog.getArchive().setBlogSize(blog.getArchive().getBlogSize() + 1);
 			originBlog.setArchive(blog.getArchive());
+		}
 
+		//保存到elasticsearch,捕获异常，打印异常信息，不影响正常保存
+		try {
+			BlogES blogES = new BlogES(blog);
+			blogESRepository.save(blogES);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

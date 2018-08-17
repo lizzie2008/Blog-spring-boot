@@ -1,0 +1,33 @@
+<div ng-controller="searchController" class="container my-1 content">
+	<div class="row">
+		<!-- 主内容区域 -->
+		<div class="col-md-9">
+			<div class="post border my-2">
+				<!-- breadcrumb -->
+				<ul class="breadcrumb">
+					<li class="breadcrumb-item">
+						<i class="fa fa-home">
+							<a href="#">&nbsp;首页</a>
+						</i>
+					</li>
+					<li class="breadcrumb-item active">搜索结果</li>
+				</ul>
+				<!-- 博客列表 -->
+				<div class="container">
+				<div class="text-center" ng-if="resultList.length==null||resultList.length==0">没有找到匹配的记录</div>
+					<div class="search-result" ng-repeat="result in resultList">
+						<a class="search-title" ui-sref="posts({id:result.id})" >
+							<span ng-bind-html="result.title | unsafe"></span>
+						</a>
+						<p class="search-snapshot" >
+						<span class="text-muted">{{result.createTime | date:'yyyy年M月d日 - '}}</span>
+						<span ng-bind-html="result.snapshot | unsafe"> </span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 侧边栏 -->
+		<div class="col-md-3 mt-5">bbb</div>
+	</div>
+</div>

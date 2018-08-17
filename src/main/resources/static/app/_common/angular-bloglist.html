@@ -1,6 +1,6 @@
 <!-- article -->
 <div>
-	<div class="text-center" ng-if="articles.length==null||articles.length==0">没有找到匹配的记录</div>
+	<div class="text-center" ng-if="articles.length==null||articles.length==0">加载中...</div>
 	<div class="article" ng-repeat="article in articles" ng-mouseenter="showAnimate=true;" ng-mouseleave="showAnimate=false;">
 		<div class="row">
 			<div class="col-md-3">

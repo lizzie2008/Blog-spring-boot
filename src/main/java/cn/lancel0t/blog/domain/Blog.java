@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -58,15 +57,16 @@ public class Blog implements Serializable {
 	private String content; // markdown内容
 
 	@ManyToOne
-	private Category category;	//分类
-	
+	private Category category; // 分类
+
 	@ManyToOne
-	private Archive archive;	//归档
-	
+	private Archive archive; // 归档
+
 	@Size(max = 100)
 	private String tags; // 标签
 
-	@DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
+//	@DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
 
 	private Integer readSize = 0; // 访问量
@@ -79,8 +79,8 @@ public class Blog implements Serializable {
 	private List<Comment> comments; // 评论
 
 	public Blog() {
-//		this.category = new Category();
-//		this.comments = new ArrayList<Comment>();
+		// this.category = new Category();
+		// this.comments = new ArrayList<Comment>();
 	}
 
 	public String getId() {

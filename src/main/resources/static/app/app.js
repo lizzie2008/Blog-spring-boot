@@ -1,10 +1,37 @@
 /** **********************Angular*************************** */
 // Angular相关配置
-var app = angular.module('app', ['ui.router']);
+var app = angular.module('app', ['ui.router','ngSanitize']);
 app.run(['$rootScope', '$transitions', '$state', function ($rootScope, $transitions, $state) {
     $transitions.onStart({}, function (trans) {
         var toStateName = trans.to().name;
         $rootScope.module = toStateName;
+        switch(toStateName){
+        case 'home':
+        	$rootScope.moduleName="首页";
+        	break;
+        case 'posts':
+        	$rootScope.moduleName="详情";
+        	break;
+        case 'categorys':
+        	$rootScope.moduleName="分类";
+        	break;
+        case 'archives':
+        	$rootScope.moduleName="归档";
+        	break;
+        case 'search':
+        	$rootScope.moduleName="搜索";
+        	break;
+        case 'about':
+        	$rootScope.moduleName="关于";
+        	break;
+        	default:
+        	$rootScope.moduleName=null;
+        }
+        $rootScope.moduleName='Lancel0tの博客-'+$rootScope.moduleName;
+        // 离开搜索页面，清空
+        if(toStateName!='search'){
+        	$('#search').val("");
+        }
     })
 }]);
 // 定义一个 Service ，把它作为 Interceptors 的处理函数
@@ -12,7 +39,6 @@ app.factory('HttpInterceptor', ['$q', HttpInterceptor]);
 function HttpInterceptor($q) {
   return {
     request: function(config){
-      window.Pace.restart();
       return config;
     },
     requestError: function(err){
@@ -55,6 +81,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($
         url: '/archives/',
         params:{id:null,name:null},
         templateUrl: 'app/archives/archives.html'
+    }).state('search', {
+        // 全文搜索
+        url: '/search/',
+        params:{searchText:null},
+        templateUrl: 'app/search/search.html'
     }).state('about', {
         // 关于
         url: '/about',
@@ -68,6 +99,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($
     $httpProvider.interceptors.push(HttpInterceptor);
 
 }]);
+// app控制器
+app.controller('appController', ['$scope', '$state', function ($scope, $state) {
+
+	// 全文搜索
+	$scope.search=function(){
+	// 跳转到搜索页面
+		$state.go('search',{searchText:$scope.searchText});
+	}
+}]);
+// 公共过滤器
+app.filter('unsafe', ['$sce',function($sce) {
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    }; }]);
 /** **********************jquery全局函数*************************** */
 // 静态方法
 $.extend({

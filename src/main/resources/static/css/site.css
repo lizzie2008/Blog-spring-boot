@@ -377,6 +377,20 @@ a {
 	background: linear-gradient(#34a5f8, #088ef0);
 }
 
+/** **********************search css*************************** */
+.search-result {
+	font-size: 14px;
+}
+
+.search-result .search-snapshot {
+	max-height: 63px;
+}
+
+.search-result a {
+	color: #007bff;
+	text-decoration: underline;
+}
+
 /*-- ******************************************************* --*/
 @media ( max-width : 575px) {
 	.hidden-xs-down {

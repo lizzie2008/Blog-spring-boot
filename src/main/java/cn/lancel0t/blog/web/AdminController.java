@@ -63,7 +63,7 @@ public class AdminController {
 	@RequestMapping(value = "/blogs")
 	public ModelAndView blogList() {
 
-		ModelAndView view = new ModelAndView("/admin/bloglist");
+		ModelAndView view = new ModelAndView("admin/bloglist");
 		List<Category> categorys = categoryService.findAll();
 		view.addObject("categorys", categorys);
 		List<Archive> archives = archiveService.findAll();
@@ -80,7 +80,7 @@ public class AdminController {
 	@GetMapping(value = "/blogs/{id}")
 	public ModelAndView blogDetail(@PathVariable("id") String id) {
 
-		ModelAndView view = new ModelAndView("/admin/blogdetail");
+		ModelAndView view = new ModelAndView("admin/blogdetail");
 		Blog blog = blogService.detail(id, false);
 		view.addObject("blog", blog);
 		return view;
@@ -94,7 +94,7 @@ public class AdminController {
 	@GetMapping(value = "/blogs/edit")
 	public ModelAndView blogAdd() {
 
-		ModelAndView view = new ModelAndView("/admin/blogedit");
+		ModelAndView view = new ModelAndView("admin/blogedit");
 		List<Category> categorys = categoryService.findAll();
 		view.addObject("categorys", categorys);
 		Blog blog = new Blog();
@@ -118,7 +118,7 @@ public class AdminController {
 		if (blog == null)
 			throw new NotFoundException("no blog founded!");
 
-		ModelAndView view = new ModelAndView("/admin/blogedit");
+		ModelAndView view = new ModelAndView("admin/blogedit");
 		List<Category> categorys = categoryService.findAll();
 		view.addObject("categorys", categorys);
 		view.addObject("blog", blog);

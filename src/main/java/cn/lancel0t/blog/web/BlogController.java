@@ -87,6 +87,12 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Blog detail(@PathVariable("id") String id) {
+		 try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return blogService.detail(id, true);
 	}
 

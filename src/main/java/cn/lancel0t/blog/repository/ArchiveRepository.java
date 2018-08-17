@@ -26,5 +26,5 @@ public interface ArchiveRepository extends JpaRepository<Archive, Long> {
 	 * 
 	 * @return
 	 */
-	List<Archive> findAllByOrderByNameDesc();
+	List<Archive> findByBlogSizeGreaterThanOrderByNameDesc(Integer blogSize);
 }

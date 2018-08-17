@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container wow fadeInDown">
 	<!-- comments-list -->
 	<div class="comment-list">
 		<h6 class="comment-title">
@@ -15,7 +15,7 @@
 							<a ng-if="comment.webSite" ng-href="http://{{comment.webSite}}" target="_blank"> {{comment.nickName}} </a>
 							<span ng-if="!comment.webSite">{{comment.nickName}}</span>
 						</strong>
-						<span class="mr-3 text-muted"> posted @ {{comment.createTime | date:"yyyy-MM-dd hh:mm"}} </span>
+						<span class="mr-3 text-muted"> posted @ {{comment.createTime | date:"yyyy-MM-dd HH:mm"}} </span>
 						<a class="pull-right" href="" ng-if="showReply" ng-click="jumpToComment(comment.id,comment.nickName)">回复</a>
 						<div class="mt-2">{{comment.content}}</div>
 					</div>
