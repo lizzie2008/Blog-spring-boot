@@ -44,14 +44,12 @@
 				</div>
 			</div>
 			<!-- 最新发布 -->
-			<div class="box mt-3">
-				<div class="box-header with-border">
-					<strong>
-						<i class="fa fa-rebel mr-1"></i>
-						最新发布
-					</strong>
+			<div class="card mt-3">
+				<div class="card-header">
+					<i class="fa fa-rebel mr-1"></i>
+					最新发布
 				</div>
-				<div class="box-body">
+				<div class="card-body">
 					<!-- 博客列表 -->
 					<my-bloglist articles="blogs"></my-bloglist>
 				</div>
@@ -152,45 +150,10 @@
 					</div>
 					<div class="card-body">
 						<ul class="widget-content divPrevious">
-							<li>
+							<li ng-repeat="readRankBolg in readRankBolgs" ng-switch="$index+1"
+								ng-class="{'rank1':$index+1==1,'rank2':$index+1==2,'rank3':$index+1==3,'rank0':$index+1>3}">
 								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/25.html">Python远程控制模块paramiko遇到的问题及解决记录</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/144.html">搭建最新版代刷网+支付接口视频教程</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/160.html">东轩博客祝大家新年快乐</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/27.html">今天聊聊SEO行业中风行的霸屏、快排、蜘蛛池</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/4.html">利用jquery.qrcode.js生成二维码和logo居中的图片 js生成二维码</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/288.html">在线商业头盔制作器 支持DIY字（外卖头盔）</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/18.html">emlog鼠标点击产生文字效果</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/274.html">彩虹代刷网推广链接生成插件1.1</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/239.html">东轩博客提前预祝大家愚人节快乐</a>
-							</li>
-							<li>
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" href="http://www.dxblog.cn/14.html">Emlog响应式全站Pjax模板仿明月浩空官方版ColorfulV2.7预览版——价值234元的明月浩空V2.7模板</a>
+								<a class="hvr-wobble-top" ui-sref="posts({id:readRankBolg.id})">{{readRankBolg.title}}</a>
 							</li>
 						</ul>
 					</div>
@@ -203,7 +166,8 @@
 					</div>
 					<div class="card-body">
 						<ul class="widget-content divPrevious">
-							<li ng-repeat="commentRankBolg in commentRankBolgs" ng-switch="$index+1">
+							<li ng-repeat="commentRankBolg in commentRankBolgs" ng-switch="$index+1"
+								ng-class="{'rank1':$index+1==1,'rank2':$index+1==2,'rank3':$index+1==3,'rank0':$index+1>3}">
 								<i class="fa fa-plus-square"></i>
 								<a class="hvr-wobble-top" ui-sref="posts({id:commentRankBolg.id})">{{commentRankBolg.title}}</a>
 							</li>

@@ -27,7 +27,7 @@ app.run(['$rootScope', '$transitions', '$state', function ($rootScope, $transiti
         	default:
         	$rootScope.moduleName=null;
         }
-        $rootScope.moduleName='Lancel0tの博客-'+$rootScope.moduleName;
+        $rootScope.moduleName=$rootScope.moduleName+' | Lancel0tの博客';
         // 离开搜索页面，清空
         if(toStateName!='search'){
         	$('#search').val("");
@@ -71,6 +71,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($
         // 博客详情
         url: '/posts/:id',
         templateUrl: 'app/posts/posts.html'
+    }).state('markdown', {
+        // 博客markdown文本
+        url: '/markdown/:id',
+        templateUrl: 'app/markdown/markdown.html'
     }).state('categorys', {
         // 博客分类
         url: '/categorys/',
@@ -155,14 +159,14 @@ $.fn.extend({
 function generateContent(list, level, prefix) {
     var content_ul = '';
     var weight = prefix.length;
-
     if (list != null && list.length > 0) {
         content_ul += '<nav class="nav nav-pills flex-column">';
         for (var i = 0; i < list.length; i++) {
             var newPrefix = prefix + (i + 1) + '.';
             var text = newPrefix + $(list[i]).text();
             var href = $(list[i]).attr('id');
-            content_ul += '<a class="nav-link my-1" style="padding-left:' + (5 + weight * 6) + 'px;" href="#' + href + '">' + text + '</a>'
+            content_ul += '<a class="nav-link my-1" style="padding-left:' 
+            	+ (5 + weight * 6) + 'px;font-weight:'+(500-weight*50)+';" href="#' + href + '">' + text + '</a>'
             var subList = $(list[i]).nextUntil('h' + level, 'h' + (level + 1));
             content_ul += generateContent(subList, (level + 1), newPrefix);
             content_ul += '';

@@ -7,7 +7,7 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 
 	// 热门文章分页
 	$scope.paginationConf = {
-		size : 5,
+		size : 10,
 		showNum : 7,
 		// 定义url格式,默认使用GET方式
 		url : '/blogs?sort=createTime&order=desc&page={#page}&size={#size}',
@@ -22,6 +22,14 @@ app.controller('homeController', [ '$scope', '$stateParams', '$http', function($
 		}
 	};
 	
+	// 阅读排行
+	 $http({
+	        method: 'GET',
+	        url: '/blogs?sort=readSize&order=desc&page=1&size=9'
+	    }).then(function successCallback(response) {
+	        $scope.readRankBolgs = response.data.rows;  
+	 });
+	 
 	// 评论排行
 	 $http({
 	        method: 'GET',

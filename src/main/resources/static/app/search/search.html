@@ -14,20 +14,51 @@
 				</ul>
 				<!-- 博客列表 -->
 				<div class="container">
-				<div class="text-center" ng-if="resultList.length==null||resultList.length==0">没有找到匹配的记录</div>
+					<div class="text-center" ng-if="resultList.length==null||resultList.length==0">没有找到匹配的记录</div>
 					<div class="search-result" ng-repeat="result in resultList">
-						<a class="search-title" ui-sref="posts({id:result.id})" >
+						<a class="search-title" ui-sref="posts({id:result.id})">
 							<span ng-bind-html="result.title | unsafe"></span>
 						</a>
-						<p class="search-snapshot" >
-						<span class="text-muted">{{result.createTime | date:'yyyy年M月d日 - '}}</span>
-						<span ng-bind-html="result.snapshot | unsafe"> </span>
+						<p class="search-snapshot">
+							<span class="text-muted">{{result.createTime | date:'yyyy年M月d日 - '}}</span>
+							<span ng-bind-html="result.snapshot | unsafe"> </span>
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 侧边栏 -->
-		<div class="col-md-3 mt-5">bbb</div>
+		<div class="col-md-3 mt-5">
+			<div hidden>
+				<p>支持的搜索格式：</p>
+				<ol>
+					<li>
+					<div>输入关键词全文搜索：</div>
+						<a href="?s=HTTP%2F2%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">HTTP/2 性能优化；</a>
+					</li>
+					<li>
+						<div>指定时间段搜索：</div>
+						<a href="?s=date%3A2014">date:2014</a>
+						、
+						<a href="?s=date%3A2015-05">date:2015-05</a>
+						；
+					</li>
+					<li>
+						指定标签搜索：
+						<a href="?s=tag%3A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">tag:性能优化；</a>
+					</li>
+					<li>
+						指定文章类型搜索：
+						<a href="?s=type%3Apage">type:page；</a>
+						
+					</li>
+					<li>
+						组合搜索：
+						<a href="?s=type%3Apost%20date%3A2015%20tag%3AHTTP%20%E4%BC%98%E5%8C%96">type:post date:2015 tag:HTTP 优化；</a>
+						
+					</li>
+				</ol>
+			</div>
+		</div>
 	</div>
 </div>

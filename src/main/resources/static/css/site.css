@@ -31,6 +31,10 @@ a {
 	background-color: #222;
 }
 
+#search {
+	width: 300px;
+}
+
 /** **********************pagination css*************************** */
 .page-link {
 	font-size: 14px;
@@ -191,27 +195,46 @@ a {
 	margin-left: -15px;
 }
 
-.sidebar .card-header {
+.card-header {
 	padding: 8px;
+}
+
+.card-body {
+	padding: 0;
 }
 
 .sidebar .card-body {
 	padding: 5px;
 }
 
-.sidebar .card-body ul {
+.card-body ul {
 	padding: 0px 2px 2px;
 }
 
-.sidebar .card-body ul li {
+.card-body ul li {
 	font-size: 14px;
-	color: #398E9F;
 	white-space: nowrap;
 	line-height: 25px;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	padding: 5px 5px 0 0;
 	word-wrap: normal;
+}
+
+.rank0 {
+	color: #8eb9f5;
+}
+
+.rank1 {
+	color: #f54545;
+}
+
+.rank2 {
+	color: #ff8547;
+}
+
+.rank3 {
+	color: #ffac38;
 }
 
 .sidebar .card-body a {
@@ -303,6 +326,10 @@ a {
 	border-radius: 0;
 }
 
+.editormd-html-preview blockquote, .editormd-preview-container blockquote
+	{
+	font-style: normal;
+}
 /** **********************doc-nav css*************************** */
 .nav-link {
 	display: block;

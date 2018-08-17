@@ -14,7 +14,7 @@ app.controller('categorysController', ['$scope', '$stateParams', '$http', functi
     // 分类博客分页
     var categoryPara = $scope.categoryid == null ? "" : $scope.categoryid;
     $scope.paginationConf = {
-        size: 5,
+        size: 10,
         showNum: 7,
         // 定义url格式,默认使用GET方式
         url: '/blogs?sort=createTime&order=desc&page={#page}&size={#size}&category=' + categoryPara,

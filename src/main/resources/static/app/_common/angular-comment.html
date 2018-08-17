@@ -1,9 +1,10 @@
-<div class="container wow fadeInDown">
+<div class="container">
 	<!-- comments-list -->
 	<div class="comment-list">
 		<h6 class="comment-title">
 			<i class="fa fa-comment"></i>
-			评论列表（已有 {{blog.comments.length}} 条评论）
+			<span ng-if="blog.comments.length>0">评论列表（已有 {{blog.comments.length}} 条评论）</span>
+			<span ng-if="blog.comments.length==0">评论列表（尚未有评论，欢迎您的第一条评论~）</span>
 		</h6>
 		<!-- 普通的评论 -->
 		<ul class="list-unstyled rootComment">

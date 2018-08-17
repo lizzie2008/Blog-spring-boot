@@ -14,7 +14,7 @@ app.controller('archivesController', ['$scope', '$stateParams', '$http', functio
     // 归档博客分页
     var archivePara = $scope.archiveid == null ? "" : $scope.archiveid;
     $scope.paginationConf = {
-        size: 5,
+        size: 10,
         showNum: 7,
         // 定义url格式,默认使用GET方式
         url: '/blogs?sort=createTime&order=desc&page={#page}&size={#size}&archive=' + archivePara,
