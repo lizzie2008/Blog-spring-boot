@@ -1,6 +1,5 @@
 package cn.lancel0t.blog.repository;
 
-import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import cn.lancel0t.blog.domain.BlogES;
