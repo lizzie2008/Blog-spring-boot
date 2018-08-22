@@ -1,22 +1,28 @@
 package cn.lancel0t.blog.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.lancel0t.blog.domain.Archive;
 import cn.lancel0t.blog.domain.Blog;
 import cn.lancel0t.blog.domain.Category;
+import cn.lancel0t.blog.domain.Tag;
 import cn.lancel0t.blog.service.ArchiveService;
 import cn.lancel0t.blog.service.BlogService;
 import cn.lancel0t.blog.service.CategoryService;
@@ -38,6 +44,7 @@ public class AdminController {
 
 	/**
 	 * 绑定实体时，防止form表单提交的null值转成""
+	 * 
 	 * @param binder
 	 */
 	@InitBinder
@@ -117,11 +124,17 @@ public class AdminController {
 		Blog blog = blogService.detail(id, false);
 		if (blog == null)
 			throw new NotFoundException("no blog founded!");
+		// 标签处理
+		List<String> tagNames = new ArrayList<>();
+		for (Tag tag : blog.getTags()) {
+			tagNames.add(tag.getName());
+		}
 
 		ModelAndView view = new ModelAndView("admin/blogedit");
 		List<Category> categorys = categoryService.findAll();
 		view.addObject("categorys", categorys);
 		view.addObject("blog", blog);
+		view.addObject("tagNames", String.join(",", tagNames));
 		return view;
 	}
 
@@ -133,8 +146,9 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("/blogs/edit")
-	public String blogSave(Blog blog) {
+	@ResponseBody
+	public ResponseEntity<String> blogSave(@RequestBody Blog blog) {
 		blogService.save(blog);
-		return "redirect:/admin/blogs";
+		return new ResponseEntity<String>("/admin/blogs", HttpStatus.OK);
 	}
 }

@@ -15,13 +15,13 @@ public class BlogModel implements Serializable {
 
 	private String title; // 标题
 	
+	private String image; // 定义图片
+
 	private String summary; // 摘要
 
 	private String category; // 分类
-	
-	private String archive; // 归档
 
-	private String tags; // 标签
+	private String archive; // 归档
 
 	private Date createTime; // 创建时间
 
@@ -30,6 +30,21 @@ public class BlogModel implements Serializable {
 	private Integer commentSize = 0; // 评论量
 
 	private Integer likeSize = 0; // 点赞量
+
+	// 根据blog实体构造
+	public BlogModel(Blog blog) {
+		this.setId(blog.getId());
+		this.setTitle(blog.getTitle());
+		this.setImage(blog.getImage());
+		this.setSummary(blog.getSummary());
+		this.setCategory(blog.getCategory().getName());
+		this.setArchive(blog.getArchive().getName());
+		this.setCreateTime(blog.getCreateTime());
+		this.setReadSize(blog.getReadSize());
+		this.setCommentSize(blog.getCommentSize());
+		this.setLikeSize(blog.getLikeSize());
+	}
+
 	/**
 	 * 转换为vo集合
 	 * 
@@ -39,17 +54,7 @@ public class BlogModel implements Serializable {
 	public static List<BlogModel> copyList(List<Blog> blogs) {
 		List<BlogModel> blogModels = new ArrayList<>();
 		for (Blog blog : blogs) {
-			BlogModel blogModel = new BlogModel();
-			blogModel.setId(blog.getId());
-			blogModel.setTitle(blog.getTitle());
-			blogModel.setSummary(blog.getSummary());
-			blogModel.setCategory(blog.getCategory().getName());
-			blogModel.setArchive(blog.getArchive().getName());
-			blogModel.setTags(blog.getTags());
-			blogModel.setCreateTime(blog.getCreateTime());
-			blogModel.setReadSize(blog.getReadSize());
-			blogModel.setCommentSize(blog.getCommentSize());
-			blogModel.setLikeSize(blog.getLikeSize());
+			BlogModel blogModel = new BlogModel(blog);
 			blogModels.add(blogModel);
 		}
 		return blogModels;
@@ -70,21 +75,21 @@ public class BlogModel implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String getSummary() {
 		return summary;
 	}
 
 	public void setSummary(String summary) {
 		this.summary = summary;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
 	}
 
 	public String getCategory() {
@@ -134,6 +139,5 @@ public class BlogModel implements Serializable {
 	public void setArchive(String archive) {
 		this.archive = archive;
 	}
-
 
 }

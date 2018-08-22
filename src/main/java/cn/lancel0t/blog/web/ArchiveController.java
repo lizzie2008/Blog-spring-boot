@@ -23,6 +23,6 @@ public class ArchiveController {
 
 	@GetMapping
 	public ResponseEntity<List<?>> getAll() {
-		return new ResponseEntity<List<?>>(archiveService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<List<?>>(archiveService.findAllWithBlogSize(), HttpStatus.OK);
 	}
 }

@@ -1,14 +1,19 @@
 package cn.lancel0t.blog.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 归档 实体
@@ -28,8 +33,10 @@ public class Archive implements Serializable {
 	@Size(max = 30)
 	@Column(nullable = false, length = 30)
 	private String name; // 归档名称
-	
-	private Integer blogSize = 0; // 博客数量
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "archive")
+	private Set<Blog> blogs = new HashSet<Blog>(); // 所有博客
 
 	public Archive() {
 	}
@@ -54,11 +61,11 @@ public class Archive implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getBlogSize() {
-		return blogSize;
+	public Set<Blog> getBlogs() {
+		return blogs;
 	}
 
-	public void setBlogSize(Integer blogSize) {
-		this.blogSize = blogSize;
+	public void setBlogs(Set<Blog> blogs) {
+		this.blogs = blogs;
 	}
 }

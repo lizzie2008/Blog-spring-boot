@@ -3,6 +3,7 @@ package cn.lancel0t.blog.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -10,6 +11,8 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,15 +25,19 @@ import cn.lancel0t.blog.domain.Archive;
 import cn.lancel0t.blog.domain.Blog;
 import cn.lancel0t.blog.domain.BlogES;
 import cn.lancel0t.blog.domain.Comment;
+import cn.lancel0t.blog.domain.Tag;
 import cn.lancel0t.blog.repository.ArchiveRepository;
 import cn.lancel0t.blog.repository.BlogESRepository;
 import cn.lancel0t.blog.repository.BlogRepository;
 import cn.lancel0t.blog.repository.CommentRepository;
+import cn.lancel0t.blog.repository.TagRepository;
 import javassist.NotFoundException;
 
 @Service
 public class BlogService {
 
+	private final Logger logger=LoggerFactory.getLogger(BlogService.class);
+	
 	@Autowired
 	private BlogRepository blogRepository;
 
@@ -39,7 +46,10 @@ public class BlogService {
 
 	@Autowired
 	private ArchiveRepository archiveRepository;
-
+	
+	@Autowired
+	private TagRepository tagRepository;
+	
 	@Autowired
 	private CommentRepository commentRepository;
 
@@ -130,43 +140,15 @@ public class BlogService {
 			blog.setArchive(existArchive);
 		}
 
-		// 新建
-		if (blog.getId() == null) {
-
-			blogRepository.save(blog);
-			// 新分类统计+1
-			blog.getCategory().setBlogSize(blog.getCategory().getBlogSize() + 1);
-			blog.getArchive().setBlogSize(blog.getArchive().getBlogSize() + 1);
-		}
-		// 更新
-		else {
-
-			Blog originBlog = blogRepository.findById(blog.getId()).get();
-
-			originBlog.setId(blog.getId());
-			originBlog.setTitle(blog.getTitle());
-			originBlog.setImage(blog.getImage());
-			originBlog.setSummary(blog.getSummary());
-			originBlog.setContent(blog.getContent());
-			originBlog.setCreateTime(blog.getCreateTime());
-
-			// 原分类统计-1,新分类统计+1
-			originBlog.getCategory().setBlogSize(originBlog.getCategory().getBlogSize() - 1);
-			blog.getCategory().setBlogSize(blog.getCategory().getBlogSize() + 1);
-			originBlog.setCategory(blog.getCategory());
-
-			// 原归档统计-1,新归档统计+1
-			originBlog.getArchive().setBlogSize(originBlog.getArchive().getBlogSize() - 1);
-			blog.getArchive().setBlogSize(blog.getArchive().getBlogSize() + 1);
-			originBlog.setArchive(blog.getArchive());
-		}
+		//保存博客对象
+		blogRepository.save(blog);
 
 		//保存到elasticsearch,捕获异常，打印异常信息，不影响正常保存
 		try {
 			BlogES blogES = new BlogES(blog);
 			blogESRepository.save(blogES);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("save blog to elasticsearch failed.");
 		}
 	}
 

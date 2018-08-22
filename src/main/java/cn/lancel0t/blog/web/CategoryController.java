@@ -22,7 +22,7 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@GetMapping
-	public ResponseEntity<List<?>> getAll() {
-		return new ResponseEntity<List<?>>(categoryService.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<?>> list() {
+		return new ResponseEntity<List<?>>(categoryService.findAllWithBlogSize(), HttpStatus.OK);
 	}
 }

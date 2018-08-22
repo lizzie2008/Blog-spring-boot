@@ -2,14 +2,18 @@ package cn.lancel0t.blog.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -17,6 +21,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -62,11 +67,15 @@ public class Blog implements Serializable {
 	@ManyToOne
 	private Archive archive; // 归档
 
-	@Size(max = 100)
-	private String tags; // 标签
+	@ManyToMany
+	@JoinTable(
+		      name="blog_tag",
+		      joinColumns=@JoinColumn(name="blog_id", referencedColumnName="id"),
+		      inverseJoinColumns=@JoinColumn(name="tag_id", referencedColumnName="id"))
+	private Set<Tag> tags = new HashSet<Tag>(); // 标签
 
-//	@DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	// @DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm", timezone = "GMT+8")
 	private Date createTime;
 
 	private Integer readSize = 0; // 访问量
@@ -76,11 +85,9 @@ public class Blog implements Serializable {
 	private Integer likeSize = 0; // 点赞量
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "blog")
-	private List<Comment> comments; // 评论
+	private Set<Comment> comments = new HashSet<Comment>(); // 评论
 
 	public Blog() {
-		// this.category = new Category();
-		// this.comments = new ArrayList<Comment>();
 	}
 
 	public String getId() {
@@ -139,11 +146,11 @@ public class Blog implements Serializable {
 		this.archive = archive;
 	}
 
-	public String getTags() {
+	public Set<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(String tags) {
+	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 
@@ -171,11 +178,11 @@ public class Blog implements Serializable {
 		this.likeSize = likeSize;
 	}
 
-	public List<Comment> getComments() {
+	public Set<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
 

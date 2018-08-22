@@ -1,6 +1,7 @@
 package cn.lancel0t.blog;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +15,10 @@ import cn.lancel0t.blog.domain.Category;
 import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.repository.BlogRepository;
 import cn.lancel0t.blog.repository.CategoryRepository;
+import cn.lancel0t.blog.repository.TagRepository;
 import cn.lancel0t.blog.service.CategoryService;
 import cn.lancel0t.blog.service.CommentService;
+import cn.lancel0t.blog.vo.TagResult;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,6 +32,9 @@ public class BlogApplicationTests {
 
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	TagRepository Repository;
 
 	@Autowired
 	CommentService commentService;
@@ -114,6 +120,7 @@ public class BlogApplicationTests {
 		comment5.setContent("最近在使用Spring data Jpa，看大家都好评，那我就mark一下，以后能看懂的时候再来看。");
 		commentService.save(comment5);
 	}
+	
 
 
 }
