@@ -15,7 +15,7 @@ import cn.lancel0t.blog.service.CategoryService;
  * 分类Controller
  */
 @RestController
-@RequestMapping("/categorys")
+@RequestMapping("/api/categorys")
 public class CategoryController {
 
 	@Autowired

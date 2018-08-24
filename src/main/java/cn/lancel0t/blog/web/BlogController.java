@@ -28,7 +28,7 @@ import javassist.NotFoundException;
  * 博客Controller
  */
 @RestController
-@RequestMapping("/blogs")
+@RequestMapping("/api/blogs")
 public class BlogController {
 
 	@Autowired

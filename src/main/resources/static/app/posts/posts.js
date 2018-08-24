@@ -1,9 +1,11 @@
-app.controller('postsController', [ '$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
+app.controller('postsController', [ '$scope', '$stateParams', '$http', '$location', function($scope, $stateParams, $http ,$location) {
 
+	$scope.absUrl=$location.absUrl();
+	
 	// 获取博客内容
 	$http({
 		method : 'GET',
-		url : '/blogs/' + $stateParams.id
+		url : '/api/blogs/' + $stateParams.id
 	}).then(function successCallback(response) {
 
 		// 博客

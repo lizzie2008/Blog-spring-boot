@@ -57,7 +57,7 @@ app.directive('myComment', [ '$http', function($http) {
 
 		        $http({
 		            method: 'POST',
-		            url: '/blogs/'+$scope.blog.id+'/comments',
+		            url: '/api/blogs/'+$scope.blog.id+'/comments',
 		            data: comment
 		        }).then(function successCallback(response) {
 		        	comment.id=response.data;
@@ -71,12 +71,22 @@ app.directive('myComment', [ '$http', function($http) {
 		    // 将博客评论转换为层级显示
 		    function transComments(){
 		    	// 评论处理
-		        var comments = $scope.blog.comments;
-		        var rootComments = comments.filter(s => s.reply == false);
-		        $.each(rootComments, function (i, item) {
-		            item.subComments = comments.filter(s => s.reply == true && s.parentCommentId == item.id);
+		        var comments = $scope.blog.comments.sort(function(a, b){
+		    		return a.id>b.id;
+		    	});
+		        
+		        $.each(comments, function (i, item) {
+		            if(!item.reply){
+		            	item.subComments = comments.filter(s => s.reply == true && s.parentCommentId == item.id);
+		            }
+		            item.pattern = GeoPattern.generate(item.nickName).toDataUrl();
 		        });
-		        $scope.comments = rootComments;
+		        
+//		        var rootComments = comments.filter(s => s.reply == false);
+//		        $.each(rootComments, function (i, item) {
+//		            item.subComments = comments.filter(s => s.reply == true && s.parentCommentId == item.id);
+//		        });
+		        $scope.comments = comments.filter(s => !s.reply);
 		    }
 		}
 	}

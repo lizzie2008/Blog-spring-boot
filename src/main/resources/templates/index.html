@@ -2,6 +2,7 @@
 <html ng-app="app" ng-controller="appController" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+<base href="/" />
 <title ng-bind="$root.moduleName"></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,43 +17,17 @@
 <link href="https://cdn.bootcss.com/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/imagehover.css/1.0/css/imagehover.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/Buttons/2.0.0/css/buttons.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/jqcloud/1.0.4/jqcloud.min.css" rel="stylesheet">
 <link href="https://mysite.bj.bcebos.com/blog/lib/editor.md/css/editormd.min.css" rel="stylesheet">
+<link href="https://at.alicdn.com/t/font_807228_us0qhg586js.css" rel="stylesheet">
 <!-- custom theme files -->
 <link href="css/site.css" rel="stylesheet">
-	<!-- import javascripts -->
-	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script src="https://cdn.bootcss.com/angular.js/1.7.0/angular.min.js"></script>
-	<script src="https://cdn.bootcss.com/angular-sanitize/1.7.0/angular-sanitize.min.js"></script>
-	<script src="https://cdn.bootcss.com/angular-ui-router/1.0.18/angular-ui-router.min.js"></script>
-	<script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
-	<script src="https://cdn.bootcss.com/marked/0.4.0/marked.min.js"></script>
-	<script src="https://cdn.bootcss.com/jQuery.dotdotdot/3.2.2/jquery.dotdotdot.js"></script>
-	<script src="https://cdn.bootcss.com/Buttons/2.0.0/js/buttons.min.js"></script>
-	<script src="app/app.js"></script>
-	<script src="app/home/home.js"></script>
-	<script src="app/posts/posts.js"></script>
-	<script src="app/categorys/categorys.js"></script>
-	<script src="app/archives/archives.js"></script>
-	<script src="app/search/search.js"></script>
-	<script src="app/_common/angular-bloglist.js"></script>
-	<script src="app/_common/angular-pagination.js"></script>
-	<script src="app/_common/angular-comment.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/jquery.toTop.min.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/editormd.min.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/marked.min.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/prettify.min.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/raphael.min.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/underscore.min.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/sequence-diagram.min.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/flowchart.min.js"></script>
-	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/jquery.flowchart.min.js"></script>
 </head>
 <body data-spy="scroll" data-target="#myScrollspy" data-offset="10">
 	<!-- navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 		<div class="container px-0">
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="/">
 				<img src="images/logo.png" alt="Logo">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -61,7 +36,7 @@
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item-sm" ng-class="{'active':$root.module=='home'}">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="/">
 							<i class="fa fa-home"></i>
 							&nbsp;首页
 						</a>
@@ -73,15 +48,15 @@
 						</a>
 					</li>
 					<li class="nav-item-sm">
-						<a class="nav-link" href="#">
-							<i class="fa fa-tags"></i>
-							&nbsp;标签
-						</a>
-					</li>
-					<li class="nav-item-sm">
 						<a class="nav-link" ng-class="{'active':$root.module=='archives'}" ui-sref="archives({id:null,name:null})">
 							<i class="fa fa-calendar"></i>
 							&nbsp;归档
+						</a>
+					</li>
+					<li class="nav-item-sm">
+						<a class="nav-link" ng-class="{'active':$root.module=='tags'}" ui-sref="tags({id:null,name:null})">
+							<i class="fa fa-tag"></i>
+							&nbsp;标签
 						</a>
 					</li>
 					<li class="nav-item-sm">
@@ -114,6 +89,38 @@
 			<i class="fa fa-arrow-up"></i>
 		</a>
 	</footer>
-
+	<!-- import javascripts -->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/angular.js/1.7.0/angular.min.js"></script>
+	<script src="https://cdn.bootcss.com/angular-sanitize/1.7.0/angular-sanitize.min.js"></script>
+	<script src="https://cdn.bootcss.com/angular-ui-router/1.0.18/angular-ui-router.min.js"></script>
+	<script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+	<script src="https://cdn.bootcss.com/marked/0.4.0/marked.min.js"></script>
+	<script src="https://cdn.bootcss.com/jQuery.dotdotdot/3.2.2/jquery.dotdotdot.js"></script>
+	<script src="https://cdn.bootcss.com/Buttons/2.0.0/js/buttons.min.js"></script>
+	<script src="https://cdn.bootcss.com/jqcloud/1.0.4/jqcloud.js"></script>
+	<script src="https://cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/home/home.js"></script>
+	<script src="app/posts/posts.js"></script>
+	<script src="app/categorys/categorys.js"></script>
+	<script src="app/archives/archives.js"></script>
+	<script src="app/tags/tags.js"></script>
+	<script src="app/search/search.js"></script>
+	<script src="app/about/about.js"></script>
+	<script src="app/_common/angular-bloglist.js"></script>
+	<script src="app/_common/angular-pagination.js"></script>
+	<script src="app/_common/angular-comment.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/jquery.toTop.min.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/editormd.min.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/marked.min.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/prettify.min.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/raphael.min.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/underscore.min.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/sequence-diagram.min.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/flowchart.min.js"></script>
+	<script src="https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/jquery.flowchart.min.js"></script>
 </body>
 </html>

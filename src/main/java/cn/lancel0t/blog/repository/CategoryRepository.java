@@ -22,6 +22,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 	 */
 	@Query("select new cn.lancel0t.blog.vo.CategoryResult(o.id,o.name,o.blogs.size) " +
 			"from Category o " +
-			"order by o.name")
+			"order by o.blogs.size desc")
 	List<CategoryResult> findAllWithBlogSize();
 }

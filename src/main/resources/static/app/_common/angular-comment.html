@@ -9,7 +9,7 @@
 		<!-- 普通的评论 -->
 		<ul class="list-unstyled rootComment">
 			<li class="media mt-3" ng-repeat="comment in comments">
-				<img class="mr-3 rounded-circle" ng-src="images/browser/{{comment.browser}}.png" alt="browser">
+				<img class="mr-3 rounded-circle" style="background-image:{{comment.pattern}}">
 				<div class="media-body">
 					<div class="mt-0 mb-1" ng-mouseenter="showReply = true" ng-mouseleave="showReply = false">
 						<strong>
@@ -23,7 +23,7 @@
 					<!-- 回复的评论 -->
 					<ul class="list-unstyled subComment">
 						<li class="media mt-2" ng-repeat="subComment in comment.subComments">
-							<img class="mr-3 rounded-circle" ng-src="images/browser/{{subComment.browser}}.png" alt="browser">
+							<img class="mr-3 rounded-circle" style="background-image:{{subComment.pattern}}">
 							<div class="media-body">
 								<div class="mt-0 mb-1" ng-mouseenter="showSubReply = true" ng-mouseleave="showSubReply = false">
 									<strong>

@@ -18,6 +18,9 @@ app.run(['$rootScope', '$transitions', '$state', function ($rootScope, $transiti
         case 'archives':
         	$rootScope.moduleName="归档";
         	break;
+        case 'tags':
+        	$rootScope.moduleName="标签";
+        	break;
         case 'search':
         	$rootScope.moduleName="搜索";
         	break;
@@ -61,8 +64,9 @@ function HttpInterceptor($q) {
   };
 }
 // 路由配置
-app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
-    $urlRouterProvider.otherwise('/');
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider','$locationProvider', function ($stateProvider, $urlRouterProvider, $httpProvider,$locationProvider) {
+	
+	$urlRouterProvider.otherwise('/');
     $stateProvider.state('home', {
         // 首页
         url: '/',
@@ -85,6 +89,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($
         url: '/archives/',
         params:{id:null,name:null},
         templateUrl: 'app/archives/archives.html'
+    }).state('tags', {
+        // 博客标签
+        url: '/tags/',
+        params:{id:null,name:null},
+        templateUrl: 'app/tags/tags.html'
     }).state('search', {
         // 全文搜索
         url: '/search/',
@@ -95,7 +104,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($
         url: '/about',
         templateUrl: 'app/about/about.html'
     });
-
+    $locationProvider.html5Mode(true); 
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     $httpProvider.defaults.headers.post[header] = token;
@@ -148,11 +157,11 @@ $.fn.extend({
         $(this).html(generateContent(firstList, hLevel, ''));
         
         // 滚动定位
-        $('.doc-nav a').on('click', function () {
-            var target = $(this).attr("href");
-            window.scrollTo(0, $(target).offset().top);
-            return false;
-        });
+//        $('.doc-nav a').on('click', function () {
+//            var target = $(this).attr("href");
+//            window.scrollTo(0, $(target).offset().top);
+//            return false;
+//        });
     }
 });
 // 递归生成目录

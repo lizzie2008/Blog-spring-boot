@@ -15,7 +15,7 @@ import cn.lancel0t.blog.service.ArchiveService;
  * 归档Controller
  */
 @RestController
-@RequestMapping("/archives")
+@RequestMapping("/api/archives")
 public class ArchiveController {
 
 	@Autowired

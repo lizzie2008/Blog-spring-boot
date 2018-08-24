@@ -3,10 +3,10 @@ package cn.lancel0t.blog.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -30,14 +30,13 @@ import cn.lancel0t.blog.repository.ArchiveRepository;
 import cn.lancel0t.blog.repository.BlogESRepository;
 import cn.lancel0t.blog.repository.BlogRepository;
 import cn.lancel0t.blog.repository.CommentRepository;
-import cn.lancel0t.blog.repository.TagRepository;
 import javassist.NotFoundException;
 
 @Service
 public class BlogService {
 
-	private final Logger logger=LoggerFactory.getLogger(BlogService.class);
-	
+	private final Logger logger = LoggerFactory.getLogger(BlogService.class);
+
 	@Autowired
 	private BlogRepository blogRepository;
 
@@ -46,10 +45,7 @@ public class BlogService {
 
 	@Autowired
 	private ArchiveRepository archiveRepository;
-	
-	@Autowired
-	private TagRepository tagRepository;
-	
+
 	@Autowired
 	private CommentRepository commentRepository;
 
@@ -69,6 +65,7 @@ public class BlogService {
 			public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicates = new ArrayList<>();
 
+				// 采取fetch join，一次访问相关数据
 				if (Long.class != query.getResultType()) {
 					root.fetch("category", JoinType.LEFT);
 					root.fetch("archive", JoinType.LEFT);
@@ -81,7 +78,8 @@ public class BlogService {
 
 				// 根据tag查询
 				if (StringUtils.hasLength(tag)) {
-					predicates.add(cb.like(root.get("tags"), "%" + tag + "%"));
+					Join<Blog, Tag> join = root.join("tags", JoinType.INNER);
+					predicates.add(cb.equal(join.get("id"), tag));
 				}
 
 				// 根据category查询
@@ -140,10 +138,10 @@ public class BlogService {
 			blog.setArchive(existArchive);
 		}
 
-		//保存博客对象
+		// 保存博客对象
 		blogRepository.save(blog);
 
-		//保存到elasticsearch,捕获异常，打印异常信息，不影响正常保存
+		// 保存到elasticsearch,捕获异常，打印异常信息，不影响正常保存
 		try {
 			BlogES blogES = new BlogES(blog);
 			blogESRepository.save(blogES);

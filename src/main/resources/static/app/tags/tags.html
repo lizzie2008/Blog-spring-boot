@@ -1,0 +1,31 @@
+<div ng-controller="tagsController" class="container my-1 content">
+	<div class="row">
+		<!-- 主内容区域 -->
+		<div class="col-md-9">
+			<div class="post border my-2">
+				<!-- breadcrumb -->
+				<ul class="breadcrumb">
+					<li class="breadcrumb-item">
+						<i class="fa fa-home">
+							<a href="/">&nbsp;首页</a>
+						</i>
+					</li>
+					<li class="breadcrumb-item">
+						<a ui-sref="tags({id:null,name:null})">全部标签</a>
+					</li>
+					<li class="breadcrumb-item active" ng-if="tagname">{{tagname}}</li>
+				</ul>
+				<!-- 博客列表 -->
+				<my-bloglist articles="blogs"></my-bloglist>
+			</div>
+			<!-- 分页控件 -->
+			<div class="p-2">
+				<my-pagination conf="paginationConf"></my-pagination>
+			</div>
+		</div>
+		<!-- 侧边栏 -->
+		<div class="col-md-3 mt-5 pl-1">
+			<div id="tagCloud"></div>
+		</div>
+	</div>
+</div>

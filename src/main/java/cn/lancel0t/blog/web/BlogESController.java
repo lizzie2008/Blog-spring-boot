@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
  * 博客 Elastic Search Controller
  */
 @RestController
-@RequestMapping("/blogs")
+@RequestMapping("/api/blogs")
 public class BlogESController {
 
 	@Autowired

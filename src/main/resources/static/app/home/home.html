@@ -4,10 +4,10 @@
 		<i class="fa fa-volume-up"></i>
 		<ul>
 			<li class="text-dark">欢迎访问我的个人博客网站</li>
-			<li class="text-dark">11111111111111111111111111</li>
-			<li class="text-dark">33333333333333333333333333</li>
-			<li class="text-dark">11111111111111111111111111</li>
-			<li class="text-dark">2222222222222</li>
+			<li class="text-dark">111111111111111111111111</li>
+			<li class="text-dark">222222222222222222222222</li>
+			<li class="text-dark">333333333333333333333333</li>
+			<li class="text-dark">444444444444444444444444</li>
 		</ul>
 	</div>
 	<div class="row">
@@ -83,15 +83,49 @@
 						<a class="github" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
 							<i class="fa fa-github"></i>
 						</a>
-						<a class="weixin" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
-							<i class="fa fa-weixin"></i>
+						<a class="weixin" href="" data-toggle="popover" data-placement="top" title="微信号">
+							<i class="fa fa-weixin">
+							</i>
 						</a>
-						<a class="qq" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
+						<a class="gongzhonghao" href="" data-toggle="popover" data-placement="top" title="公众号">
+							<i class="fa fa-chrome">
+							</i>
+						</a>
+						<a class="qq" title="QQ：34878936" href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=34878936&website=www.oicqzone.com" target="_blank" >
 							<i class="fa fa-qq"></i>
 						</a>
-						<a class="feed" title="GitHub" href="https://github.com/lizzie2008" target="_blank">
-							<i class="fa fa-chrome"></i>
-						</a>
+					</div>
+				</div>
+				<!-- 阅读排行 -->
+				<div class="card mt-3 wow fadeInDown">
+					<div class="card-header">
+						<i class="fa fa-bar-chart mr-1"></i>
+						阅读排行
+					</div>
+					<div class="card-body">
+						<ul class="widget-content divPrevious">
+							<li ng-repeat="readRankBolg in readRankBolgs" ng-switch="$index+1"
+								ng-class="{'rank1':$index+1==1,'rank2':$index+1==2,'rank3':$index+1==3,'rank0':$index+1>3}">
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top" ui-sref="posts({id:readRankBolg.id})">{{readRankBolg.title}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 评论排行 -->
+				<div class="card mt-3 wow fadeInDown">
+					<div class="card-header">
+						<i class="fa fa-sort-amount-asc mr-1"></i>
+						评论排行
+					</div>
+					<div class="card-body">
+						<ul class="widget-content divPrevious">
+							<li ng-repeat="commentRankBolg in commentRankBolgs" ng-switch="$index+1"
+								ng-class="{'rank1':$index+1==1,'rank2':$index+1==2,'rank3':$index+1==3,'rank0':$index+1>3}">
+								<i class="fa fa-plus-square"></i>
+								<a class="hvr-wobble-top" ui-sref="posts({id:commentRankBolg.id})">{{commentRankBolg.title}}</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 				<!-- 文章分类 -->
@@ -142,36 +176,22 @@
 						</div>
 					</div>
 				</div>
-				<!-- 阅读排行 -->
+				<!-- 文章标签 -->
 				<div class="card mt-3 wow fadeInDown">
 					<div class="card-header">
-						<i class="fa fa-bar-chart mr-1"></i>
-						阅读排行
+						<i class="fa fa-tags mr-1"></i>
+						文章标签
 					</div>
 					<div class="card-body">
-						<ul class="widget-content divPrevious">
-							<li ng-repeat="readRankBolg in readRankBolgs" ng-switch="$index+1"
-								ng-class="{'rank1':$index+1==1,'rank2':$index+1==2,'rank3':$index+1==3,'rank0':$index+1>3}">
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" ui-sref="posts({id:readRankBolg.id})">{{readRankBolg.title}}</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- 评论排行 -->
-				<div class="card mt-3 wow fadeInDown">
-					<div class="card-header">
-						<i class="fa fa-sort-amount-asc mr-1"></i>
-						评论排行
-					</div>
-					<div class="card-body">
-						<ul class="widget-content divPrevious">
-							<li ng-repeat="commentRankBolg in commentRankBolgs" ng-switch="$index+1"
-								ng-class="{'rank1':$index+1==1,'rank2':$index+1==2,'rank3':$index+1==3,'rank0':$index+1>3}">
-								<i class="fa fa-plus-square"></i>
-								<a class="hvr-wobble-top" ui-sref="posts({id:commentRankBolg.id})">{{commentRankBolg.title}}</a>
-							</li>
-						</ul>
+						<span>
+							<a class="tag" ng-repeat="tag in tags" ui-sref="tags({id:tag.id,name:tag.name})" ng-if="$index<20">{{tag.name}}({{tag.blogSize}})</a>
+						</span>
+						<span id="collapseTag" class="collapse">
+							<a class="tag" ng-repeat="tag in tags" ui-sref="tags({id:tag.id,name:tag.name})" ng-if="$index>=20">{{tag.name}}({{tag.blogSize}})</a>
+						</span>
+						<div class="text-center" ng-if="tags.length>20">
+							<a href="#collapseTag" class="togglelink" onclick="toggleContent(this);return false; " data-toggle="collapse">﹀</a>
+						</div>
 					</div>
 				</div>
 			</div>

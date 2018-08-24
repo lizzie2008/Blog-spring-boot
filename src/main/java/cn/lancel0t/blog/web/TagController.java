@@ -16,14 +16,14 @@ import cn.lancel0t.blog.service.TagService;
  * 标签Controller
  */
 @RestController
-@RequestMapping("/tags")
+@RequestMapping("/api/tags")
 public class TagController {
 
 	@Autowired
 	private TagService tagService;
 
 	/**
-	 * 根据名称查找
+	 * 获取标签列表
 	 * 
 	 * @param name
 	 * @return
@@ -31,6 +31,10 @@ public class TagController {
 	@GetMapping
 	public ResponseEntity<List<?>> list(
 			@RequestParam(value = "name", required = false, defaultValue = "") String name) {
-		return new ResponseEntity<List<?>>(tagService.findByNameContaining(name), HttpStatus.OK);
+		if (!name.isEmpty()) {
+			return new ResponseEntity<List<?>>(tagService.findByNameContaining(name), HttpStatus.OK);
+		}
+		return new ResponseEntity<List<?>>(tagService.findAllWithBlogSize(), HttpStatus.OK);
 	}
+
 }

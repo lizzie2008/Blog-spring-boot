@@ -13,4 +13,13 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
+	
+	/**
+	 * html5Mode刷新界面跳转问题解决
+	 */
+	 @RequestMapping(value = "/**/{[path:[^\\.]*}")
+	 public String redirect() {
+	    // Forward to home page so that route is preserved.
+	    return "forward:/";
+	 }
 }

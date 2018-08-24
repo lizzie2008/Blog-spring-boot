@@ -1,4 +1,4 @@
-app.controller('searchController', [ '$scope', '$stateParams', '$http', '$state', function($scope, $stateParams, $http, $state) {
+app.controller('searchController', [ '$scope', '$stateParams', '$http',  function($scope, $stateParams, $http) {
 
 //	$stateParams.searchText = "个人";
 	// 构造查询并高亮
@@ -35,7 +35,7 @@ app.controller('searchController', [ '$scope', '$stateParams', '$http', '$state'
 		// 调用ElasticSearch，进行全文检索
 		$http({
 			method : 'POST',
-			url : '/blogs/search',
+			url : '/api/blogs/search',
 			data : JSON.stringify(query)
 		}).then(function successCallback(response) {
 			if (response.data) {

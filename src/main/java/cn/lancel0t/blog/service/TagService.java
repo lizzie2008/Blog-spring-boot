@@ -17,4 +17,8 @@ public class TagService {
 	public List<?> findByNameContaining(String name) {
 		return tagRepository.findByNameContaining(name);
 	}
+	
+	public List<?> findAllWithBlogSize() {
+		return tagRepository.findAllWithBlogSize();
+	}
 }

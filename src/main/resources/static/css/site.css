@@ -38,25 +38,27 @@ a {
 /** **********************pagination css*************************** */
 .page-link {
 	font-size: 14px;
-	position: relative;
-	margin-right: 5px;
-	float: left;
-	padding: 6px 12px;
-	margin-left: -1px;
+	padding: 3px;
+	margin: 5px;
+	line-height: 24px;
+	text-align: center;
 	background-color: #fff;
 	border: 1px solid #ddd;
-	border-radius: 5px !important;
+	width: 30px;
+	height: 30px;
+	border-radius: 50% !important;
+	display: block;
 }
 
 .page-item.active .page-link {
 	color: #fff;
-	background-color: #338A9C;
-	border-color: #338A9C;
+	background-color: #0ae;
+	border-color: #0ae;
 }
 
 .page-link:hover {
 	color: #fff;
-	background-color: #338A9C;
+	background-color: #0ae;
 }
 
 .page-link:focus {
@@ -253,10 +255,21 @@ a {
 	display: block;
 }
 
-.sidebar .category:hover, .sidebar .archive:hover {
-	background-color: #16929D;
+.sidebar .category:hover, .sidebar .archive:hover, .sidebar .tag:hover {
+	background-color: #0ae;
 	text-decoration: none;
 	color: #fff;
+}
+
+.sidebar .tag {
+	font-size: 14px;
+	text-align: center;
+	border: 1px solid #dee2e6;
+	margin: 3px 5px 3px 5px;
+	padding: 3px 5px 3px 5px;
+	color: #333;
+	display: inline-block;
+	border-radius: 30px;
 }
 
 .sidebar .togglelink {
@@ -309,14 +322,14 @@ a {
 	border: 1px solid #248a34;
 }
 
+.profile .gongzhonghao:hover {
+	background: #d28300;
+	border: 1px solid #d28300;
+}
+
 .profile .qq:hover {
 	background: #4e91d1;
 	border: 1px solid #4e91d1;
-}
-
-.profile .feed:hover {
-	background: #d28300;
-	border: 1px solid #d28300;
 }
 
 /** **********************post css*************************** */
@@ -329,6 +342,68 @@ a {
 .editormd-html-preview blockquote, .editormd-preview-container blockquote
 	{
 	font-style: normal;
+}
+
+.post-copyright {
+	margin: 15px 15px;
+	border-radius: 10px;
+	background: #fff;
+	border: 1px dashed #c1c1c1;
+	vertical-align: middle;
+	font-size: 15px;
+}
+
+.post-copyright p {
+	margin: 15px;
+}
+
+.post-copyright a{
+	word-wrap:break-word;
+}
+.post-action {
+	margin: 15px 15px;
+	font-size: 15px;
+}
+
+.post-share a {
+	margin:5px 5px;
+    border-radius: 50px;
+    border: 1px solid #e6e6e6;
+    width: 60px;
+    height: 30px;
+    line-height:30px;
+    text-align: center;
+    display:inline-block;
+}
+.post-share a.share-weixin {
+    color: #5fcf80;
+}
+
+.post-share a.share-weixin:hover {
+    border-color: #5fcf80;
+}
+
+.post-share a.share-qzone {
+    color: #f9c13d;
+}
+
+.post-share a.share-qzone:hover {
+    border-color: #f9c13d;
+}
+
+.post-share a.share-weibo {
+    color: #fd001b;
+}
+
+.post-share a.share-weibo:hover {
+    border-color: #fd001b;
+}
+.post-share a.share-qq {
+    color: #00aaf0;
+}
+
+.post-share a.share-qq:hover {
+    border-color: #00aaf0;
 }
 /** **********************doc-nav css*************************** */
 .nav-link {
@@ -402,6 +477,11 @@ a {
 
 .timeline .timenode.active {
 	background: linear-gradient(#34a5f8, #088ef0);
+}
+
+/** **********************tag css*************************** */
+#tagCloud span {
+	cursor: pointer
 }
 
 /** **********************search css*************************** */
