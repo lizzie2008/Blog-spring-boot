@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.lancel0t.blog.domain.Blog;
 import cn.lancel0t.blog.domain.Comment;
+import cn.lancel0t.blog.domain.Blog.BlogType;
 import cn.lancel0t.blog.service.BlogService;
 import cn.lancel0t.blog.vo.BlogModel;
 import javassist.NotFoundException;
@@ -56,6 +57,7 @@ public class BlogController {
 			@RequestParam(value = "order", required = false, defaultValue = "asc") String order,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
+			@RequestParam(value = "blogType", required = false, defaultValue = "NORMAL") BlogType blogType,
 			@RequestParam(value = "title", required = false, defaultValue = "") String title,
 			@RequestParam(value = "category", required = false, defaultValue = "") String category,
 			@RequestParam(value = "archive", required = false, defaultValue = "") String archive,
@@ -64,7 +66,7 @@ public class BlogController {
 		// 排序与分页
 		Direction direction = order.equals("asc") ? Direction.ASC : Direction.DESC;
 		Pageable pageable = PageRequest.of(page - 1, size, new Sort(direction, sort));
-		Page<Blog> pageBlog = blogService.list(title, category, archive, tag, pageable);
+		Page<Blog> pageBlog = blogService.list(blogType, title, category, archive, tag, pageable);
 
 		// 转换为vo集合
 		List<BlogModel> rows = BlogModel.copyList(pageBlog.getContent());
@@ -87,7 +89,8 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Blog detail(@PathVariable("id") String id) {
-		return blogService.detail(id, true);
+		blogService.increaseReadSize(id);
+		return blogService.detail(id);
 	}
 
 	/**
@@ -100,5 +103,17 @@ public class BlogController {
 	@RequestMapping(value = "/{id}/comments", method = RequestMethod.POST)
 	public Long addComment(@PathVariable("id") String id, @RequestBody Comment comment) {
 		return blogService.addComment(id, comment);
+	}
+
+	/**
+	 * 博客点赞
+	 * 
+	 * @param id
+	 * @param comment
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}/like", method = RequestMethod.POST)
+	public void like(@PathVariable("id") String id) {
+		blogService.increaseLikeSize(id);
 	}
 }

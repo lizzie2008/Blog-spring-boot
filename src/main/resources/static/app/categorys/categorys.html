@@ -28,7 +28,7 @@
 			<div class="timeline" ng-repeat="category in categorys">
 				<div class="timenode" ng-class="{'active':categoryid==category.id}"></div>
 				<a ui-sref="categorys({id:category.id,name:category.name})" ng-class="{'active':categoryid==category.id}"
-					class="button button-small button-3d button-primary button-pill">{{category.name}}({{category.blogSize}})</a>
+				   data-icon="✰" class="button blue brackets xs">{{category.name}}({{category.blogSize}})</a>
 			</div>
 		</div>
 	</div>

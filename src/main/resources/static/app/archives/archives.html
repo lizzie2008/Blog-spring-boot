@@ -28,7 +28,7 @@
 			<div class="timeline" ng-repeat="archive in archives">
 				<div class="timenode" ng-class="{'active':archiveid==archive.id}"></div>
 				<a ui-sref="archives({id:archive.id,name:archive.name})" ng-class="{'active':archiveid==archive.id}"
-					class="button button-small button-3d button-primary button-pill">{{archive.name}}({{archive.blogSize}})</a>
+				   data-icon="✿" class="button blue skew xs">{{archive.name}}({{archive.blogSize}})</a>
 			</div>
 		</div>
 	</div>

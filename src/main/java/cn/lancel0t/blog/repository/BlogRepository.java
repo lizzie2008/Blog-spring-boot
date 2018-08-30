@@ -42,11 +42,14 @@ public interface BlogRepository extends JpaRepository<Blog, String>, JpaSpecific
 	@Modifying
 	@Query(value = "update Blog set commentSize = commentSize+1 where id=:id")
 	int increaseCommentSize(@Param("id") String id);
+	
+	/**
+	 * 点赞量自增
+	 * 
+	 * @return
+	 */
+	@Modifying
+	@Query(value = "update Blog set likeSize = likeSize+1 where id=:id")
+	int increaseLikeSize(@Param("id") String id);
 
-	// @Query(value = "SELECT b FROM Blog b"
-	// + " LEFT JOIN FETCH b.category c"
-	// + " LEFT JOIN FETCH b.comments d"
-	// + " LEFT JOIN FETCH b.votes v"
-	// , countQuery = "SELECT count(b) FROM Blog b")
-	// public Page<Blog> findAll(Pageable pageable);
 }

@@ -15,59 +15,76 @@
 					<li class="breadcrumb-item">
 						<a ui-sref="categorys({id:blog.category.id,name:blog.category.name})">{{blog.category.name}}</a>
 					</li>
-					<li class="breadcrumb-item active">{{blog.title}}</li>
 				</ul>
 				<!-- title -->
 				<div class="text-center">
-					<h2>{{blog.title}}</h2>
-					<small class="post-info text-muted"> 发表于：{{blog.createTime | date:'yyyy-MM-dd'}}&nbsp;•&nbsp; 阅读量：{{blog.readSize}}&nbsp;•&nbsp;
+					<h3>{{blog.title}}</h3>
+					<small class="post-info text-muted"> 创建：{{blog.createTime | date:'yyyy-MM-dd'}}&nbsp;•&nbsp; 阅读量：{{blog.readSize}}&nbsp;•&nbsp;
 						评论量：{{blog.comments.length}}&nbsp;•&nbsp; 点赞量：{{blog.likeSize}} </small>
+					<hr>
 				</div>
-				<hr>
 				<!-- blog content -->
 				<article id="doc-content">
 					<textarea style="display: none;">{{blog.content}}</textarea>
 				</article>
-				<hr>
-				<div class="post-copyright">
-					<p>
-						作者：
-						<a href="https://www.lancel0t.cn">Lancel0tの博客</a>
-						<br>
-						原文地址：
-						<a href="{{absUrl}}">{{absUrl}}</a>
-						<br>
-						本章所有文章系作者原创，版权归作者所有，欢迎转载。
-						<br>
-						但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。
-					</p>
-				</div>
-				<div class="post-action">
-					<div class="post-share">
-						<div class="text-muted pl-2">分享到：</div>
-						<a href="javascript:;" class="share-weixin">
-							<i class="fa fa-weixin"></i>
-						</a>
-						<a target="_blank"
-							href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{absUrl}}&amp;title={{blog.title}}&amp;desc=&amp;summary={{blog.summary}}&amp;site=lancel0t&amp;pics={{blog.image}}"
-							class="share-qzone">
-							<i class="iconfont">&#xe639;</i>
-						</a>
-						<a target="_blank"
-							href="http://service.weibo.com/share/share.php?url={{absUrl}}&amp;title={{blog.title}}&amp;desc=&amp;summary={{blog.summary}}&amp;site=lancel0t&amp;pics={{blog.image}}"
-							class="share-weibo">
-							<i class="fa fa-weibo"></i>
-						</a>
-						<a target="_blank"
-							href="http://connect.qq.com/widget/shareqq/index.html?url={{absUrl}}&amp;title={{blog.title}}&amp;desc=&amp;summary={{blog.summary}}&amp;site=lancel0t&amp;pics={{blog.image}}"
-							class="share-qq">
-							<i class="fa fa-qq"></i>
-						</a>
+				<!-- 博客文后内容 -->
+				<div class="post-append" ng-show="isLoaded">
+					<div class="post-tag" ng-if="blog.tags.length>0">
+						<strong>标签：</strong>
+						<a ng-repeat="tag in blog.tags" ui-sref="tags({id:tag.id,name:tag.name})">#{{tag.name}}</a>
 					</div>
+					<div class="post-copyright">
+						<p>
+							作者：
+							<a href="https://www.lancel0t.cn">原子蛋</a>
+							<br>
+							原文地址：
+							<a href="{{absUrl}}">{{absUrl}}</a>
+							<br>
+							本站所有文章系作者原创，版权归作者所有，欢迎转载。
+							<br>
+							但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。
+						</p>
+					</div>
+					<div class="post-action">
+						<strong>分享到：</strong>
+						<span class="post-left">
+							<a href="#" data-toggle="popover" data-placement="top" class="share-weixin">
+								<i class="fa fa-weixin"></i>
+							</a>
+							<a target="_blank"
+								href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{absUrl}}&amp;title={{blog.title}}&amp;desc=&amp;summary={{blog.summary}}&amp;site=lancel0t&amp;pics={{blog.image}}"
+								class="share-qzone">
+								<i class="iconfont">&#xe639;</i>
+							</a>
+							<a target="_blank"
+								href="http://service.weibo.com/share/share.php?url={{absUrl}}&amp;title={{blog.title}}&amp;desc=&amp;summary={{blog.summary}}&amp;site=lancel0t&amp;pics={{blog.image}}"
+								class="share-weibo">
+								<i class="fa fa-weibo"></i>
+							</a>
+							<a target="_blank"
+								href="http://connect.qq.com/widget/shareqq/index.html?url={{absUrl}}&amp;title={{blog.title}}&amp;desc=&amp;summary={{blog.summary}}&amp;site=lancel0t&amp;pics={{blog.image}}"
+								class="share-qq">
+								<i class="fa fa-qq"></i>
+							</a>
+						</span>
+						<span class="post-right pull-right">
+							<a href="" class="like" ng-click="like($event)">
+								<i class="fa fa-thumbs-o-up"></i>
+								<span ng-if="hasLike">已赞</span>
+								<span ng-if="!hasLike">点赞</span>
+								({{blog.likeSize}})
+							</a>
+							<a href="" class="reward" ng-click="showReward()">
+								<i class="fa fa-jpy"></i>
+								打赏
+							</a>
+						</span>
+						<div class="clearfix"></div>
+					</div>
+					<!-- comment -->
+					<my-comment blog="blog"></my-comment>
 				</div>
-				<hr>
-				<!-- comment -->
-				<my-comment blog="blog"></my-comment>
 			</div>
 		</div>
 		<!-- blog nav -->

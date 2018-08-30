@@ -30,6 +30,7 @@ public interface ArchiveRepository extends JpaRepository<Archive, Long> {
 	 */
 	@Query("select new cn.lancel0t.blog.vo.ArchiveResult(o.id,o.name,o.blogs.size) " +
 			"from Archive o " +
+			"where o.blogs.size>0 " +
 			"order by o.name desc")
 	List<ArchiveResult> findAllWithBlogSize();
 

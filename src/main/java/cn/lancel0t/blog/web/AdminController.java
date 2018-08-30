@@ -88,7 +88,7 @@ public class AdminController {
 	public ModelAndView blogDetail(@PathVariable("id") String id) {
 
 		ModelAndView view = new ModelAndView("admin/blogdetail");
-		Blog blog = blogService.detail(id, false);
+		Blog blog = blogService.detail(id);
 		view.addObject("blog", blog);
 		return view;
 	}
@@ -121,7 +121,7 @@ public class AdminController {
 	@GetMapping(value = "/blogs/edit/{id}")
 	public ModelAndView blogEidt(@PathVariable("id") String id) throws NotFoundException {
 
-		Blog blog = blogService.detail(id, false);
+		Blog blog = blogService.detail(id);
 		if (blog == null)
 			throw new NotFoundException("no blog founded!");
 		// 标签处理
@@ -149,6 +149,6 @@ public class AdminController {
 	@ResponseBody
 	public ResponseEntity<String> blogSave(@RequestBody Blog blog) {
 		blogService.save(blog);
-		return new ResponseEntity<String>("/admin/blogs", HttpStatus.OK);
+		return new ResponseEntity<String>("ok", HttpStatus.OK);
 	}
 }

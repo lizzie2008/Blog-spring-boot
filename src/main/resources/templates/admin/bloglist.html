@@ -45,6 +45,14 @@
 									<input class="form-control" id="title" type="text" placeholder="输入标题..." />
 								</div>
 								<div class="form-group">
+									<label class="control-label" for="blogType">博客类型：</label>
+									<select class="form-control" id="blogType">
+										<option value="NORMAL">普通</option>
+										<option value="SUBJECT">主题</option>
+										<option value="ABOUT">关于</option>
+									</select>
+								</div>
+								<div class="form-group">
 									<label class="control-label" for="category">分类：</label>
 									<select class="form-control" id="category">
 										<option value="">---未选择---</option>
@@ -132,8 +140,9 @@
 				var params = {
 					page : params.offset / params.limit + 1,
 					size : params.limit,
-					sort : params.sort,
-					order : params.order,
+					sort : 'createTime',
+					order : 'desc',
+					blogType : $('#blogType').val(),
 					title : $('#title').val(),
 					category : $('#category').val(),
 					archive : $('#archive').val(),
@@ -145,8 +154,7 @@
 			// 操作列
 			function actionFormatter(value, row, index) {
 				var result = "";
-				result += "<a href='javascript:;' class='btn btn-xs' onclick=\"EditViewById('" + value
-						+ "', view='view')\" title='预览'><span class='glyphicon glyphicon-search'></span></a>";
+				result += "<a href='/posts/" + row.id + "' class='btn btn-xs' target='_blank' title='预览'><span class='glyphicon glyphicon-search'></span></a>";
 				result += "<a href='/admin/blogs/edit/" + row.id + "' class='btn btn-xs' title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
 				result += "<a href='javascript:;' class='btn btn-xs' onclick=\"DeleteByIds('" + value
 						+ "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";

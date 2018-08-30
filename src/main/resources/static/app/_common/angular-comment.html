@@ -1,12 +1,12 @@
-<div class="container">
+<div>
 	<!-- comments-list -->
 	<div class="comment-list">
 		<h6 class="comment-title">
 			<i class="fa fa-comment"></i>
-			<span ng-if="blog.comments.length>0">评论列表（已有 {{blog.comments.length}} 条评论）</span>
-			<span ng-if="blog.comments.length==0">评论列表（尚未有评论，欢迎您的第一条评论~）</span>
+			<span>评论列表（已有 {{blog.comments.length}} 条评论）</span>
 		</h6>
 		<!-- 普通的评论 -->
+		<span ng-if="blog.comments.length==0">还没有评论哦，赶紧抢个沙发吧~</span>
 		<ul class="list-unstyled rootComment">
 			<li class="media mt-3" ng-repeat="comment in comments">
 				<img class="mr-3 rounded-circle" style="background-image:{{comment.pattern}}">
@@ -17,7 +17,10 @@
 							<span ng-if="!comment.webSite">{{comment.nickName}}</span>
 						</strong>
 						<span class="mr-3 text-muted"> posted @ {{comment.createTime | date:"yyyy-MM-dd HH:mm"}} </span>
-						<a class="pull-right" href="" ng-if="showReply" ng-click="jumpToComment(comment.id,comment.nickName)">回复</a>
+						<a class="pull-right" href="" ng-if="showReply" ng-click="jumpToComment(comment.id,comment.nickName)">
+							<i class="fa fa-reply"></i>
+							回复
+						</a>
 						<div class="mt-2">{{comment.content}}</div>
 					</div>
 					<!-- 回复的评论 -->
@@ -31,7 +34,10 @@
 										<span ng-if="!subComment.webSite">{{subComment.nickName}}</span>
 									</strong>
 									<span class="mr-3 text-muted"> posted @ {{subComment.createTime | date:"yyyy-MM-dd hh:mm"}} </span>
-									<a class="pull-right" href="" ng-if="showSubReply" ng-click="jumpToComment(comment.id,subComment.nickName)">回复</a>
+									<a class="pull-right" href="" ng-if="showSubReply" ng-click="jumpToComment(comment.id,subComment.nickName)">
+										<i class="fa fa-reply"></i>
+										回复
+									</a>
 									<div class="mt-2">{{subComment.content}}</div>
 								</div>
 							</div>
@@ -49,12 +55,10 @@
 		</h6>
 		<form class="comment-post" ng-submit="onSubmit()" name="myForm" novalidate>
 			<textarea name="content" class="ol-md-12 shadow-box" rows="6" placeholder="请遵守相关法律与法规，文明评论。O(∩_∩)O~~" ng-model="postComment.content" required></textarea>
-			<div>
 				<input class="col-md-4" placeholder="昵称...(必填)" ng-model="postComment.nickName" name="nickName" required />
 				<input class="col-md-4" placeholder="网址..." ng-model="postComment.webSite" />
-				<button class="col-md-4 btn btn-secondary btn-sm pull-right" type="submit" ng-disabled="myForm.content.$invalid || myForm.nickName.$invalid">评论</button>
+				<button class="col-md-4 btn btn-info btn-sm pull-right" type="submit" ng-disabled="myForm.content.$invalid || myForm.nickName.$invalid">提交评论</button>
 				<div class="clearfix"></div>
-			</div>
 		</form>
 	</div>
 </div>

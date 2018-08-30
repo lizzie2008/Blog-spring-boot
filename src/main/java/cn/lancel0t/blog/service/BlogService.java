@@ -26,6 +26,7 @@ import cn.lancel0t.blog.domain.Blog;
 import cn.lancel0t.blog.domain.BlogES;
 import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.domain.Tag;
+import cn.lancel0t.blog.domain.Blog.BlogType;
 import cn.lancel0t.blog.repository.ArchiveRepository;
 import cn.lancel0t.blog.repository.BlogESRepository;
 import cn.lancel0t.blog.repository.BlogRepository;
@@ -55,7 +56,7 @@ public class BlogService {
 	 * @param id
 	 * @return
 	 */
-	public Page<Blog> list(String title, String category, String archive, String tag,
+	public Page<Blog> list(BlogType blogType, String title, String category, String archive, String tag,
 			Pageable pageable) {
 
 		return blogRepository.findAll(new Specification<Blog>() {
@@ -92,6 +93,9 @@ public class BlogService {
 					predicates.add(cb.equal(root.get("archive").get("id"), archive));
 				}
 
+				// 只查询普通类型
+				predicates.add(cb.equal(root.get("blogType"), blogType));
+
 				Predicate[] pre = new Predicate[predicates.size()];
 				query.where(predicates.toArray(pre));
 				return cb.and(predicates.toArray(pre));
@@ -107,11 +111,7 @@ public class BlogService {
 	 * @throws NotFoundException
 	 */
 	@Transactional
-	public Blog detail(String id, boolean needIncreaseReadSize) {
-		if (needIncreaseReadSize) {
-			// 每访问一次，阅读量自增1
-			blogRepository.increaseReadSize(id);
-		}
+	public Blog detail(String id) {
 		return blogRepository.getOne(id);
 	}
 
@@ -125,17 +125,19 @@ public class BlogService {
 	public void save(Blog blog) {
 
 		// 归档管理
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月");
-		String dateString = formatter.format(blog.getCreateTime());
-		Archive existArchive = archiveRepository.findByName(dateString);
-		if (existArchive == null) {
-			// 归档目录不存在，新建归档目录
-			Archive archive = new Archive(dateString);
-			archiveRepository.save(archive);
-			blog.setArchive(archive);
-		} else {
-			// 归档目录已存在，使用已有的归档目录
-			blog.setArchive(existArchive);
+		if (blog.getBlogType() == BlogType.NORMAL) {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月");
+			String dateString = formatter.format(blog.getCreateTime());
+			Archive existArchive = archiveRepository.findByName(dateString);
+			if (existArchive == null) {
+				// 归档目录不存在，新建归档目录
+				Archive archive = new Archive(dateString);
+				archiveRepository.save(archive);
+				blog.setArchive(archive);
+			} else {
+				// 归档目录已存在，使用已有的归档目录
+				blog.setArchive(existArchive);
+			}
 		}
 
 		// 保存博客对象
@@ -171,4 +173,25 @@ public class BlogService {
 		return commentRepository.save(comment).getId();
 	}
 
+	/**
+	 * 阅读量自增
+	 * 
+	 * @param id
+	 */
+	@Transactional
+	public void increaseReadSize(String id) {
+		// 阅读量自增1
+		blogRepository.increaseReadSize(id);
+	}
+
+	/**
+	 * 点赞
+	 * 
+	 * @param id
+	 */
+	@Transactional
+	public void increaseLikeSize(String id) {
+		// 点赞数自增1
+		blogRepository.increaseLikeSize(id);
+	}
 }

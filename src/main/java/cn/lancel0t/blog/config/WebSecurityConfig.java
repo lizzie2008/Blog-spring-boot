@@ -16,7 +16,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				// 需要管理权限
-				.antMatchers("/admin/**").hasRole("ADMIN")
+//				.antMatchers("/admin/**").hasRole("ADMIN")
 				.and()
 				.formLogin()
 				.loginPage("/login")

@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,7 +23,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -34,6 +35,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Blog implements Serializable {
 
+	/**
+	 * 博客类型
+	 */
+	public static enum BlogType {
+		NORMAL, // 普通
+		SUBJECT, // 主题
+		ABOUT; // 关于
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -41,14 +51,17 @@ public class Blog implements Serializable {
 	@GeneratedValue(generator = "idGenerator")
 	private String id; // 主键
 
+	@Column(nullable = false, length = 10)
+	@Enumerated(EnumType.STRING)
+	private BlogType blogType = BlogType.NORMAL; // 博客类型
+
 	@NotNull
 	@Size(max = 50)
 	@Column(nullable = false, length = 50)
 	private String title; // 标题
 
-	@NotNull
 	@Size(max = 50)
-	@Column(nullable = false, length = 50)
+	@Column(nullable = true, length = 50)
 	private String image; // 定义图片
 
 	@Lob
@@ -68,14 +81,12 @@ public class Blog implements Serializable {
 	private Archive archive; // 归档
 
 	@ManyToMany
-	@JoinTable(
-		      name="blog_tag",
-		      joinColumns=@JoinColumn(name="blog_id", referencedColumnName="id"),
-		      inverseJoinColumns=@JoinColumn(name="tag_id", referencedColumnName="id"))
+	@JoinTable(name = "blog_tag", joinColumns = @JoinColumn(name = "blog_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
 	private Set<Tag> tags = new HashSet<Tag>(); // 标签
 
-	// @DateTimeFormat(pattern = "yyyy/MM/dd hh:mm")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm", timezone = "GMT+8")
+	// @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd
+	// HH:mm", timezone = "GMT+8")
 	private Date createTime;
 
 	private Integer readSize = 0; // 访问量
@@ -96,6 +107,14 @@ public class Blog implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public BlogType getBlogType() {
+		return blogType;
+	}
+
+	public void setBlogType(BlogType blogType) {
+		this.blogType = blogType;
 	}
 
 	public String getTitle() {

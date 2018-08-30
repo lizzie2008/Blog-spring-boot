@@ -22,20 +22,25 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="image">图片:</label>
-							<input type="text" id="image" name="image" class="form-control" placeholder="输入图片地址..." th:value="${blog.image}" required>
+							<label for="blogType">博客类型:</label>
+							<select class="form-control" id="blogType" name="blogType" required>
+								<option value="NORMAL" th:selected="${blog.blogType.name()=='NORMAL'}">普通</option>
+								<option value="SUBJECT" th:selected="${blog.blogType.name()=='SUBJECT'}">主题</option>
+								<option value="ABOUT" th:selected="${blog.blogType.name()=='ABOUT'}">关于</option>
+							</select>
 						</div>
 						<div class="form-group">
-							<label for="tags">标签:</label>
-							<input type="text" id="tags" name="tags" class="form-control" />
+							<label for="image">图片:</label>
+							<input type="text" id="image" name="image" class="form-control" placeholder="输入图片地址..." th:value="${blog.image}">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="category">分类:</label>
-							<select class="form-control" id="category" name="category" required>
+							<select class="form-control" id="category" name="category">
 								<option value="">---未选择---</option>
-								<option th:each="category:${categorys}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id eq blog.category.id}"></option>
+								<option th:each="category:${categorys}" th:value="${category.id}" th:text="${category.name}"
+									th:selected="${blog.category!=null&&category.id==blog.category.id}"></option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -44,6 +49,10 @@
 								th:value="${#dates.format(blog.createTime, 'yyyy/MM/dd HH:mm')}" required>
 						</div>
 					</div>
+				</div>
+				<div class="form-group">
+					<label for="tags">标签:</label>
+					<input type="text" id="tags" name="tags" class="form-control" />
 				</div>
 				<div class="form-group">
 					<label for="summary">摘要:</label>
@@ -70,6 +79,8 @@
 	</div>
 	<div layout:fragment="js" th:remove="tag">
 		<script th:inline="javascript">
+		
+		    //markdown解析器
 			var testEditor;
 			$(function () {
 			    testEditor = editormd("test-editormd", {
@@ -78,12 +89,13 @@
 			        path: "https://mysite.bj.bcebos.com/blog/lib/editor.md/lib/"
 			    });
 			});
-	
+			
+			// 单选框样式
 			$(':radio').iCheck({
 			    checkboxClass: 'icheckbox_flat-blue',
 			    radioClass: 'iradio_flat-blue',
 			});
-	
+			// 时间选择样式
 			$('#createTime').datetimepicker({
 			    locale: 'zh-CN'
 			});
@@ -114,17 +126,23 @@
 			});
 	
 			// 发布博客
-			 $("form").submit(function(){
+			 $("form").submit(function(e){
 			    // 获取 CSRF Token 
 			    var csrfToken = $("meta[name='_csrf']").attr("content");
 			    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 	
+			    //构造blog实体
 				var blog={};
 				blog.id=$('#id').val();
+				blog.blogType=$('#blogType').val();
 				blog.title=$('#title').val();
 				blog.image=$('#image').val();
-				blog.category={id:$('#category').val()};
-				blog.createTime=$('#createTime').val();
+				if($('#category').val().length>0){
+					blog.category={id:$('#category').val()};
+				}else{
+					blog.category=null;
+				}
+				blog.createTime=moment($('#createTime').val(), "YYYY/MM/DD HH:mm").valueOf();
 				blog.summary=$('#summary').val();
 			    blog.content=$('#content').val();
 			    blog.tags=[];
@@ -134,6 +152,7 @@
 			    	}
 			    });
 			    
+			    // 调用保存接口
 			    $.ajax({
 			        url: '/admin/blogs/edit',
 			        type: 'POST',
@@ -143,14 +162,14 @@
 			            request.setRequestHeader(csrfHeader, csrfToken);
 			        },
 			        success: function (url) {
-			            if (url) {
-			            	// 成功后，重定向
-							 window.location = url;
-			            } 
+			        	 window.location = "/admin/blogs";
 			        },
-			        error: function () {
+			        error: function (data) {
+			        	console.log(data);
 			        }
 			    });
+			    
+			    e.preventDefault();
 			})
 		</script>
 	</div>

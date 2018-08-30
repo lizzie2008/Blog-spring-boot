@@ -12,6 +12,4 @@ import cn.lancel0t.blog.domain.BlogES;
  */
 public interface BlogESRepository extends ElasticsearchRepository<BlogES, String> {
 
-//@Query("{"_source":["id","title"],"query":{"match":{"content":"叫地主"}},"highlight":{"fields":{"content":{}}}}")
-//findByName();
 }

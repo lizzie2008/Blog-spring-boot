@@ -16,12 +16,13 @@ import cn.lancel0t.blog.vo.CategoryResult;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 	/**
-	 * 查找所有标签，并统计博客数量
+	 * 查找所有分类，并统计博客数量
 	 * 
 	 * @return
 	 */
 	@Query("select new cn.lancel0t.blog.vo.CategoryResult(o.id,o.name,o.blogs.size) " +
 			"from Category o " +
+			"where o.blogs.size>0 " +
 			"order by o.blogs.size desc")
 	List<CategoryResult> findAllWithBlogSize();
 }

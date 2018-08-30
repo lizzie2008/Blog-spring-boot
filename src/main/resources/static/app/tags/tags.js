@@ -12,7 +12,7 @@ app.controller('tagsController', ['$scope', '$stateParams', '$http', '$state',fu
         
         // 根据标签数量动态设置高度
         var weight=$scope.tags.length;
-        $("#tagCloud").css('height',weight*40);
+        $("#tagCloud").css('height',weight*30);
         
         // 构造标签云
         var word_array = [];

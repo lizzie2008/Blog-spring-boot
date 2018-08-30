@@ -1,6 +1,6 @@
 /** **********************global css*************************** */
 body {
-	background-image: url(/images/bg.jpg);
+	background-image: url(//mysite.bj.bcebos.com/blog/images/bg.jpg);
 }
 
 a {
@@ -28,13 +28,22 @@ a {
 	color: #fff !important;
 	padding: 3px 6px;
 	border: 1px solid #000;
-	background-color: #222;
+	background-color: #204a7d;
 }
 
 #search {
 	width: 300px;
 }
 
+.footer {
+	font-size: 14px;
+	margin: 5px;
+	color: #6c757d;
+}
+
+.footer a {
+	color: #6c757d;
+}
 /** **********************pagination css*************************** */
 .page-link {
 	font-size: 14px;
@@ -66,6 +75,10 @@ a {
 }
 
 /** **********************navbar css*************************** */
+.navbar {
+	background-color: #204a7d;
+}
+
 .navbar .nav-item-sm {
 	white-space: nowrap;
 	margin-left: 30px;
@@ -266,10 +279,10 @@ a {
 	text-align: center;
 	border: 1px solid #dee2e6;
 	margin: 3px 5px 3px 5px;
-	padding: 3px 5px 3px 5px;
+	padding: 2px 8px 2px 8px;
 	color: #333;
 	display: inline-block;
-	border-radius: 30px;
+	border-radius: 5px;
 }
 
 .sidebar .togglelink {
@@ -333,6 +346,11 @@ a {
 }
 
 /** **********************post css*************************** */
+.main {
+	padding-top: 60px;
+	min-height: 620px;
+}
+
 .post .breadcrumb {
 	padding: 10px;
 	font-size: 14px;
@@ -344,66 +362,137 @@ a {
 	font-style: normal;
 }
 
+.post-append {
+	padding: 20px;
+}
+
 .post-copyright {
-	margin: 15px 15px;
-	border-radius: 10px;
+	margin-top: 15px;
 	background: #fff;
-	border: 1px dashed #c1c1c1;
+	border-style: ridge;
+	border-width: 4px;
 	vertical-align: middle;
 	font-size: 15px;
+	vertical-align: middle;
 }
 
 .post-copyright p {
 	margin: 15px;
 }
 
-.post-copyright a{
-	word-wrap:break-word;
+.post-copyright a {
+	word-wrap: break-word;
 }
+
+.post-tag {
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.post-tag a {
+	margin: 5px;
+	background: #eee;
+	padding: 3px 5px 3px 5px;
+	word-wrap: break-word;
+	display: inline-block;
+}
+
 .post-action {
-	margin: 15px 15px;
+	margin-top: 15px;
 	font-size: 15px;
 }
 
-.post-share a {
-	margin:5px 5px;
-    border-radius: 50px;
-    border: 1px solid #e6e6e6;
-    width: 60px;
-    height: 30px;
-    line-height:30px;
-    text-align: center;
-    display:inline-block;
-}
-.post-share a.share-weixin {
-    color: #5fcf80;
+.post-left .share-weixin, .post-left .share-qzone, .post-left .share-weibo,
+	.post-left .share-qq {
+	margin: 5px 5px;
+	border-radius: 50%;
+	border: 1px solid #e6e6e6;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	display: inline-block;
 }
 
-.post-share a.share-weixin:hover {
-    border-color: #5fcf80;
+.post-left .share-weixin {
+	color: #5fcf80;
 }
 
-.post-share a.share-qzone {
-    color: #f9c13d;
+.post-left .share-weixin:hover {
+	border-color: #5fcf80;
+	text-decoration: none;
 }
 
-.post-share a.share-qzone:hover {
-    border-color: #f9c13d;
+.post-left .share-qzone {
+	color: #f9c13d;
 }
 
-.post-share a.share-weibo {
-    color: #fd001b;
+.post-left .share-qzone:hover {
+	border-color: #f9c13d;
+	text-decoration: none;
 }
 
-.post-share a.share-weibo:hover {
-    border-color: #fd001b;
-}
-.post-share a.share-qq {
-    color: #00aaf0;
+.post-left .share-weibo {
+	color: #fd001b;
 }
 
-.post-share a.share-qq:hover {
-    border-color: #00aaf0;
+.post-left .share-weibo:hover {
+	border-color: #fd001b;
+	text-decoration: none;
+}
+
+.post-left .share-qq {
+	color: #00aaf0;
+}
+
+.post-left .share-qq:hover {
+	border-color: #00aaf0;
+	text-decoration: none;
+}
+
+.post-right .like, .post-right .reward {
+	margin: 5px 5px;
+	border: 1px solid #e6e6e6;
+	width: 100px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	display: inline-block;
+	font-size: 14px;
+}
+
+.post-right .like {
+	color: #fd001b;
+}
+
+.post-right .like:hover {
+	border-color: #fd001b;
+	text-decoration: none;
+}
+
+.post-right .reward {
+	color: #00aaf0;
+}
+
+.post-right .reward:hover {
+	border-color: #00aaf0;
+	text-decoration: none;
+}
+
+.reward-title {
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.reward-subtitle {
+	font-size: 14px;
+	text-align: center;
+}
+
+.reward img {
+	width: 150px;
 }
 /** **********************doc-nav css*************************** */
 .nav-link {
@@ -422,25 +511,29 @@ a {
 
 /** **********************comment css*************************** */
 .comment-title {
-	margin-top: 20px;
+	margin-top: 25px;
 	padding-bottom: 10px;
-	border-bottom: 1px solid #398E9F;
-	color: #398E9F;
-	padding-bottom: 10px;
+	border-bottom: 2px solid #6c757d;
+	color: #000;
 }
 
 .comment-post textarea {
 	width: 100%;
 	font-size: 15px;
-	padding: 5px 15px;
+	padding: 5px;
+	margin-top: 10px;
 }
 
 .comment-post input {
-	font-size: 15px;
+	font-size: 14px;
+	padding: 5px;
+	margin: 5px 5px 0 0;
 }
 
 .comment-post button {
-	width: 88px;
+	width: 120px;
+	height: 35px;
+	margin-top: 5px;
 }
 
 .comment-list .media {
@@ -496,6 +589,87 @@ a {
 .search-result a {
 	color: #007bff;
 	text-decoration: underline;
+}
+
+/* -------------- THE button -------------- */
+.button {
+	/* text */
+	text-decoration: none;
+	font: 24px/1em 'Droid Sans', sans-serif;
+	font-weight: bold;
+	text-shadow: rgba(255, 255, 255, .5) 0 1px 0;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	/* layout */
+	padding: .5em .6em .4em .6em;
+	margin: .5em;
+	display: inline-block;
+	position: relative;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	/* effects */
+	border-top: 1px solid rgba(255, 255, 255, 0.8);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	background-image: -webkit-gradient(radial, 50% 0, 100, 50% 0, 0, from(rgba(255, 255, 255,
+		0)), to(rgba(255, 255, 255, 0.7))), url(noise.png);
+	background-image: -moz-radial-gradient(top, ellipse cover, rgba(255, 255, 255, 0.7)
+		0%, rgba(255, 255, 255, 0) 100%), url(noise.png);
+	background-image: gradient(radial, 50% 0, 100, 50% 0, 0, from(rgba(255, 255, 255, 0)),
+		to(rgba(255, 255, 255, 0.7))), url(noise.png);
+	-webkit-transition: background .2s ease-in-out;
+	-moz-transition: background .2s ease-in-out;
+	transition: background .2s ease-in-out;
+	/* color */
+	color: hsl(0, 0%, 40%) !important;
+	background-color: hsl(0, 0%, 75%);
+	-webkit-box-shadow: inset rgba(255, 254, 255, 0.6) 0 0.3em .3em, inset
+		rgba(0, 0, 0, 0.15) 0 -0.1em .3em, /* inner shadow */  
+						 hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px,
+		/* color border */ 
+						 rgba(0, 0, 0, 0.2) 0 .5em 5px; /* drop shadow */
+	-moz-box-shadow: inset rgba(255, 254, 255, 0.6) 0 0.3em .3em, inset
+		rgba(0, 0, 0, 0.15) 0 -0.1em .3em, /* inner shadow */  
+						 hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px,
+		/* color border */ 
+						 rgba(0, 0, 0, 0.2) 0 .5em 5px; /* drop shadow */
+	box-shadow: inset rgba(255, 254, 255, 0.6) 0 0.3em .3em, inset
+		rgba(0, 0, 0, 0.15) 0 -0.1em .3em, /* inner shadow */  
+						 hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px,
+		/* color border */ 
+						 rgba(0, 0, 0, 0.2) 0 .5em 5px; /* drop shadow */
+}
+
+/* -------------- button (tag) -------------- */
+button.button {
+	border-left: none;
+	border-right: none;
+}
+
+button.button:hover {
+	cursor: pointer;
+}
+
+/* -------------- icon -------------- */
+.button:before {
+	font: 1.2em/0 sans-serif;
+	content: attr(data-icon);
+	/* gets the icon value from the custom data attribute and puts it infront of the button label */
+	margin-right: 6px;
+}
+
+/* icon only */
+.icon {
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icon:before {
+	display: block;
+	height: .75em;
+	line-height: .75em;
+	margin: 0;
 }
 
 /*-- ******************************************************* --*/

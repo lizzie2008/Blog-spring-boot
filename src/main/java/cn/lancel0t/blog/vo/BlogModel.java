@@ -14,7 +14,7 @@ public class BlogModel implements Serializable {
 	private String id; // 主键
 
 	private String title; // 标题
-	
+
 	private String image; // 定义图片
 
 	private String summary; // 摘要
@@ -37,8 +37,8 @@ public class BlogModel implements Serializable {
 		this.setTitle(blog.getTitle());
 		this.setImage(blog.getImage());
 		this.setSummary(blog.getSummary());
-		this.setCategory(blog.getCategory().getName());
-		this.setArchive(blog.getArchive().getName());
+		this.setCategory(blog.getCategory() == null ? "" : blog.getCategory().getName());
+		this.setArchive(blog.getArchive() == null ? "" : blog.getArchive().getName());
 		this.setCreateTime(blog.getCreateTime());
 		this.setReadSize(blog.getReadSize());
 		this.setCommentSize(blog.getCommentSize());

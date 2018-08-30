@@ -1,12 +1,12 @@
 <!-- article -->
 <div>
-	<div class="text-center" ng-if="articles.length==null||articles.length==0">加载中...</div>
+	<div class="text-center" ng-if="articles.length==null||articles.length==0">正在加载...</div>
 	<div class="article" ng-repeat="article in articles" ng-mouseenter="showAnimate=true;" ng-mouseleave="showAnimate=false;">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="article-left">
 					<a ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">
-						<img class="img-responsive" ng-class="{'increaseSize':showAnimate==true}" src="images/f2.jpg" alt="img">
+						<img class="img-responsive" ng-class="{'increaseSize':showAnimate==true}" src="//mysite.bj.bcebos.com/blog/images/f2.jpg" alt="img">
 					</a>
 				</div>
 			</div>
@@ -18,7 +18,7 @@
 					<p class="article-summary">{{article.summary}}</p>
 					<div class="article-info">
 						<i class="fa fa-clock-o text-dark"></i>
-						&nbsp;{{article.createTime|date:'yyyy/MM/dd'}}
+						&nbsp;{{article.createTime | date:'yyyy-MM-dd'}}
 						<i class="fa fa-eye ml-3 text-dark"></i>
 						&nbsp;{{article.readSize}}
 						<i class="fa fa-comment-o ml-3 text-dark"></i>

@@ -60,6 +60,7 @@ app.directive('myComment', [ '$http', function($http) {
 		            url: '/api/blogs/'+$scope.blog.id+'/comments',
 		            data: comment
 		        }).then(function successCallback(response) {
+		        	layer.msg('评论成功！');
 		        	comment.id=response.data;
 		        	$scope.blog.comments.push(comment);
 		        	transComments();
@@ -82,10 +83,6 @@ app.directive('myComment', [ '$http', function($http) {
 		            item.pattern = GeoPattern.generate(item.nickName).toDataUrl();
 		        });
 		        
-//		        var rootComments = comments.filter(s => s.reply == false);
-//		        $.each(rootComments, function (i, item) {
-//		            item.subComments = comments.filter(s => s.reply == true && s.parentCommentId == item.id);
-//		        });
 		        $scope.comments = comments.filter(s => !s.reply);
 		    }
 		}
