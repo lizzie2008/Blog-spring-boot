@@ -116,6 +116,26 @@ public class BlogService {
 	}
 
 	/**
+	 * 主题
+	 * 
+	 * @return
+	 */
+	@Transactional
+	public Blog getSubject() {
+		return blogRepository.findByBlogType(BlogType.SUBJECT);
+	}
+
+	/**
+	 * 关于
+	 * 
+	 * @return
+	 */
+	@Transactional
+	public Blog getAbout() {
+		return blogRepository.findByBlogType(BlogType.ABOUT);
+	}
+
+	/**
 	 * 新建博客或修改博客
 	 * 
 	 * @param blog
@@ -145,8 +165,10 @@ public class BlogService {
 
 		// 保存到elasticsearch,捕获异常，打印异常信息，不影响正常保存
 		try {
-			BlogES blogES = new BlogES(blog);
-			blogESRepository.save(blogES);
+			if (blog.getBlogType() == BlogType.NORMAL) {
+				BlogES blogES = new BlogES(blog);
+				blogESRepository.save(blogES);
+			}
 		} catch (Exception e) {
 			logger.warn("save blog to elasticsearch failed.");
 		}

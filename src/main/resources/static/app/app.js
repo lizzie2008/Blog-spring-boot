@@ -21,12 +21,16 @@ app.run(['$rootScope', '$transitions', '$state', function ($rootScope, $transiti
         case 'tags':
         	$rootScope.moduleName="标签";
         	break;
-        case 'search':
-        	$rootScope.moduleName="搜索";
+        case 'subject':
+        	$rootScope.moduleName="专题";
         	break;
         case 'about':
         	$rootScope.moduleName="关于";
         	break;
+        case 'search':
+        	$rootScope.moduleName="搜索";
+        	break;
+        
         	default:
         	$rootScope.moduleName=null;
         }
@@ -94,15 +98,19 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider','$locationPr
         url: '/tags/',
         params:{id:null,name:null},
         templateUrl: 'app/tags/tags.html'
+    }).state('subject', {
+        // 专题
+        url: '/subject',
+        templateUrl: 'app/subject/subject.html'
+    }).state('about', {
+        // 关于
+        url: '/about',
+        templateUrl: 'app/about/about.html'
     }).state('search', {
         // 全文搜索
         url: '/search/',
         params:{searchText:null},
         templateUrl: 'app/search/search.html'
-    }).state('about', {
-        // 关于
-        url: '/about',
-        templateUrl: 'app/about/about.html'
     });
     $locationProvider.html5Mode(true); 
     var token = $("meta[name='_csrf']").attr("content");

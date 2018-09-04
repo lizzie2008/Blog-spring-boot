@@ -40,7 +40,7 @@ public class Blog implements Serializable {
 	 */
 	public static enum BlogType {
 		NORMAL, // 普通
-		SUBJECT, // 主题
+		SUBJECT, // 专题
 		ABOUT; // 关于
 	}
 

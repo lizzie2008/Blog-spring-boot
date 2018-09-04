@@ -52,8 +52,7 @@ public class BlogController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(Model model,
-			@RequestParam(value = "sort", required = false, defaultValue = "id") String sort,
+	public String list(Model model, @RequestParam(value = "sort", required = false, defaultValue = "id") String sort,
 			@RequestParam(value = "order", required = false, defaultValue = "asc") String order,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size,
@@ -91,6 +90,26 @@ public class BlogController {
 	public Blog detail(@PathVariable("id") String id) {
 		blogService.increaseReadSize(id);
 		return blogService.detail(id);
+	}
+
+	/**
+	 * 专题
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/getSubject", method = RequestMethod.GET)
+	public Blog getSubject() {
+		return blogService.getSubject();
+	}
+
+	/**
+	 * 关于
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/getAbout", method = RequestMethod.GET)
+	public Blog getAbout() {
+		return blogService.getAbout();
 	}
 
 	/**

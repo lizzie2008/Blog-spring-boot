@@ -25,7 +25,7 @@
 							<label for="blogType">博客类型:</label>
 							<select class="form-control" id="blogType" name="blogType" required>
 								<option value="NORMAL" th:selected="${blog.blogType.name()=='NORMAL'}">普通</option>
-								<option value="SUBJECT" th:selected="${blog.blogType.name()=='SUBJECT'}">主题</option>
+								<option value="SUBJECT" th:selected="${blog.blogType.name()=='SUBJECT'}">专题</option>
 								<option value="ABOUT" th:selected="${blog.blogType.name()=='ABOUT'}">关于</option>
 							</select>
 						</div>

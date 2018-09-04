@@ -43,26 +43,26 @@
 							首页
 						</a>
 					</li>
-					<li class="nav-item-sm">
-						<a class="nav-link" ng-class="{'active':$root.module=='categorys'}" ui-sref="categorys({id:null,name:null})">
+					<li class="nav-item-sm" ng-class="{'active':$root.module=='categorys'}">
+						<a class="nav-link" ui-sref="categorys({id:null,name:null})">
 							<i class="fa fa-window-restore"></i>
 							分类
 						</a>
 					</li>
-					<li class="nav-item-sm">
-						<a class="nav-link" ng-class="{'active':$root.module=='archives'}" ui-sref="archives({id:null,name:null})">
+					<li class="nav-item-sm" ng-class="{'active':$root.module=='archives'}">
+						<a class="nav-link" ui-sref="archives({id:null,name:null})">
 							<i class="fa fa-calendar"></i>
 							归档
 						</a>
 					</li>
-					<li class="nav-item-sm">
-						<a class="nav-link" ng-class="{'active':$root.module=='tags'}" ui-sref="tags({id:null,name:null})">
+					<li class="nav-item-sm" ng-class="{'active':$root.module=='tags'}" >
+						<a class="nav-link" ui-sref="tags({id:null,name:null})">
 							<i class="fa fa-tag"></i>
 							标签
 						</a>
 					</li>
-					<li class="nav-item-sm">
-						<a class="nav-link" href="#">
+					<li class="nav-item-sm" ng-class="{'active':$root.module=='subject'}">
+						<a class="nav-link" ui-sref="subject">
 							<i class="fa fa-sitemap"></i>
 							专题
 						</a>
@@ -128,6 +128,7 @@
 	<script src="app/categorys/categorys.js"></script>
 	<script src="app/archives/archives.js"></script>
 	<script src="app/tags/tags.js"></script>
+	<script src="app/subject/subject.js"></script>
 	<script src="app/search/search.js"></script>
 	<script src="app/about/about.js"></script>
 	<script src="app/_common/angular-bloglist.js"></script>

@@ -3,7 +3,7 @@
 	<div class="comment-list">
 		<h6 class="comment-title">
 			<i class="fa fa-comment"></i>
-			<span>评论列表（已有 {{blog.comments.length}} 条评论）</span>
+			<strong>评论列表（已有 {{blog.comments.length}} 条评论）</strong>
 		</h6>
 		<!-- 普通的评论 -->
 		<span ng-if="blog.comments.length==0">还没有评论哦，赶紧抢个沙发吧~</span>
@@ -51,7 +51,7 @@
 	<div class="comment-post mb-5">
 		<h6 class="comment-title">
 			<i class="fa fa-pencil"></i>
-			发表评论
+			<strong>发表评论</strong>
 		</h6>
 		<form class="comment-post" ng-submit="onSubmit()" name="myForm" novalidate>
 			<textarea name="content" class="ol-md-12 shadow-box" rows="6" placeholder="请遵守相关法律与法规，文明评论。O(∩_∩)O~~" ng-model="postComment.content" required></textarea>

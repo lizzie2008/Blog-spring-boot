@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.lancel0t.blog.domain.Category;
 import cn.lancel0t.blog.domain.Tag;
 import cn.lancel0t.blog.repository.BlogRepository;
 import cn.lancel0t.blog.repository.CategoryRepository;
@@ -40,19 +41,24 @@ public class BlogApplicationTests {
 	@Transactional
 	public void initCategorys() {
 
-		// categoryRepository.save(new Category("Category1"));
-		// categoryRepository.save(new Category("Category2"));
-		// categoryRepository.save(new Category("Category3"));
-		//
-		// categoryRepository.save(new Category("Category4"));
-		// categoryRepository.save(new Category("Category5"));
-		// categoryRepository.save(new Category("Category6"));
-		//
-		// categoryRepository.save(new Category("Category7"));
-		// categoryRepository.save(new Category("Category8"));
-		//
-		// categoryRepository.save(new Category("Category9"));
-		// categoryRepository.save(new Category("Category10"));
+		categoryRepository.deleteAll();
+		
+		List<Category> categorys=new ArrayList<>();
+		categorys.add(new Category("编程语言"));
+		categorys.add(new Category("软件设计"));
+		categorys.add(new Category("WEB前端"));
+		categorys.add(new Category("企业信息化"));
+		categorys.add(new Category("手机开发"));
+		categorys.add(new Category("软件工程"));
+		categorys.add(new Category("数据库技术"));
+		categorys.add(new Category("操作系统"));
+		categorys.add(new Category("工具配置"));
+		categorys.add(new Category("项目管理"));
+		categorys.add(new Category("软件测试"));
+		categorys.add(new Category("企业架构"));
+		categorys.add(new Category("其他分类"));
+		
+		categoryRepository.saveAll(categorys);
 	}
 
 	@Test
@@ -60,8 +66,8 @@ public class BlogApplicationTests {
 	public void initTags() {
 		
 		tagRepository.deleteAll();
-		List<Tag> tags = new ArrayList<Tag>();
 		
+		List<Tag> tags = new ArrayList<Tag>();
 		tags.add(new Tag("HTML"));
 		tags.add(new Tag("CSS"));
 		tags.add(new Tag("JavaScript"));

@@ -1,9 +1,9 @@
-app.controller('aboutController', [ '$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
+app.controller('subjectController', [ '$scope', '$stateParams', '$http', function($scope, $stateParams, $http) {
 
 	// 获取博客内容
 	$http({
 		method : 'GET',
-		url : '/api/blogs/getAbout'
+		url : '/api/blogs/getSubject'
 	}).then(function successCallback(response) {
 
 		// 博客
