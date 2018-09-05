@@ -15,6 +15,9 @@
 		<div class="row">
 			<form>
 				<input type="hidden" id="id" name="id" th:value="${blog.id}">
+				<input type="hidden" id="readSize" name="readSize" th:value="${blog.readSize}">
+				<input type="hidden" id="commentSize" name="commentSize" th:value="${blog.commentSize}">
+				<input type="hidden" id="likeSize" name="likeSize" th:value="${blog.likeSize}">
 				<div class="form-group">
 					<label for="title">标题:</label>
 					<input type="text" id="title" name="title" class="form-control" placeholder="输入文章标题..." th:value="${blog.title}" required>
@@ -151,6 +154,9 @@
 			    	 	blog.tags.push({id:item});
 			    	}
 			    });
+			    blog.readSize=$('#readSize').val();
+			    blog.commentSize=$('#commentSize').val();
+			    blog.likeSize=$('#likeSize').val();
 			    
 			    // 调用保存接口
 			    $.ajax({
