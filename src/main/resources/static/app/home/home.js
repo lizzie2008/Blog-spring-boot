@@ -28,7 +28,9 @@ app.controller('homeController', ['$scope', '$stateParams', '$http', function ($
         onLoaded: function (rows) {
             $scope.blogs = rows;
             $(() => {
-                $('.article .article-summary').dotdotdot();
+                $('.blog-summary').dotdotdot({
+                	 truncate: "letter"
+                });
             })
         }
     };

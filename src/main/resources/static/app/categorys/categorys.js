@@ -24,7 +24,9 @@ app.controller('categorysController', ['$scope', '$stateParams', '$http', functi
         onLoaded: function (rows) {
             $scope.blogs = rows;
             $(() => {
-                $('.article .article-summary').dotdotdot();
+                $('.blog-summary').dotdotdot({
+                	 truncate: "letter"
+                });
             })
         }
     };

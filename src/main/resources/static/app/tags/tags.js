@@ -43,7 +43,9 @@ app.controller('tagsController', ['$scope', '$stateParams', '$http', '$state',fu
         onLoaded: function (rows) {
             $scope.blogs = rows;
             $(() => {
-                $('.article .article-summary').dotdotdot();
+                $('.blog-summary').dotdotdot({
+                	 truncate: "letter"
+                });
             })
         }
     };

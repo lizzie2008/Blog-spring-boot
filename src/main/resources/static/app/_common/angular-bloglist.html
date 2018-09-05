@@ -1,32 +1,34 @@
 <!-- article -->
 <div>
-	<div class="text-center" ng-if="articles.length==null||articles.length==0">正在加载...</div>
-	<div class="article" ng-repeat="article in articles" ng-mouseenter="showAnimate=true;" ng-mouseleave="showAnimate=false;">
-		<div class="row">
-			<div class="col-md-3">
-				<div class="article-left">
-					<a ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">
-						<img class="img-responsive" ng-class="{'increaseSize':showAnimate==true}" src="//mysite.bj.bcebos.com/blog/images/f2.jpg" alt="img">
-					</a>
+	<div class="text-center"
+		ng-if="articles.length==null||articles.length==0">正在加载...</div>
+	<div class="media blog" ng-repeat="article in articles"
+		ng-mouseenter="showAnimate=true;" ng-mouseleave="showAnimate=false;">
+		<!-- 图片 -->
+		<div class="resizeImg hidden-sm-down">
+			<a ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">
+				<img class="mr-3"
+				ng-src="//mysite.bj.bcebos.com/blog/images/it/{{article.image}}"
+				ng-class="{'increaseSize':showAnimate==true}" alt="...">
+			</a>
+		</div>
+		<!-- 内容 -->
+		<div class="media-body blog-title">
+			<h6 class="mt-0">
+				<a class="hvr-wobble-top" ui-sref="posts({id:article.id})"
+					title="详细阅读：{{article.title}}">{{article.title}}</a>
+			</h6>
+			<div class="blog-summary">{{article.summary}}</div>
+			<div class="blog-readmore">
+				<div class="pull-left">
+					<i class="fa fa-clock-o"></i> {{article.createTime |
+					date:'yyyy-MM-dd'}} <i class="fa fa-eye ml-3"></i>
+					{{article.readSize}} <i class="fa fa-comment-o ml-3"></i>
+					{{article.commentSize}}
 				</div>
-			</div>
-			<div class="col-md-9">
-				<div class="article-right">
-					<span class="mt-0">
-						<a class="article-title hvr-wobble-top" ui-sref="posts({id:article.id})" title="详细阅读：{{article.title}}">{{article.title}}</a>
-					</span>
-					<p class="article-summary">{{article.summary}}</p>
-					<div class="article-info">
-						<i class="fa fa-clock-o text-dark"></i>
-						&nbsp;{{article.createTime | date:'yyyy-MM-dd'}}
-						<i class="fa fa-eye ml-3 text-dark"></i>
-						&nbsp;{{article.readSize}}
-						<i class="fa fa-comment-o ml-3 text-dark"></i>
-						&nbsp;{{article.commentSize}}
-					</div>
-					<div class="article-readmore">
-						<a ui-sref="posts({id:article.id})" class="hvr-icon-forward" title="详细阅读：{{article.title}}"> 阅读更多>> </a>
-					</div>
+				<div class="pull-right">
+					<a ui-sref="posts({id:article.id})" class="hvr-icon-forward"
+						title="详细阅读：{{article.title}}"> [ 阅读更多 ]</a>
 				</div>
 			</div>
 		</div>

@@ -55,7 +55,7 @@ app.directive('myPagination', [ '$http', function($http) {
 					var total = response.data[conf.totalName];
 					scope.p_pageNum = Math.ceil(total / conf.size);
 					scope.p_pages = getPages(scope.p_current, scope.p_pageNum, conf.showNum);
-					conf.onLoaded(response.data[conf.rowsName]);
+					conf.onLoaded(response.data[conf.rowsName]);					
 				}, function errorCallback(response) {
 					console.log(response.data);
 				})

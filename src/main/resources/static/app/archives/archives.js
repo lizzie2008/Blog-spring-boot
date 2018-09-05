@@ -24,7 +24,9 @@ app.controller('archivesController', ['$scope', '$stateParams', '$http', functio
         onLoaded: function (rows) {
             $scope.blogs = rows;
             $(() => {
-                $('.article .article-summary').dotdotdot();
+                $('.blog-summary').dotdotdot({
+                	 truncate: "letter"
+                });
             })
         }
     };
