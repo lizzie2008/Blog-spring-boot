@@ -39,9 +39,9 @@ public class Blog implements Serializable {
 	 * 博客类型
 	 */
 	public static enum BlogType {
-		NORMAL, // 普通
-		SUBJECT, // 专题
-		ABOUT; // 关于
+	NORMAL, // 普通
+	SUBJECT, // 专题
+	ABOUT; // 关于
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -54,6 +54,9 @@ public class Blog implements Serializable {
 	@Column(nullable = false, length = 10)
 	@Enumerated(EnumType.STRING)
 	private BlogType blogType = BlogType.NORMAL; // 博客类型
+
+	@Column(nullable = false)
+	private Boolean isSticky = false; // 置顶
 
 	@NotNull
 	@Size(max = 50)
@@ -115,6 +118,14 @@ public class Blog implements Serializable {
 
 	public void setBlogType(BlogType blogType) {
 		this.blogType = blogType;
+	}
+
+	public Boolean getIsSticky() {
+		return isSticky;
+	}
+
+	public void setIsSticky(Boolean isSticky) {
+		this.isSticky = isSticky;
 	}
 
 	public String getTitle() {

@@ -16,7 +16,7 @@
 		<div class="media-body blog-title">
 			<h6 class="mt-0">
 				<a class="hvr-wobble-top" ui-sref="posts({id:article.id})"
-					title="详细阅读：{{article.title}}">{{article.title}}</a>
+					title="详细阅读：{{article.title}}"><span ng-if="article.isSticky" class="colorful">[ 置顶 ] </span>{{article.title}}</a>
 			</h6>
 			<div class="blog-summary">{{article.summary}}</div>
 			<div class="blog-readmore">

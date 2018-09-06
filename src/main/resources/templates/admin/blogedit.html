@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="shared/layout/layout_admin">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="shared/layout/layout_admin">
 <head>
 <meta charset="UTF-8">
 <title>博客编辑</title>
@@ -8,73 +10,89 @@
 	<div layout:fragment="content">
 		<div class="page-header row">
 			<h3 class="col-md-6">
-				博客新建
-				<small></small>
+				博客新建 <small></small>
 			</h3>
 		</div>
 		<div class="row">
 			<form>
 				<input type="hidden" id="id" name="id" th:value="${blog.id}">
-				<input type="hidden" id="readSize" name="readSize" th:value="${blog.readSize}">
-				<input type="hidden" id="commentSize" name="commentSize" th:value="${blog.commentSize}">
-				<input type="hidden" id="likeSize" name="likeSize" th:value="${blog.likeSize}">
+				<input type="hidden" id="readSize" name="readSize"
+					th:value="${blog.readSize}"> <input type="hidden"
+					id="commentSize" name="commentSize" th:value="${blog.commentSize}">
+				<input type="hidden" id="likeSize" name="likeSize"
+					th:value="${blog.likeSize}">
 				<div class="form-group">
-					<label for="title">标题:</label>
-					<input type="text" id="title" name="title" class="form-control" placeholder="输入文章标题..." th:value="${blog.title}" required>
+					<label for="title">标题:</label> <input type="text" id="title"
+						name="title" class="form-control" placeholder="输入文章标题..."
+						th:value="${blog.title}" required>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="blogType">博客类型:</label>
-							<select class="form-control" id="blogType" name="blogType" required>
-								<option value="NORMAL" th:selected="${blog.blogType.name()=='NORMAL'}">普通</option>
-								<option value="SUBJECT" th:selected="${blog.blogType.name()=='SUBJECT'}">专题</option>
-								<option value="ABOUT" th:selected="${blog.blogType.name()=='ABOUT'}">关于</option>
+							<label for="blogType">博客类型:</label> <select class="form-control"
+								id="blogType" name="blogType" required>
+								<option value="NORMAL"
+									th:selected="${blog.blogType.name()=='NORMAL'}">普通</option>
+								<option value="SUBJECT"
+									th:selected="${blog.blogType.name()=='SUBJECT'}">专题</option>
+								<option value="ABOUT"
+									th:selected="${blog.blogType.name()=='ABOUT'}">关于</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="image">图片:</label>
-							<input type="text" id="image" name="image" class="form-control" placeholder="输入图片地址..." th:value="${blog.image}">
+							<label for="image">图片:</label> <input type="text" id="image"
+								name="image" class="form-control" placeholder="输入图片地址..."
+								th:value="${blog.image}">
+						</div>
+						<div class="form-group">
+							<label for="category">分类:</label> <select class="form-control"
+								id="category" name="category">
+								<option value="">---未选择---</option>
+								<option th:each="category:${categorys}"
+									th:value="${category.id}" th:text="${category.name}"
+									th:selected="${blog.category!=null&&category.id==blog.category.id}"></option>
+							</select>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="category">分类:</label>
-							<select class="form-control" id="category" name="category">
-								<option value="">---未选择---</option>
-								<option th:each="category:${categorys}" th:value="${category.id}" th:text="${category.name}"
-									th:selected="${blog.category!=null&&category.id==blog.category.id}"></option>
+							<label for="isSticky">置顶:</label> <select class="form-control"
+								id="isSticky" name="isSticky">
+								<option value="false" th:selected="${blog.isSticky}">否</option>
+								<option value="true" th:selected="${blog.isSticky}">是</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="createTime">发布时间:</label>
-							<input type="text" id="createTime" name="createTime" class="form-control" placeholder="输入发布时间..."
-								th:value="${#dates.format(blog.createTime, 'yyyy/MM/dd HH:mm')}" required>
+							<label for="createTime">发布时间:</label> <input type="text"
+								id="createTime" name="createTime" class="form-control"
+								placeholder="输入发布时间..."
+								th:value="${#dates.format(blog.createTime, 'yyyy/MM/dd HH:mm')}"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="tags">标签:</label> <input type="text" id="tags"
+								name="tags" class="form-control" />
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="tags">标签:</label>
-					<input type="text" id="tags" name="tags" class="form-control" />
-				</div>
-				<div class="form-group">
 					<label for="summary">摘要:</label>
-					<textarea id="summary" name="summary" class="form-control" placeholder="输入摘要..." th:utext="${blog.summary}" required rows="6"></textarea>
+					<textarea id="summary" name="summary" class="form-control"
+						placeholder="输入摘要..." th:utext="${blog.summary}" required rows="6"></textarea>
 				</div>
 				<div class="form-group" style="z-index: 100">
 					<label for="content">内容:</label>
 					<div class="editormd" id="test-editormd">
-						<textarea class="editormd-markdown-textarea" id="content" name="content" th:utext="${blog.content}" required></textarea>
+						<textarea class="editormd-markdown-textarea" id="content"
+							name="content" th:utext="${blog.content}" required></textarea>
 					</div>
 				</div>
 				<div class="pull-right">
 					<button type="submit" class="btn btn-primary">
-						<i class="fa fa-save"></i>
-						&nbsp;保存
+						<i class="fa fa-save"></i> &nbsp;保存
 					</button>
-					<a href="/admin/blogs" class="btn btn-primary">
-						<i class="fa fa-ban"></i>
-						&nbsp;取消
+					<a href="/admin/blogs" class="btn btn-primary"> <i
+						class="fa fa-ban"></i> &nbsp;取消
 					</a>
 				</div>
 			</form>
@@ -137,6 +155,7 @@
 			    //构造blog实体
 				var blog={};
 				blog.id=$('#id').val();
+				blog.isSticky=$('#isSticky').val();
 				blog.blogType=$('#blogType').val();
 				blog.title=$('#title').val();
 				blog.image=$('#image').val();

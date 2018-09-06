@@ -12,6 +12,8 @@ public class BlogModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String id; // 主键
+	
+	private Boolean isSticky; // 置顶
 
 	private String title; // 标题
 
@@ -34,6 +36,7 @@ public class BlogModel implements Serializable {
 	// 根据blog实体构造
 	public BlogModel(Blog blog) {
 		this.setId(blog.getId());
+		this.setIsSticky(blog.getIsSticky());
 		this.setTitle(blog.getTitle());
 		this.setImage(blog.getImage());
 		this.setSummary(blog.getSummary());
@@ -66,6 +69,14 @@ public class BlogModel implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Boolean getIsSticky() {
+		return isSticky;
+	}
+
+	public void setIsSticky(Boolean isSticky) {
+		this.isSticky = isSticky;
 	}
 
 	public String getTitle() {

@@ -1,5 +1,6 @@
 package cn.lancel0t.blog.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.lancel0t.blog.domain.Blog;
-import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.domain.Blog.BlogType;
+import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.service.BlogService;
 import cn.lancel0t.blog.vo.BlogModel;
 import javassist.NotFoundException;
@@ -63,8 +65,15 @@ public class BlogController {
 			@RequestParam(value = "tag", required = false, defaultValue = "") String tag) {
 
 		// 排序与分页
-		Direction direction = order.equals("asc") ? Direction.ASC : Direction.DESC;
-		Pageable pageable = PageRequest.of(page - 1, size, new Sort(direction, sort));
+		String[] splitSort = sort.split(",");
+		String[] splitOrder = order.split(",");
+		List<Order> list = new ArrayList<>();
+		for (int i = 0; i < splitSort.length; i++) {
+			Direction direction = splitOrder[i].equals("asc") ? Direction.ASC : Direction.DESC;
+			list.add(new Order(direction, splitSort[i]));
+		}
+
+		Pageable pageable = PageRequest.of(page - 1, size, Sort.by(list));
 		Page<Blog> pageBlog = blogService.list(blogType, title, category, archive, tag, pageable);
 
 		// 转换为vo集合

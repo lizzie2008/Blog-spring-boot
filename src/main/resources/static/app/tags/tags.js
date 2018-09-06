@@ -36,7 +36,7 @@ app.controller('tagsController', ['$scope', '$stateParams', '$http', '$state',fu
         size: 10,
         showNum: 7,
         // 定义url格式,默认使用GET方式
-        url: '/api/blogs?sort=createTime&order=desc&page={#page}&size={#size}&tag=' + tagPara,
+        url: '/api/blogs?sort=isSticky,createTime&order=desc,desc&page={#page}&size={#size}&tag=' + tagPara,
         // 返回对象需要指明元素集合rows和元素总条数total，需指定访问属性名
         totalName: 'total',
         rowsName: 'rows',
