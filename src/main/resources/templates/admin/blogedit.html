@@ -101,8 +101,13 @@
 	<div layout:fragment="js" th:remove="tag">
 		<script th:inline="javascript">
 		
+			
 		    //markdown解析器
 			var testEditor;
+			editormd.katexURL = {
+				    js  : "//cdn.bootcss.com/KaTeX/0.9.0/katex.min",  
+				    css : "//cdn.bootcss.com/KaTeX/0.9.0/katex.min"  
+			};
 			$(function () {
 			    testEditor = editormd("test-editormd", {
 			        height: 640,

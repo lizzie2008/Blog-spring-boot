@@ -32,6 +32,10 @@ app.controller('postsController', [ '$scope', '$stateParams', '$http', '$locatio
 
 		// 渲染markdown
 		$(function() {
+			editormd.katexURL = {
+				    js  : "//cdn.bootcss.com/KaTeX/0.9.0/katex.min",  
+				    css : "//cdn.bootcss.com/KaTeX/0.9.0/katex.min"  
+			};
 			testEditor = editormd.markdownToHTML("doc-content", {
 				htmlDecode : "style,script,iframe",
 				emoji : true,

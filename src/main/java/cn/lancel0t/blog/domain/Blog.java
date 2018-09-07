@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -55,6 +56,7 @@ public class Blog implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private BlogType blogType = BlogType.NORMAL; // 博客类型
 
+	@Type(type="yes_no")
 	@Column(nullable = false)
 	private Boolean isSticky = false; // 置顶
 
