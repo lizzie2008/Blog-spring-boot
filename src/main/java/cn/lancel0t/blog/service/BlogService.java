@@ -11,8 +11,6 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,26 +21,18 @@ import org.springframework.util.StringUtils;
 
 import cn.lancel0t.blog.domain.Archive;
 import cn.lancel0t.blog.domain.Blog;
-import cn.lancel0t.blog.domain.BlogES;
+import cn.lancel0t.blog.domain.Blog.BlogType;
 import cn.lancel0t.blog.domain.Comment;
 import cn.lancel0t.blog.domain.Tag;
-import cn.lancel0t.blog.domain.Blog.BlogType;
 import cn.lancel0t.blog.repository.ArchiveRepository;
-import cn.lancel0t.blog.repository.BlogESRepository;
 import cn.lancel0t.blog.repository.BlogRepository;
 import cn.lancel0t.blog.repository.CommentRepository;
 import javassist.NotFoundException;
 
 @Service
 public class BlogService {
-
-	private final Logger logger = LoggerFactory.getLogger(BlogService.class);
-
 	@Autowired
 	private BlogRepository blogRepository;
-
-	@Autowired
-	private BlogESRepository blogESRepository;
 
 	@Autowired
 	private ArchiveRepository archiveRepository;
@@ -142,7 +132,7 @@ public class BlogService {
 	 * @return
 	 */
 	@Transactional
-	public void save(Blog blog) {
+	public Blog save(Blog blog) {
 
 		// 归档管理
 		if (blog.getBlogType() == BlogType.NORMAL) {
@@ -161,17 +151,7 @@ public class BlogService {
 		}
 
 		// 保存博客对象
-		blogRepository.save(blog);
-
-		// 保存到elasticsearch,捕获异常，打印异常信息，不影响正常保存
-		try {
-			if (blog.getBlogType() == BlogType.NORMAL) {
-				BlogES blogES = new BlogES(blog);
-				blogESRepository.save(blogES);
-			}
-		} catch (Exception e) {
-			logger.warn("save blog to elasticsearch failed.");
-		}
+		return blogRepository.save(blog);
 	}
 
 	@Transactional

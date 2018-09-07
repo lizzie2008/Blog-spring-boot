@@ -24,6 +24,7 @@ import cn.lancel0t.blog.domain.Blog;
 import cn.lancel0t.blog.domain.Category;
 import cn.lancel0t.blog.domain.Tag;
 import cn.lancel0t.blog.service.ArchiveService;
+import cn.lancel0t.blog.service.BlogESService;
 import cn.lancel0t.blog.service.BlogService;
 import cn.lancel0t.blog.service.CategoryService;
 import javassist.NotFoundException;
@@ -37,6 +38,8 @@ public class AdminController {
 
 	@Autowired
 	private BlogService blogService;
+	@Autowired
+	private BlogESService blogESService;
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
@@ -148,7 +151,8 @@ public class AdminController {
 	@PostMapping("/blogs/edit")
 	@ResponseBody
 	public ResponseEntity<String> blogSave(@RequestBody Blog blog) {
-		blogService.save(blog);
-		return new ResponseEntity<String>("ok", HttpStatus.OK);
+		Blog blogSave=blogService.save(blog);
+		blogESService.save(blogSave);
+		return new ResponseEntity<String>(blogSave.getId(), HttpStatus.OK);
 	}
 }
