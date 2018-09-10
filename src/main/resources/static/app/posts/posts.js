@@ -53,12 +53,6 @@ app.controller('postsController', [ '$scope', '$stateParams', '$http', '$locatio
 		});
 	});
 
-	// 复制文档时提示
-	document.body.oncopy = function() {
-		layer.msg('复制成功,若要转载请务必保留原文链接', function() {
-		});
-	};
-
 	$scope.like = function(event) {
 		if ($scope.hasLike) {
 			layer.msg('您已点过赞了！');
@@ -100,3 +94,4 @@ app.controller('postsController', [ '$scope', '$stateParams', '$http', '$locatio
 		});
 	};
 } ]);
+

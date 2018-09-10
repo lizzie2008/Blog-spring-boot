@@ -12,18 +12,21 @@ a {
 	transition: all .3s ease;
 }
 
-@supports (-webkit-transform: scale(0)) {
-	.colorful {
-		background-image: linear-gradient(to right, red, orange, green, blue, green, orange, red, orange, green, blue, green, orange, red);
-	    -webkit-background-clip: text;
-	    -webkit-text-fill-color: transparent;
-	    -webkit-background-size: 200% 100%;
-	    animation: bgp 5s infinite linear;
-	}
-}
+ .colorful {
+    background-image: linear-gradient(to right, #f00, #ffa500, #008000, #00f, #008000, #ffa500, #f00, #ffa500, #008000, #00f, #008000, #ffa500, #f00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-size: 200% 100%;
+    animation: bgp 5s infinite linear;
+  }
+
 @-webkit-keyframes bgp {
-    0%  { background-position: 0 0;}
-    100% { background-position: -100% 0;}
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 .content {
@@ -164,6 +167,11 @@ a {
 /** **********************blog list css*************************** */
 .blog {
 	padding: 10px;
+	border-bottom: 1px dotted #ccc;
+}
+
+.blog:last-child {
+	border-bottom: 0;
 }
 
 .blog .blog-title {
@@ -223,24 +231,29 @@ a {
 
 .scroll {
 	height: 26px;
-	width: 100%;
 	background-color: transparent;
-	overflow: hidden;
 	position: relative;
 	top: -10px;
 	font-size: 14px;
 	padding: 2px;
+	overflow: hidden;
 }
 
 .scroll ul {
 	position: absolute;
-	left: 0;
+	left: -15px;
 	top: 0;
 }
 
 .scroll li {
 	height: 26px;
 	line-height: 26px;
+	overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
 }
 
 /** **********************sidebar css*************************** */
@@ -572,7 +585,7 @@ a {
 	margin-top: 5px;
 }
 
-.comment-list .media {
+.comment-list {
 	font-size: 14px;
 }
 

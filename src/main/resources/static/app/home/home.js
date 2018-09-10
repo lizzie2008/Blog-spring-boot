@@ -8,12 +8,17 @@ app.controller('homeController', ['$scope', '$stateParams', '$http', function ($
     $('.weixin').popover({
         trigger: 'hover',
         html: true,
-        content: '<img src="https://mysite.bj.bcebos.com/images/profile/weixin.jpg" alt="Photo">'
+        content: '<img src="//mysite.bj.bcebos.com/images/profile/weixin.jpg" alt="Photo">'
     });
     $('.gongzhonghao').popover({
         trigger: 'hover',
         html: true,
-        content: '<img src="https://mysite.bj.bcebos.com/images/profile/gongzhonghao.jpg" alt="Photo">'
+        content: '<img src="//mysite.bj.bcebos.com/images/profile/gongzhonghao.jpg" alt="Photo">'
+    });
+    $('.qq').popover({
+        trigger: 'hover',
+        html: true,
+        content: '<img src="//mysite.bj.bcebos.com/images/profile/qq_me.png" alt="Photo">'
     });
 
     // 热门文章分页
@@ -38,7 +43,7 @@ app.controller('homeController', ['$scope', '$stateParams', '$http', function ($
     // 阅读排行
     $http({
         method: 'GET',
-        url: '/api/blogs?sort=readSize&order=desc&page=1&size=9'
+        url: '/api/blogs?sort=readSize&order=desc&page=1&size=10'
     }).then(function successCallback(response) {
         $scope.readRankBolgs = response.data.rows;
     });
@@ -46,7 +51,7 @@ app.controller('homeController', ['$scope', '$stateParams', '$http', function ($
     // 评论排行
     $http({
         method: 'GET',
-        url: '/api/blogs?sort=commentSize&order=desc&page=1&size=9'
+        url: '/api/blogs?sort=commentSize&order=desc&page=1&size=10'
     }).then(function successCallback(response) {
         $scope.commentRankBolgs = response.data.rows;
     });

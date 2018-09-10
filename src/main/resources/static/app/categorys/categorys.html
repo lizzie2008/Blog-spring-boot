@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<!-- 侧边栏 -->
-		<div class="col-md-3 mt-5">
+		<div class="col-md-3 mt-5 wow fadeInDown">
 			<div class="timeline" ng-repeat="category in categorys">
 				<div class="timenode" ng-class="{'active':categoryid==category.id}"></div>
 				<a ui-sref="categorys({id:category.id,name:category.name})" ng-class="{'active':categoryid==category.id}"
