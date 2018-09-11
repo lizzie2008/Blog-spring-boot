@@ -12,13 +12,13 @@
 调试说明：application-dev.properties文件请自行修改，格式如下：
 ```
 #数据库连接信息
-spring.datasource.username=root
-spring.datasource.password=root
+spring.datasource.username=<your username>
+spring.datasource.password=<your password>
 spring.thymeleaf.cache=false
 
 #设置后台管理用户名密码
-login.name=admin
-login.password=123456
+login.username=<admin username>
+login.password=<admin password>
 ```
 
 #### 目录结构描述
