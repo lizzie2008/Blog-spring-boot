@@ -13,8 +13,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String KEY = "lancel0t.cn";
 	
-	@Value("${login.name}")
-	private String name;
+	@Value("${login.username}")
+	private String username;
 
 	@Value("${login.password}")
     private String password;
@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
 				.passwordEncoder(new BCryptPasswordEncoder())
-				.withUser(name)
+				.withUser(username)
 				.password(new BCryptPasswordEncoder().encode(password))
 				.roles("ADMIN");
 	}
